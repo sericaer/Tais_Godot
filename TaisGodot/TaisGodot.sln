@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaisGodot", "TaisGodot.csproj", "{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1} = {AF0BB211-6571-4CB9-BDFE-E40A567741C1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tais", "..\Tais\Tais.csproj", "{AF0BB211-6571-4CB9-BDFE-E40A567741C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{6E1CA158-26D4-4A76-AC5D-D94EEEAAFF61}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0BB211-6571-4CB9-BDFE-E40A567741C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C309D68-17FD-439D-B197-88F88A98F962}
+	EndGlobalSection
+EndGlobal
