@@ -1,8 +1,5 @@
 using Godot;
-//using GMData;
-//using GMData.Mod;
-using Directory = System.IO.Directory;
-using File = System.IO.File;
+
 using System.Linq;
 using Tais;
 using Tais.Mod;
@@ -15,27 +12,25 @@ namespace TaisGodot.Scripts
 
 		static StartScene()
 		{
-			GD.Print(GlobalPath.mod);
+			UserSetting.lang = "zh";
 
 			GMRoot.logger = (objs) => GD.Print(objs);
 			GMRoot.modder = Modder.Load(GlobalPath.mod);
-
-			//GMRoot.logger = GD.Print;
-			//GMRoot.modder = new Modder(GlobalPath.mod);
 
 			foreach (var pair in GMRoot.modder.languages)
 			{
 				TranslateServerEx.AddTranslate(pair.Key, pair.Value);
 			}
 
-			TranslationServer.SetLocale("zh");
+
+			//TranslateServerEx.SetLocale("zh");
 
 			//Directory.CreateDirectory(GlobalPath.save);
 		}
 
-		private void _on_Button_Start_button_up()
+		private void _on_Button_Start_pressed()
 		{
-			//GetTree().ChangeScene(InitScene.path);
+			GetTree().ChangeScene(InitScene.path);
 		}
 
 		private void _on_Button_Load_pressed()

@@ -48,8 +48,10 @@
     <Compile Include="Mod\Language.cs" />
     <Compile Include="Mod\Modder.cs" />
     <Compile Include="Mod\ModItem.cs" />
+    <Compile Include="Mod\PersonName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Run\Runner.cs" />
+    <Compile Include="Tool\GRandom.cs" />
     <Compile Include="Visitor.cs" />
   </ItemGroup>
   <ItemGroup />

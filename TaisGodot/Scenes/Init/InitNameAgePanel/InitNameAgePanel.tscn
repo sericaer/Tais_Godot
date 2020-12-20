@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/Init/InitNameAgePanel/InitNameAgePanel.cs" type="Script" id=1]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="InitNameAgePanel" type="PanelContainer"]
+margin_left = 621.0
+margin_top = 381.0
+margin_right = 819.0
+margin_bottom = 518.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 225.0
+margin_bottom = 155.0
+custom_constants/separation = 20
+
+[node name="NameContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 218.0
+margin_bottom = 35.0
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/NameContainer"]
+margin_right = 154.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Random" type="Button" parent="VBoxContainer/NameContainer"]
+margin_left = 158.0
+margin_right = 218.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "STATIC_RANDOM"
+clip_text = true
+
+[node name="AgeContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 55.0
+margin_right = 218.0
+margin_bottom = 105.0
+
+[node name="Label" type="Label" parent="VBoxContainer/AgeContainer"]
+margin_top = 2.0
+margin_right = 154.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 120, 45 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 6 )
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AgeContainer"]
+margin_left = 158.0
+margin_right = 218.0
+margin_bottom = 50.0
+
+[node name="Button_Inc" type="Button" parent="VBoxContainer/AgeContainer/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 60, 22 )
+custom_fonts/font = SubResource( 3 )
+text = "STATIC_DEC"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Dec" type="Button" parent="VBoxContainer/AgeContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 60.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 60, 22 )
+custom_fonts/font = SubResource( 4 )
+text = "STATIC_DEC"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Confirm" type="Button" parent="VBoxContainer"]
+margin_top = 125.0
+margin_right = 218.0
+margin_bottom = 148.0
+custom_fonts/font = SubResource( 5 )
+text = "STATIC_CONFIRM"
+[connection signal="pressed" from="VBoxContainer/NameContainer/Button_Random" to="." method="_on_NameRandomButton_Pressed"]
+[connection signal="pressed" from="VBoxContainer/AgeContainer/VBoxContainer/Button_Inc" to="." method="_on_AgeIncButton_Pressed"]
+[connection signal="pressed" from="VBoxContainer/AgeContainer/VBoxContainer/Button_Dec" to="." method="_on_AgeDecButton_Pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Confirm" to="." method="_on_ConfirmButton_Pressed"]

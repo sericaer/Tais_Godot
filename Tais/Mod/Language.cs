@@ -5,23 +5,22 @@ using System.Linq;
 
 namespace Tais.Mod
 {
-    public class Language
+    class Language
     {
         public string locale;
+
         public Dictionary<string, string> dict;
+
+        public PersonName personName;
 
         public Language(string path)
         {
             locale = Path.GetFileNameWithoutExtension(path);
 
-            var paths = Directory.EnumerateFiles(path);
-            if (!paths.Any())
-            {
-                dict = new Dictionary<string, string>();
-                return;
-            }
+            personName = PersonName.Load($"{path}/name/");
 
-            foreach (var sub in paths)
+            dict = new Dictionary<string, string>();
+            foreach (var sub in Directory.EnumerateFiles(path))
             {
                 dict = LoadLanguageElement(path);
             }

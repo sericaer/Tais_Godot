@@ -32,6 +32,16 @@ namespace TaisGodot.Scripts
             return String.Format(tranFormat, pp);
         }
 
+        internal static void SetLocale(string locale)
+        {
+            TranslationServer.SetLocale(locale);
+        }
+
+        internal static string GetLocale()
+        {
+            return TranslationServer.GetLocale();
+        }
+
         private static Translation GetTranslate(string locale)
         {
             Translation tran;

@@ -15,6 +15,8 @@ namespace Tais.Mod
 
         internal Dictionary<string, IEnumerable<Language>> languages;
 
+        internal Dictionary<string, PersonName> personName;
+
         internal static Modder Load(string modPath)
         {
             var modder = new Modder();
@@ -34,11 +36,12 @@ namespace Tais.Mod
             modItems = new Dictionary<string, ModItem>();
         }
 
-
         private void Init()
         {
             events = modItems.ToDictionary(x=>x.Key, y=>y.Value.events);
             languages = modItems.ToDictionary(x => x.Key, y => y.Value.languages);
+
+            personName = modItems.SelectMany(x => x.Value.languages).ToDictionary(x => x.locale, y => y.personName);
         }
     }
 }
