@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/laws_selected.png-5fa67853e3f5e45aa0434abfc205ca1b.image"
+
+[deps]
+
+source_file="res://Resources/image/ui/laws_selected.png"
+dest_files=[ "res://.import/laws_selected.png-5fa67853e3f5e45aa0434abfc205ca1b.image" ]
+
+[params]
+

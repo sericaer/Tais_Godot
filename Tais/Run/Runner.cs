@@ -21,7 +21,7 @@ namespace Tais.Run
             var DLL = Assembly.LoadFile(@"C:\Users\fang\source\repos\Tais\TaisGodot\Release\Tais\mod\Native\package\assembly.dll");
 
             var types = DLL.GetTypes();
-            GMRoot.logger(types.Select(x => x.Name as object).ToArray());
+            LOG.INFO(types.Select(x => x.Name as object).ToArray());
 
             var type = types.First(x => x.GetInterfaces().Contains(typeof(IEvent)));
 

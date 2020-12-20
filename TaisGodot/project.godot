@@ -16,8 +16,17 @@ _global_script_class_icons={
 [application]
 
 config/name="TaisGodot"
-run/main_scene="res://Control.tscn"
+run/main_scene="res://Scenes/Start/StartScene.tscn"
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "ui_design_tool" )
+
+[logging]
+
+file_logging/enable_file_logging=true
+file_logging/enable_file_logging.pc=false
 
 [mono]
 

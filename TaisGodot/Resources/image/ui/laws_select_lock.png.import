@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/laws_select_lock.png-4969376861c75623463d16365d20a62b.image"
+
+[deps]
+
+source_file="res://Resources/image/ui/laws_select_lock.png"
+dest_files=[ "res://.import/laws_select_lock.png-4969376861c75623463d16365d20a62b.image" ]
+
+[params]
+
