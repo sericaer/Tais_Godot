@@ -18,9 +18,9 @@ namespace Tais.API
             return array;
         }
 
-        public static InitSelectOption OPTION_INIT_SELECT(IDesc desc)
+        public static InitSelectOption OPTION_INIT_SELECT(IDesc _desc)
         {
-            return null;
+            return new InitSelectOption() { desc = _desc };
         }
 
         public static Assign ASSIGN(IVisitor visitor, decimal value)

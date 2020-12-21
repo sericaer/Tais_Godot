@@ -10,7 +10,7 @@ namespace Tais.API
         public bool IsFirst;
     }
 
-    public abstract class InitSelectOption : IOption
+    public class InitSelectOption : IOption
     {
         public Type Next;
     }

@@ -9,7 +9,7 @@ using static Tais.API.Method;
 
 namespace Native.InitSelect
 {
-    class INIT_SELECT_BACK_GROUND : Tais.API.InitSelect
+    public class INIT_SELECT_BACK_GROUND : Tais.API.InitSelect
     {
         public INIT_SELECT_BACK_GROUND()
         {

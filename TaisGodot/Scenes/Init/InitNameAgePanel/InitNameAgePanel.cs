@@ -43,11 +43,11 @@ namespace TaisGodot.Scripts
 			//GMRoot.initData.taishou.name = nameEdit.Text;
 			//GMRoot.initData.taishou.age = int.Parse(ageLabel.Text);
 
-			//Visible = false;
+			Visible = false;
 
-			//EmitSignal(nameof(Finish));
+			EmitSignal(nameof(Finish));
 
-			//QueueFree();
+			QueueFree();
 		}
 
 		private void _on_NameRandomButton_Pressed()

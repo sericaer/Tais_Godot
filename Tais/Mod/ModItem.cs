@@ -42,7 +42,7 @@ namespace Tais.Mod
 
         private IEnumerable<T> LoadAssemblyTypes<T>(Assembly assembly)
         {
-            return assembly.GetTypes().Where(x => x.GetInterfaces().Contains(typeof(T)))
+            return assembly.GetTypes().Where(x => x.GetInterfaces().Contains(typeof(T)) || x.IsSubclassOf(typeof(T)))
                     .Select(x => (T)Activator.CreateInstance(x));
         }
     }
