@@ -1,23 +1,51 @@
 using Godot;
 using System;
+using System.Linq;
+using Tais;
+using Tais.API;
 
-public class InitScene : Control
+namespace TaisGodot.Scripts
 {
-	internal static string path = "res://Scenes/Init/InitScene.tscn";
-
-	// Declare member variables here. Examples:
-	// private int a = 2;
-	// private string b = "text";
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public class InitScene : Control
 	{
-		
-	}
+		internal static string path = "res://Scenes/Init/InitScene.tscn";
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+		public override void _Ready()
+		{
+			var initNameAgePanel = InitNameAgePanel.Instance();
+			AddChild(initNameAgePanel);
+
+			initNameAgePanel.Connect("Finish", this, nameof(_on_SelectNameAgeFinish_Signal));
+		}
+
+		private void _on_SelectNameAgeFinish_Signal()
+		{
+			var firstInitSelect = GMRoot.modder.initSelects.Single(x => x.IsFirst);
+
+			CreateInitSelectPanel(firstInitSelect);
+		}
+
+		private void CreateInitSelectPanel(InitSelect initSelect)
+		{
+			var initSelectPanel = InitSelectPanel.Instance();
+
+			initSelectPanel.gmObj = initSelect;
+
+			initSelectPanel.Connect("SelectNext", this, nameof(_on_SelectNext_Signal));
+
+			AddChild(initSelectPanel);
+		}
+
+		private void _on_SelectNext_Signal(InitSelect nextSelect)
+		{
+			if (nextSelect == null)
+			{
+				//GMRoot.runner = GMData.Run.Runner.Generate();
+				//GetTree().ChangeScene(MainScene.path);
+				return;
+			}
+			CreateInitSelectPanel(nextSelect);
+		}
+	}
 }
+

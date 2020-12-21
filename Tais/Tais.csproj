@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\debug\</OutputPath>
+    <OutputPath>..\TaisGodot\Release\Tais\data_TaisGodot\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,9 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extentions.cs" />
     <Compile Include="GMRoot.cs" />
-    <Compile Include="Interface.cs" />
+    <Compile Include="API\IDesc.cs" />
+    <Compile Include="API\Interface.cs" />
+    <Compile Include="API\IOption.cs" />
+    <Compile Include="API\Method.cs" />
     <Compile Include="LOG.cs" />
+    <Compile Include="API\InitSelect.cs" />
     <Compile Include="Mod\Language.cs" />
     <Compile Include="Mod\Modder.cs" />
     <Compile Include="Mod\ModItem.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Tais.API;
 
 namespace Tais.Mod
 {
@@ -16,6 +17,8 @@ namespace Tais.Mod
         internal Dictionary<string, IEnumerable<Language>> languages;
 
         internal Dictionary<string, PersonName> personName;
+
+        internal IEnumerable<InitSelect> initSelects;
 
         internal static Modder Load(string modPath)
         {
@@ -42,6 +45,13 @@ namespace Tais.Mod
             languages = modItems.ToDictionary(x => x.Key, y => y.Value.languages);
 
             personName = modItems.SelectMany(x => x.Value.languages).ToDictionary(x => x.locale, y => y.personName);
+
+            if (modItems.Where(x=>x.Key != "Native" && x.Value.initSelects.Any()).Count() > 1)
+            {
+                throw new Exception();
+            }
+
+            initSelects = modItems.SelectMany(x => x.Value.initSelects);
         }
     }
 }

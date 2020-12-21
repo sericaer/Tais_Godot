@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tais
+namespace Tais.API
 {
     public interface IPop
     {

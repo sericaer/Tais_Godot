@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Tais.Tool
 {
-    public class GRandom
+    class GRandom
     {
         private static System.Random ra = new System.Random(GetRandomSeed());
 
