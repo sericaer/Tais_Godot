@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Main/Imp/Taishou.cs" type="Script" id=1]
+
+[node name="ButtonTaishou" type="Button"]
+margin_right = 120.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 120, 150 )
+text = "STATIC_TAISHOU"
+clip_text = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

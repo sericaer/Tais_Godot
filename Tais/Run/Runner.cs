@@ -12,9 +12,11 @@ namespace Tais.Run
     {
         public decimal a { get; set; }
 
-        public Runner()
-        {
+        public Taishou taishou;
 
+        public Runner(Init.Initer initer)
+        {
+            taishou = new Taishou(initer.name, initer.age, initer.party);
         }
 
         public void Test()

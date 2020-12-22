@@ -12,14 +12,19 @@ namespace TaisGodot.Scripts
 
 		public override void _Ready()
 		{
+			GMRoot.initer = new Tais.Init.Initer();
+
 			var initNameAgePanel = InitNameAgePanel.Instance();
 			AddChild(initNameAgePanel);
 
 			initNameAgePanel.Connect("Finish", this, nameof(_on_SelectNameAgeFinish_Signal));
 		}
 
-		private void _on_SelectNameAgeFinish_Signal()
+		private void _on_SelectNameAgeFinish_Signal(string name, int age)
 		{
+			GMRoot.initer.name = name;
+			GMRoot.initer.age = age;
+
 			var firstInitSelect = GMRoot.modder.initSelects.Single(x => x.IsFirst);
 
 			CreateInitSelectPanel(firstInitSelect);
@@ -40,10 +45,11 @@ namespace TaisGodot.Scripts
 		{
 			if (nextSelect == null)
 			{
-				//GMRoot.runner = GMData.Run.Runner.Generate();
-				//GetTree().ChangeScene(MainScene.path);
+				GMRoot.runner = new Tais.Run.Runner(GMRoot.initer);
+				GetTree().ChangeScene(MainScene.path);
 				return;
 			}
+
 			CreateInitSelectPanel(nextSelect);
 		}
 	}

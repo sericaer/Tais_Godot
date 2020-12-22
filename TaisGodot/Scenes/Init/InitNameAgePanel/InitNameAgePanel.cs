@@ -40,12 +40,9 @@ namespace TaisGodot.Scripts
 
 		private void _on_ConfirmButton_Pressed()
 		{
-			//GMRoot.initData.taishou.name = nameEdit.Text;
-			//GMRoot.initData.taishou.age = int.Parse(ageLabel.Text);
-
 			Visible = false;
 
-			EmitSignal(nameof(Finish));
+			EmitSignal(nameof(Finish), nameEdit.Text, int.Parse(ageLabel.Text));
 
 			QueueFree();
 		}

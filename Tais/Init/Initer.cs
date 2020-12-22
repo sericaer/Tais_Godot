@@ -8,6 +8,8 @@ namespace Tais.Init
 {
     class Initer
     {
+        internal string name { get; set; }
+        internal int age { get; set; }
         public Type party { get; set; }
     }
 }

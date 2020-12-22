@@ -1,0 +1,359 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Main/Imp/Taishou.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="Panel" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopContainer" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 1440.0
+margin_bottom = 40.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopContainer"]
+margin_right = 1440.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_constants/separation = 1
+
+[node name="PopNum" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_right = 256.0
+margin_bottom = 40.0
+focus_mode = 1
+size_flags_horizontal = 3
+enabled_focus_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer/PopNum"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/PopNum/HBoxContainer"]
+margin_left = 73.0
+margin_top = 13.0
+margin_right = 163.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 90, 0 )
+size_flags_horizontal = 0
+text = "STATIC_REGISTER_POP_NUM"
+align = 2
+clip_text = true
+
+[node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/PopNum/HBoxContainer"]
+margin_left = 173.0
+margin_top = 13.0
+margin_right = 183.0
+margin_bottom = 27.0
+size_flags_horizontal = 0
+text = "--"
+
+[node name="Economy" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_left = 257.0
+margin_right = 513.0
+margin_bottom = 40.0
+focus_mode = 1
+size_flags_horizontal = 3
+enabled_focus_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer/Economy"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Economy/HBoxContainer"]
+margin_left = 73.0
+margin_top = 13.0
+margin_right = 163.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 90, 0 )
+size_flags_horizontal = 0
+text = "STATIC_ECONOMY"
+align = 2
+clip_text = true
+
+[node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Economy/HBoxContainer"]
+margin_left = 173.0
+margin_top = 13.0
+margin_right = 183.0
+margin_bottom = 27.0
+size_flags_horizontal = 0
+text = "--"
+
+[node name="Button2" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_left = 514.0
+margin_right = 770.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_left = 771.0
+margin_right = 1027.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Date" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_left = 1028.0
+margin_right = 1285.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer/Date"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 7
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Date/HBoxContainer"]
+margin_left = 80.0
+margin_top = 13.0
+margin_right = 162.0
+margin_bottom = 27.0
+text = "STATIC_DATE"
+
+[node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Date/HBoxContainer"]
+margin_left = 166.0
+margin_top = 13.0
+margin_right = 176.0
+margin_bottom = 27.0
+text = "--"
+
+[node name="Control" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer"]
+margin_left = 1286.0
+margin_right = 1440.0
+margin_bottom = 40.0
+
+[node name="Button_Inc" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
+margin_right = 30.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 30, 0 )
+text = "+"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
+margin_left = 34.0
+margin_right = 66.0
+margin_bottom = 40.0
+custom_constants/hseparation = 0
+text = "P"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Dec" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
+margin_left = 70.0
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 30, 0 )
+text = "-"
+
+[node name="Button_Sys" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
+margin_left = 104.0
+margin_right = 154.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 50, 0 )
+text = "SYS"
+
+[node name="Timer" type="Timer" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
+autostart = true
+
+[node name="WinContainer" type="Panel" parent="VBoxContainer"]
+margin_top = 41.0
+margin_right = 1440.0
+margin_bottom = 900.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MapContainer" type="CenterContainer" parent="VBoxContainer/WinContainer"]
+margin_left = 1.12244
+margin_right = 1441.12
+margin_bottom = 859.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapRect" type="TextureRect" parent="VBoxContainer/WinContainer/MapContainer"]
+margin_left = 719.0
+margin_top = 429.0
+margin_right = 719.0
+margin_bottom = 429.0
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImpContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer"]
+margin_right = 1440.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 150 )
+size_flags_vertical = 0
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonTaishou" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 2 )
+
+[node name="ButtonChaoting" type="Button" parent="VBoxContainer/WinContainer/ImpContainer"]
+margin_left = 121.0
+margin_right = 241.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 120, 150 )
+text = "STATIC_CHAOTING"
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer/ImpContainer"]
+margin_left = 242.0
+margin_right = 1440.0
+margin_bottom = 150.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_constants/separation = 10
+alignment = 1
+
+[node name="RiskContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer"]
+margin_left = 564.0
+margin_right = 624.0
+margin_bottom = 15.0
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer"]
+margin_right = 15.0
+margin_bottom = 15.0
+size_flags_vertical = 0
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 8.0
+margin_bottom = 8.0
+size_flags_vertical = 0
+value = 43.0
+fill_mode = 4
+tint_under = Color( 0.470588, 0.470588, 0.470588, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer"]
+margin_left = 15.0
+margin_right = 30.0
+margin_bottom = 15.0
+size_flags_vertical = 0
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 8.0
+margin_bottom = 8.0
+size_flags_vertical = 0
+value = 43.0
+fill_mode = 4
+tint_under = Color( 0.470588, 0.470588, 0.470588, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer"]
+margin_left = 30.0
+margin_right = 45.0
+margin_bottom = 15.0
+size_flags_vertical = 0
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer/PanelContainer3"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 8.0
+margin_bottom = 8.0
+size_flags_vertical = 0
+value = 43.0
+fill_mode = 4
+tint_under = Color( 0.470588, 0.470588, 0.470588, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer"]
+margin_left = 45.0
+margin_right = 60.0
+margin_bottom = 15.0
+size_flags_vertical = 0
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer/RiskContainer/PanelContainer4"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 8.0
+margin_bottom = 8.0
+size_flags_vertical = 0
+value = 43.0
+fill_mode = 4
+tint_under = Color( 0.470588, 0.470588, 0.470588, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="WarnContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer/ImpContainer/HBoxContainer"]
+margin_left = 634.0
+margin_right = 634.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 5
+size_flags_vertical = 0
+alignment = 1
+
+[node name="TaskContainer" type="VBoxContainer" parent="VBoxContainer/WinContainer"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -429.5
+margin_bottom = 429.5
+rect_min_size = Vector2( 200, 0 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/PopNum" to="." method="_on_Button_RegistPop_pressed"]
+[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Economy" to="." method="_on_Button_Economy_pressed"]
+[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Inc" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Button_Inc_pressed"]
+[connection signal="toggled" from="VBoxContainer/TopContainer/HBoxContainer/Control/CheckBox" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_CheckBox_toggled"]
+[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Dec" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Button_Dec_pressed"]
+[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Sys" to="." method="_on_Button_Sys_pressed"]
+[connection signal="timeout" from="VBoxContainer/TopContainer/HBoxContainer/Control/Timer" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Timer_timeout"]
+[connection signal="gui_input" from="VBoxContainer/WinContainer/MapContainer/MapRect" to="VBoxContainer/WinContainer/MapContainer/MapRect" method="_on_TextureRect_gui_input"]
+[connection signal="pressed" from="VBoxContainer/WinContainer/ImpContainer/ButtonChaoting" to="." method="_on_ButtonChaoting_pressed"]
