@@ -20,12 +20,12 @@ namespace Tais.API
         void Do();
     }
 
-    public class Assign : IOperation
+    public class Assign<T> : IOperation
     {
         private IVisitor target;
-        private decimal value;
+        private T value;
 
-        public Assign(IVisitor target, decimal value)
+        public Assign(IVisitor target, T value)
         {
             this.target = target;
             this.value = value;

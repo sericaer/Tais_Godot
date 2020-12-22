@@ -18,14 +18,14 @@ namespace Tais.API
             return array;
         }
 
-        public static InitSelectOption OPTION_INIT_SELECT(IDesc _desc)
+        public static InitSelectOption OPTION_INIT_SELECT(IDesc _desc, IOperation[] ops)
         {
-            return new InitSelectOption() { desc = _desc };
+            return new InitSelectOption() { desc = _desc, operations = ops };
         }
 
-        public static Assign ASSIGN(IVisitor visitor, decimal value)
+        public static Assign<T> ASSIGN<T>(IVisitor visitor, T value)
         {
-            return new Assign(visitor, value);
+            return new Assign<T>(visitor, value);
         }
     }
 }
