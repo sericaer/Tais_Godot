@@ -7,6 +7,7 @@ using Tais.API;
 using Tais.Init;
 using Tais.Mod;
 using Tais.Run;
+using Tais.Visitor;
 
 namespace Tais
 {

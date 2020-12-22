@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mod\Operation\Assign.cs" />
+    <Compile Include="Visitor\GMVisitor.cs" />
     <Compile Include="API\IParty.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="GMRoot.cs" />

@@ -26,7 +26,7 @@ namespace Native.InitSelect
                     DESC("INIT_SELECT_PARTY_OPTION_1_DESC"),
                     ARRAY
                     (
-                        ASSIGN(INIT_BACK_GROUND, typeof(XUNGUI))
+                        ASSIGN(INIT_PARTY, typeof(XUNGUI))
                     )
                 )
             ) ;

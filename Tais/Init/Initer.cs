@@ -8,6 +8,6 @@ namespace Tais.Init
 {
     class Initer
     {
-        public Type background;
+        public Type party { get; set; }
     }
 }
