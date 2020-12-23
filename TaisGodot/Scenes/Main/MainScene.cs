@@ -14,5 +14,12 @@ namespace TaisGodot.Scripts
 		{
 			instance = this;
 		}
+
+		private void _on_Speed_DaysInc()
+		{
+			GMRoot.runner.date.Inc();
+		}
 	}
 }
+
+

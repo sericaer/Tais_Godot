@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/Main/Top/Date/Date.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Main/Top/Date/Date.cs" type="Script" id=5]
+[ext_resource path="res://Scenes/Main/Top/Speed/Speed.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -131,44 +132,7 @@ size_flags_horizontal = 3
 [node name="Date" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 4 )]
 script = ExtResource( 5 )
 
-[node name="Control" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_left = 1286.0
-margin_right = 1440.0
-margin_bottom = 40.0
-
-[node name="Button_Inc" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
-margin_right = 30.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 30, 0 )
-text = "+"
-
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
-margin_left = 34.0
-margin_right = 66.0
-margin_bottom = 40.0
-custom_constants/hseparation = 0
-text = "P"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button_Dec" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
-margin_left = 70.0
-margin_right = 100.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 30, 0 )
-text = "-"
-
-[node name="Button_Sys" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
-margin_left = 104.0
-margin_right = 154.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 50, 0 )
-text = "SYS"
-
-[node name="Timer" type="Timer" parent="VBoxContainer/TopContainer/HBoxContainer/Control"]
-autostart = true
+[node name="Speed" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 6 )]
 
 [node name="WinContainer" type="Panel" parent="VBoxContainer"]
 margin_top = 41.0
@@ -326,10 +290,6 @@ __meta__ = {
 }
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/PopNum" to="." method="_on_Button_RegistPop_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Economy" to="." method="_on_Button_Economy_pressed"]
-[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Inc" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Button_Inc_pressed"]
-[connection signal="toggled" from="VBoxContainer/TopContainer/HBoxContainer/Control/CheckBox" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_CheckBox_toggled"]
-[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Dec" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Button_Dec_pressed"]
-[connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Control/Button_Sys" to="." method="_on_Button_Sys_pressed"]
-[connection signal="timeout" from="VBoxContainer/TopContainer/HBoxContainer/Control/Timer" to="VBoxContainer/TopContainer/HBoxContainer/Control" method="_on_Timer_timeout"]
+[connection signal="DaysInc" from="VBoxContainer/TopContainer/HBoxContainer/Speed" to="." method="_on_Speed_DaysInc"]
 [connection signal="gui_input" from="VBoxContainer/WinContainer/MapContainer/MapRect" to="VBoxContainer/WinContainer/MapContainer/MapRect" method="_on_TextureRect_gui_input"]
 [connection signal="pressed" from="VBoxContainer/WinContainer/ImpContainer/ButtonChaoting" to="." method="_on_ButtonChaoting_pressed"]
