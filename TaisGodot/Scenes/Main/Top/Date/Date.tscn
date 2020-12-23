@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Global/ReactiveLabel.cs" type="Script" id=1]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Date" type="Button"]
+margin_left = 1028.0
+margin_right = 1285.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 7
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 74.0
+margin_top = 11.0
+margin_right = 162.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+text = "STATIC_DATE"
+
+[node name="Value" type="Label" parent="HBoxContainer"]
+margin_left = 166.0
+margin_top = 11.0
+margin_right = 182.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 2 )
+text = "--"
+script = ExtResource( 1 )

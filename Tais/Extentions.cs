@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ReactiveMarbles.PropertyChanged;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
@@ -30,6 +33,14 @@ namespace Tais
             }
 
             return Activator.CreateInstance(source.Next) as InitSelect;
+        }
+
+
+        public static IObservable<TReturn> OBSProperty<TObj, TReturn>(this TObj objectToMonitor,
+            Expression<Func<TObj, TReturn>> propertyExpression)
+            where TObj : class, INotifyPropertyChanged
+        {
+            return objectToMonitor.WhenPropertyValueChanges(propertyExpression);
         }
     }
 }

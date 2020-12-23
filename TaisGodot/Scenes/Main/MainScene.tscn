@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/Main/Top/Date/Date.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Main/Top/Date/Date.cs" type="Script" id=5]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -126,34 +128,8 @@ margin_right = 1027.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
-[node name="Date" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_left = 1028.0
-margin_right = 1285.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer/Date"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 7
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Date/HBoxContainer"]
-margin_left = 80.0
-margin_top = 13.0
-margin_right = 162.0
-margin_bottom = 27.0
-text = "STATIC_DATE"
-
-[node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Date/HBoxContainer"]
-margin_left = 166.0
-margin_top = 13.0
-margin_right = 176.0
-margin_bottom = 27.0
-text = "--"
+[node name="Date" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 4 )]
+script = ExtResource( 5 )
 
 [node name="Control" type="HBoxContainer" parent="VBoxContainer/TopContainer/HBoxContainer"]
 margin_left = 1286.0

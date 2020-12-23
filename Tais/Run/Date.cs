@@ -2,18 +2,18 @@
 //using Newtonsoft.Json;
 //using Newtonsoft.Json.Linq;
 using System;
-//using System.ComponentModel;
-//using System.Reactive.Linq;
+using System.ComponentModel;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 
 namespace Tais.Run
 {
     //[JsonObject(MemberSerialization.OptIn)]
-    public class Date // : INotifyPropertyChanged
+    public class Date  : INotifyPropertyChanged
     {
-//#pragma warning disable 0067
-//        public event PropertyChangedEventHandler PropertyChanged;
-//#pragma warning restore 0067
+#pragma warning disable 0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
 
 
         //public static bool operator ==(Date l, (int? year, int? month, int? day) r)
@@ -122,7 +122,7 @@ namespace Tais.Run
 
         public string desc { get; private set; }
 
-        //public int total_days { get; private set; }
+        public decimal total_days { get; private set; }
 
         //public int total_days
         //{
@@ -174,14 +174,14 @@ namespace Tais.Run
         [OnDeserialized]
         internal void DataAssociate(StreamingContext context)
         {
-            //Observable.Merge(this.OBSProperty(x => x.year), 
-            //               this.OBSProperty(x => x.month), 
-            //               this.OBSProperty(x => x.day))
-            //    .Subscribe(_ =>
-            //    {
-            //        desc = $"{year}-{month}-{day}";
-            //        total_days = day + (month - 1) * 30 + (year - 1) * 360;
-            //    });
+            Observable.Merge(this.OBSProperty(x => x.year),
+                           this.OBSProperty(x => x.month),
+                           this.OBSProperty(x => x.day))
+                .Subscribe(_ =>
+                {
+                    desc = $"{year}-{month}-{day}";
+                    total_days = day + (month - 1) * 30 + (year - 1) * 360;
+                });
         }
 
         //[JsonConstructor]
