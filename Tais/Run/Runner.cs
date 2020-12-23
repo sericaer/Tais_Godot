@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,11 +9,15 @@ using Tais.API;
 
 namespace Tais.Run
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Runner
     {
         public decimal a { get; set; }
 
+        [JsonProperty]
         public Taishou taishou;
+
+        [JsonProperty]
         public Date date;
 
         public Runner(Init.Initer initer)
@@ -46,7 +51,7 @@ namespace Tais.Run
 
         internal string Serialize()
         {
-            throw new NotImplementedException();
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

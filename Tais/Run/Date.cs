@@ -1,6 +1,7 @@
 //using DataVisit;
 //using Newtonsoft.Json;
 //using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Reactive.Linq;
@@ -8,7 +9,7 @@ using System.Runtime.Serialization;
 
 namespace Tais.Run
 {
-    //[JsonObject(MemberSerialization.OptIn)]
+    [JsonObject(MemberSerialization.OptIn)]
     class Date  : INotifyPropertyChanged
     {
 #pragma warning disable 0067
@@ -111,13 +112,13 @@ namespace Tais.Run
         //    return l < r || l == r;
         //}
 
-        //[JsonProperty, DataVisitorProperty("year")]
+        [JsonProperty]
         public decimal year { get; set; }
 
-        //[JsonProperty, DataVisitorProperty("month")]
+        [JsonProperty]
         public decimal month { get; set; }
 
-        //[JsonProperty, DataVisitorProperty("day")]
+        [JsonProperty]
         public decimal day { get; set; }
 
         public string desc { get; private set; }
