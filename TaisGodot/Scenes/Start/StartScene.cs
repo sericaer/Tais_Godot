@@ -35,8 +35,8 @@ namespace TaisGodot.Scripts
 
 		private void _on_Button_Load_pressed()
 		{
-			//var loadPanel = SaveLoadPanel.Instance(this, true);
-			//loadPanel.Connect("LoadSaveFile", this, nameof(_on_LoadSaveFile_Signed));
+			var loadPanel = SaveLoadPanel.Instance(this, true);
+			loadPanel.Connect("LoadSaveFile", this, nameof(_on_LoadSaveFile_Signed));
 		}
 
 		private void _on_Button_Quit_pressed()

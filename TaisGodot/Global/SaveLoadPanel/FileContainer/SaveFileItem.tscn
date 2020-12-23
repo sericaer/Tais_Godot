@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Global/SaveLoadPanel/FileContainer/SaveFileItemPanel.cs" type="Script" id=1]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer"]
 margin_right = 350.0
@@ -19,10 +32,11 @@ margin_bottom = 37.0
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_top = 4.0
+margin_top = 6.0
 margin_right = 139.0
-margin_bottom = 25.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
 text = "--"
 valign = 1
 __meta__ = {
@@ -35,6 +49,7 @@ margin_right = 282.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_horizontal = 10
+custom_fonts/font = SubResource( 2 )
 text = "STATIC_LOAD"
 clip_text = true
 
@@ -44,6 +59,7 @@ margin_right = 336.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_horizontal = 8
+custom_fonts/font = SubResource( 3 )
 text = "STATIC_DELETE"
 clip_text = true
 [connection signal="pressed" from="HBoxContainer/ButtonLoad" to="." method="_on_ButtonLoad_pressed"]
