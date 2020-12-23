@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Tais.Run
 {
     //[JsonObject(MemberSerialization.OptIn)]
-    public class Date  : INotifyPropertyChanged
+    class Date  : INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;

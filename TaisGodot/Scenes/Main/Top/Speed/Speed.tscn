@@ -35,13 +35,6 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 30, 0 )
 text = "-"
 
-[node name="Button_Sys" type="Button" parent="."]
-margin_left = 104.0
-margin_right = 154.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 50, 0 )
-text = "SYS"
-
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 [connection signal="pressed" from="Button_Inc" to="." method="_on_Button_Inc_pressed"]

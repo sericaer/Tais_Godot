@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
@@ -6,10 +6,11 @@
 [ext_resource path="res://Scenes/Main/Top/Date/Date.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Main/Top/Date/Date.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Main/Top/Speed/Speed.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Main/Top/Sys/Sys.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 use_filter = true
 font_data = ExtResource( 3 )
 
@@ -41,7 +42,7 @@ rect_min_size = Vector2( 0, 40 )
 custom_constants/separation = 1
 
 [node name="PopNum" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_right = 256.0
+margin_right = 259.0
 margin_bottom = 40.0
 focus_mode = 1
 size_flags_horizontal = 3
@@ -60,9 +61,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/PopNum/HBoxContainer"]
-margin_left = 73.0
+margin_left = 74.0
 margin_top = 13.0
-margin_right = 163.0
+margin_right = 164.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 90, 0 )
 size_flags_horizontal = 0
@@ -71,16 +72,16 @@ align = 2
 clip_text = true
 
 [node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/PopNum/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 13.0
-margin_right = 183.0
+margin_right = 184.0
 margin_bottom = 27.0
 size_flags_horizontal = 0
 text = "--"
 
 [node name="Economy" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_left = 257.0
-margin_right = 513.0
+margin_left = 260.0
+margin_right = 520.0
 margin_bottom = 40.0
 focus_mode = 1
 size_flags_horizontal = 3
@@ -99,9 +100,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Economy/HBoxContainer"]
-margin_left = 73.0
+margin_left = 75.0
 margin_top = 13.0
-margin_right = 163.0
+margin_right = 165.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 90, 0 )
 size_flags_horizontal = 0
@@ -110,29 +111,35 @@ align = 2
 clip_text = true
 
 [node name="Value" type="Label" parent="VBoxContainer/TopContainer/HBoxContainer/Economy/HBoxContainer"]
-margin_left = 173.0
+margin_left = 175.0
 margin_top = 13.0
-margin_right = 183.0
+margin_right = 185.0
 margin_bottom = 27.0
 size_flags_horizontal = 0
 text = "--"
 
 [node name="Button2" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_left = 514.0
-margin_right = 770.0
+margin_left = 521.0
+margin_right = 780.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Button3" type="Button" parent="VBoxContainer/TopContainer/HBoxContainer"]
-margin_left = 771.0
-margin_right = 1027.0
+margin_left = 781.0
+margin_right = 1041.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Date" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 1042.0
+margin_right = 1302.0
 script = ExtResource( 5 )
 
 [node name="Speed" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 1303.0
+margin_right = 1403.0
+
+[node name="Sys" parent="VBoxContainer/TopContainer/HBoxContainer" instance=ExtResource( 7 )]
 
 [node name="WinContainer" type="Panel" parent="VBoxContainer"]
 margin_top = 41.0
@@ -173,7 +180,7 @@ __meta__ = {
 }
 
 [node name="ButtonTaishou" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 2 )]
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 
 [node name="ButtonChaoting" type="Button" parent="VBoxContainer/WinContainer/ImpContainer"]
 margin_left = 121.0

@@ -20,6 +20,13 @@ namespace Tais.Run
             taishou = new Taishou(initer.name, initer.age, initer.party);
 
             date = new Date();
+
+            date.OBSProperty(x => x.total_days).Subscribe(_ => onDaysInc());
+        }
+
+        private void onDaysInc()
+        {
+
         }
 
         public void Test()
@@ -35,6 +42,11 @@ namespace Tais.Run
             var eventobj = Activator.CreateInstance(type) as IEvent;
 
             eventobj.op.Do();
+        }
+
+        internal string Serialize()
+        {
+            throw new NotImplementedException();
         }
     }
 }

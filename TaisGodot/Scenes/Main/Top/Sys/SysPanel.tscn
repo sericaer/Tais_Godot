@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Global/ClickFreeMask.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Main/Top/Sys/SysPanel.cs" type="Script" id=2]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.380392 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="SysPanel" type="Panel"]
+self_modulate = Color( 0, 0, 0, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 662.0
+margin_top = 411.0
+margin_right = 778.0
+margin_bottom = 488.0
+
+[node name="Button_Quit" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_right = 116.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 2 )
+text = "STATIC_QUIT"
+
+[node name="Button_SAVE" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 116.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 3 )
+text = "STATIC_SAVE"
+
+[node name="Button_Cancel" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 116.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 4 )
+text = "STATIC_CANCEL"
+[connection signal="gui_input" from="Panel" to="Panel" method="_on_Mask_gui_input"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button_Quit" to="." method="_on_Button_Quit_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button_SAVE" to="." method="_on_Button_Save_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button_Cancel" to="." method="_on_Button_Cancel_pressed"]
