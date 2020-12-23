@@ -13,10 +13,13 @@ namespace Tais.Run
         public decimal a { get; set; }
 
         public Taishou taishou;
+        public Date date;
 
         public Runner(Init.Initer initer)
         {
             taishou = new Taishou(initer.name, initer.age, initer.party);
+
+            date = new Date();
         }
 
         public void Test()

@@ -7,15 +7,6 @@ using Xunit;
 
 namespace XUnitTest
 {
-    public class IntegrationTest : IClassFixture<IntegrationTestsFixture>
-    {
-        [Fact]
-        public void Test1()
-        {
-            var first = GMRoot.modder.initSelects.Single(x => x.IsFirst);
-        }
-    }
-
     public class IntegrationTestsFixture : IDisposable
     {
         public IntegrationTestsFixture()

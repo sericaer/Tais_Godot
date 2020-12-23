@@ -7,7 +7,7 @@ namespace Tais.Run
     {
         public string party;
         public string name;
-        public int age;
+        public decimal age;
 
         public Taishou(string name, int age, Type party)
         {

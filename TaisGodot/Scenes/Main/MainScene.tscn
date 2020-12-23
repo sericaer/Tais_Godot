@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
-[ext_resource path="res://Scenes/Main/Imp/Taishou.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="StyleBoxTexture" id=1]
