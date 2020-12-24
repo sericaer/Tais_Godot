@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
@@ -12,7 +14,6 @@ namespace Tais.Run
     [JsonObject(MemberSerialization.OptIn)]
     class Runner
     {
-        public decimal a { get; set; }
 
         [JsonProperty]
         public Taishou taishou;
@@ -20,38 +21,43 @@ namespace Tais.Run
         [JsonProperty]
         public Date date;
 
+        private List<Integration> list;
+
+        public static Runner Deserialize(string content)
+        {
+            var obj = JsonConvert.DeserializeObject<Runner>(content);
+            return obj;
+        }
+
+        public string Serialize()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
         public Runner(Init.Initer initer)
         {
             taishou = new Taishou(initer.name, initer.age, initer.party);
 
             date = new Date();
 
-            date.OBSProperty(x => x.total_days).Subscribe(_ => onDaysInc());
+            DataReactive(new StreamingContext());
         }
 
-        private void onDaysInc()
+        [OnDeserialized]
+        private void DataReactive(StreamingContext context)
         {
-
+            //date.PropertyIntegration(x => x.total_days, taishou.DaysInc);
         }
 
-        public void Test()
+        private void Integration<TObj, TReturn>(TObj date, Expression<Func<TObj, TReturn>> propertyExpression, Action<TReturn> onDaysInc)
         {
-            var DLL = Assembly.LoadFile(@"C:\Users\fang\source\repos\Tais\TaisGodot\Release\Tais\mod\Native\package\assembly.dll");
-
-            var types = DLL.GetTypes();
-            LOG.INFO(types.Select(x => x.Name as object).ToArray());
-
-            var type = types.First(x => x.GetInterfaces().Contains(typeof(IEvent)));
-
-
-            var eventobj = Activator.CreateInstance(type) as IEvent;
-
-            eventobj.op.Do();
+            throw new NotImplementedException();
         }
+    }
 
-        internal string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+    class Integration
+    {
+        public IDisposable disposable;
+        //public 
     }
 }

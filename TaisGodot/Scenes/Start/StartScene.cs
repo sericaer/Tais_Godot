@@ -46,10 +46,10 @@ namespace TaisGodot.Scripts
 
 		private void _on_LoadSaveFile_Signed(string path)
 		{
-			//var content = File.ReadAllText(path);
-			//GMRoot.runner = GMData.Run.Runner.Deserialize(content);
+            var content = System.IO.File.ReadAllText(path);
+            GMRoot.runner = Tais.Run.Runner.Deserialize(content);
 
-			//GetTree().ChangeScene(MainScene.path);
-		}
+            GetTree().ChangeScene(MainScene.path);
+        }
 	}
 }

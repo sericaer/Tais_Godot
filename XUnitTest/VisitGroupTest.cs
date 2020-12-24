@@ -1,10 +1,13 @@
 ﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Tais.API;
 using Tais.Visitor;
 using Xunit;
+using System.Linq;
 
 using static Tais.API.VisitorGroup;
 
@@ -15,19 +18,18 @@ namespace XUnitTest
         [Fact]
         public void TestInitGroup()
         {
-            TestInitVisitor(INIT_PARTY, "party");
+            INIT_PARTY.ShouldBe<Tais.Init.Initer>(x => x.party);
         }
+    }
 
-        public void TestInitVisitor(IVisitor itf, string property)
+    public static class Extension
+    {
+        public static void ShouldBe<T>(this IVisitor itf, Expression<Func<T, dynamic>> expr)
         {
-            TestVisitor(itf, typeof(Tais.Init.Initer), property);
-        }
+            var itf_expr = (IExpr)itf;
+            itf_expr.lambda.ToString().Should().Be(expr.ToString());
 
-        public void TestVisitor(IVisitor itf, Type rootType, string property)
-        {
-            var visitor = itf as GMVisitor;
-            visitor.rootType.Should().Be(rootType);
-            visitor.propertyInfo.Name.Should().Be(property);
+            itf.GetType().GetGenericArguments().First().Should().Be(typeof(T));
         }
     }
 }

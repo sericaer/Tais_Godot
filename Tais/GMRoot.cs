@@ -22,7 +22,7 @@ namespace Tais
             set
             {
                 _runner = value;
-                GMVisitor.runner = value;
+                VisitorData.dict[typeof(Runner)] = value;
             }
         }
 
@@ -47,7 +47,7 @@ namespace Tais
             set
             {
                 _initer = value;
-                GMVisitor.initer = value;
+                VisitorData.dict[typeof(Initer)] = value;
             }
         }
 
