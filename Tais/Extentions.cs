@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
+using System.Reactive;
 
 namespace Tais
 {
