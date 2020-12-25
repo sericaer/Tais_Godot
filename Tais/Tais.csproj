@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Date.cs" />
+    <Compile Include="Run\Integration.cs" />
     <Compile Include="Run\Taishou.cs" />
     <Compile Include="Visitor\GMVisitor.cs" />
     <Compile Include="API\IParty.cs" />

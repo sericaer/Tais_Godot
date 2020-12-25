@@ -10,7 +10,7 @@ namespace TaisGodot.Scripts
 		new Label Name;
 		Label Party;
 
-		Tais.Run.Taishou gmobj;
+		Tais.Run.ITaishou gmobj;
 
 		//ReactiveLabel Age;
 

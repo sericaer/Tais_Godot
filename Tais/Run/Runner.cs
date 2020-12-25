@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +13,16 @@ namespace Tais.Run
     [JsonObject(MemberSerialization.OptIn)]
     class Runner
     {
+        [JsonProperty]
+        public ITaishou taishou;
 
         [JsonProperty]
-        public Taishou taishou;
+        public IDate date;
 
-        [JsonProperty]
-        public Date date;
+        public List<Integration> integrations = new List<Integration>();
 
-        private List<Integration> list;
+        internal bool isInitialized => integrations.Any();
+
 
         public static Runner Deserialize(string content)
         {
@@ -34,30 +35,32 @@ namespace Tais.Run
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public Runner(Init.Initer initer)
-        {
-            taishou = new Taishou(initer.name, initer.age, initer.party);
+        //public Runner(Init.Initer initer)
+        //{
+        //    taishou = new Taishou(initer.name, initer.age, initer.party);
 
-            date = new Date();
+        //    date = new Date();
 
-            DataReactive(new StreamingContext());
-        }
+        //    DataReactive(new StreamingContext());
+        //}
 
         [OnDeserialized]
-        private void DataReactive(StreamingContext context)
+        public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            //date.PropertyIntegration(x => x.total_days, taishou.DaysInc);
+            SetIntegration(date, taishou).With(x=>x.total_days, y=>y.DaysInc);
         }
 
-        private void Integration<TObj, TReturn>(TObj date, Expression<Func<TObj, TReturn>> propertyExpression, Action<TReturn> onDaysInc)
+        private IntegrationImp<TS, TD> SetIntegration<TS, TD>(TS source, TD dest) where TS : class, INotifyPropertyChanged
         {
-            throw new NotImplementedException();
-        }
-    }
+            IntegrationImp<TS, TD> integration = integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
+                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
+            if(integration == null)
+            {
+                integration = new IntegrationImp<TS, TD>(source, dest);
+                integrations.Add(integration);
+            }
 
-    class Integration
-    {
-        public IDisposable disposable;
-        //public 
+            return integration;
+        }
     }
 }

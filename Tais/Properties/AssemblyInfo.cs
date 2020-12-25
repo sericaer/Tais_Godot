@@ -37,3 +37,4 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("TaisGodot")]
 [assembly: InternalsVisibleTo("XUnitTest")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

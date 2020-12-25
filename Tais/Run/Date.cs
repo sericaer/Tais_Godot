@@ -9,8 +9,23 @@ using System.Runtime.Serialization;
 
 namespace Tais.Run
 {
+    interface IDate : INotifyPropertyChanged
+    {
+        decimal year { get; }
+
+        decimal month { get;  }
+
+        decimal day { get;  }
+
+        string desc { get; }
+
+        decimal total_days { get; }
+
+        void Inc();
+    }
+
     [JsonObject(MemberSerialization.OptIn)]
-    class Date  : INotifyPropertyChanged
+    class Date  : IDate
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
