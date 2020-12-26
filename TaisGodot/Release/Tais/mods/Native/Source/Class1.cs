@@ -16,6 +16,6 @@ namespace Native
 
     public class GEventTest : IEvent
     {
-        public IOperation op => ASSIGN(GM_A, 999);
+        public IOperation op => null;//ASSIGN(GM_A, 999);
     }
 }

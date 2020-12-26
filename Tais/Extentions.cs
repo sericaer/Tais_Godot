@@ -36,12 +36,16 @@ namespace Tais
             return Activator.CreateInstance(source.Next) as InitSelect;
         }
 
-
         public static IObservable<TReturn> OBSProperty<TObj, TReturn>(this TObj objectToMonitor,
             Expression<Func<TObj, TReturn>> propertyExpression)
             where TObj : class, INotifyPropertyChanged
         {
             return objectToMonitor.WhenPropertyValueChanges(propertyExpression);
+        }
+
+        public static bool Same(this (int r, int g, int b) left, (int r, int g, int b) right)
+        {
+            return left.r == right.r && left.g == right.g && left.b == right.b;
         }
     }
 }

@@ -19,10 +19,12 @@ namespace Tais.Run
         [JsonProperty]
         public IDate date;
 
+        [JsonProperty]
+        public List<IDepart> departs = new List<IDepart>();
+
         public List<Integration> integrations = new List<Integration>();
 
         internal bool isInitialized => integrations.Any();
-
 
         public static Runner Deserialize(string content)
         {

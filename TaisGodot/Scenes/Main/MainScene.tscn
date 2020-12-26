@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Main/Top/Date/Date.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Main/Top/Speed/Speed.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Main/Top/Sys/Sys.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Main/MapRect/MapRect.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -159,15 +160,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MapRect" type="TextureRect" parent="VBoxContainer/WinContainer/MapContainer"]
-margin_left = 719.0
-margin_top = 429.0
-margin_right = 719.0
-margin_bottom = 429.0
-stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="MapRect" parent="VBoxContainer/WinContainer/MapContainer" instance=ExtResource( 8 )]
 
 [node name="ImpContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer"]
 margin_right = 1440.0
@@ -298,5 +291,4 @@ __meta__ = {
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/PopNum" to="." method="_on_Button_RegistPop_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/Economy" to="." method="_on_Button_Economy_pressed"]
 [connection signal="DaysInc" from="VBoxContainer/TopContainer/HBoxContainer/Speed" to="." method="_on_Speed_DaysInc"]
-[connection signal="gui_input" from="VBoxContainer/WinContainer/MapContainer/MapRect" to="VBoxContainer/WinContainer/MapContainer/MapRect" method="_on_TextureRect_gui_input"]
 [connection signal="pressed" from="VBoxContainer/WinContainer/ImpContainer/ButtonChaoting" to="." method="_on_ButtonChaoting_pressed"]

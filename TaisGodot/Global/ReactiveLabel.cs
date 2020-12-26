@@ -7,13 +7,13 @@ namespace TaisGodot.Scripts
 	{
 		private IDisposable reactiveDispose;
 
-        internal void Assoc<T>(IObservable<T> data, Func<string, string> adpt = null)
-        {
-            this.adpt = adpt;
-            reactiveDispose = data.Subscribe(x=>this.SetValue(x));
-        }
+		internal void Assoc<T>(IObservable<T> data, Func<string, string> adpt = null)
+		{
+			this.adpt = adpt;
+			reactiveDispose = data.Subscribe(x=>this.SetValue(x));
+		}
 
-        protected override void Dispose(bool disposing)
+		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 			reactiveDispose?.Dispose();

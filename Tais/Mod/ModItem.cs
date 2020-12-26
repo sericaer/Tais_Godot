@@ -14,6 +14,7 @@ namespace Tais.Mod
         public IEnumerable<IEvent> events = new List<IEvent>();
         public IEnumerable<Language> languages = new List<Language>();
         public IEnumerable<InitSelect> initSelects = new List<InitSelect>();
+        public IEnumerable<Type> departTypes = new List<Type>();
 
         private string path;
         
@@ -32,15 +33,21 @@ namespace Tais.Mod
             {
                 var assembly = Assembly.LoadFile(assemblyPath);
 
-                events = LoadAssemblyTypes<IEvent>(assembly);
-                initSelects = LoadAssemblyTypes<InitSelect>(assembly);
+                events = LoadAssemblyObjects<IEvent>(assembly);
+                initSelects = LoadAssemblyObjects<InitSelect>(assembly);
+                departTypes = LoadAssemblyTypes<IDepart>(assembly);
             }
 
-            LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}");
+            LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}, departTypes:{departTypes.Count()}");
 
         }
 
-        private IEnumerable<T> LoadAssemblyTypes<T>(Assembly assembly)
+        private IEnumerable<Type> LoadAssemblyTypes<T>(Assembly assembly)
+        {
+            return assembly.GetTypes().Where(x => x.GetInterfaces().Contains(typeof(T)) || x.IsSubclassOf(typeof(T)));
+        }
+
+        private IEnumerable<T> LoadAssemblyObjects<T>(Assembly assembly)
         {
             return assembly.GetTypes().Where(x => x.GetInterfaces().Contains(typeof(T)) || x.IsSubclassOf(typeof(T)))
                     .Select(x => (T)Activator.CreateInstance(x));

@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Depart\DEPART_JIXIAN.cs" />
     <Compile Include="Party\XUNGUI.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="InitSelect\INIT_SELECT_PARTY.cs" />

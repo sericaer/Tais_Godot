@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Main/MapRect/MapRect.cs" type="Script" id=1]
+
+[node name="MapRect" type="TextureRect"]
+margin_left = 719.0
+margin_top = 429.0
+margin_right = 719.0
+margin_bottom = 429.0
+stretch_mode = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="." to="." method="_on_MapRect_gui_input"]
