@@ -1,5 +1,5 @@
-﻿using System;
-using Tais.API;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Tais.Run
 {
@@ -12,20 +12,32 @@ namespace Tais.Run
         void DaysInc(decimal days);
     }
 
+    [JsonObject(MemberSerialization.OptIn)]
     class Taishou : ITaishou
     {
-        public string party { get; }
-        public string name { get; }
+        [JsonProperty]
+        public string party { get; set; }
+
+        [JsonProperty]
+        public string name { get; set; }
+
+        [JsonProperty]
         public decimal age { get; set; }
 
         public Taishou(string name, int age, Type party)
         {
             this.name = name;
             this.age = age;
-            this.party = party.Name;
+            this.party = party.FullName;
         }
 
         public void DaysInc(decimal days)
+        {
+
+        }
+
+        [JsonConstructor]
+        private Taishou()
         {
 
         }

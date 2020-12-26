@@ -26,13 +26,17 @@ namespace Tais.Run
 
         public static Runner Deserialize(string content)
         {
-            var obj = JsonConvert.DeserializeObject<Runner>(content);
+            var settings = new JsonSerializerSettings();
+            settings.TypeNameHandling = TypeNameHandling.Objects;
+            var obj = JsonConvert.DeserializeObject<Runner>(content, settings);
             return obj;
         }
 
         public string Serialize()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            var settings = new JsonSerializerSettings();
+            settings.TypeNameHandling = TypeNameHandling.Objects;
+            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
 
         //public Runner(Init.Initer initer)

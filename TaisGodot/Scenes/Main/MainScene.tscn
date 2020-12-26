@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxTexture" id=1]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 use_filter = true
 font_data = ExtResource( 3 )
 
@@ -180,7 +180,7 @@ __meta__ = {
 }
 
 [node name="ButtonTaishou" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 2 )]
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 
 [node name="ButtonChaoting" type="Button" parent="VBoxContainer/WinContainer/ImpContainer"]
 margin_left = 121.0
