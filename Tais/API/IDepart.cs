@@ -8,6 +8,6 @@ namespace Tais.API
 {
     public interface IDepart
     {
-        (int r, int g, int b) color { get; }
+        Color color { get; }
     }
 }

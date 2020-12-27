@@ -9,6 +9,6 @@ namespace Native.Depart
 {
     public class DEPART_JIXIAN : IDepart
     {
-        public (int r, int g, int b) color => (63,72,204);
+        public Color color => (63,72,204);
     }
 }

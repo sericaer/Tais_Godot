@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Color.cs" />
     <Compile Include="API\IDepart.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Date.cs" />

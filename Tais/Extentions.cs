@@ -43,7 +43,7 @@ namespace Tais
             return objectToMonitor.WhenPropertyValueChanges(propertyExpression);
         }
 
-        public static bool Same(this (int r, int g, int b) left, (int r, int g, int b) right)
+        public static bool Same(this Color left, (int r, int g, int b) right)
         {
             return left.r == right.r && left.g == right.g && left.b == right.b;
         }
