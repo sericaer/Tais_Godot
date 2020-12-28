@@ -28,5 +28,13 @@ namespace Tais.API
         {
             return new Assign<T>(visitor, value);
         }
+
+        public static IPop POP_NUM<T>(decimal num) where T : IPop
+        {
+            var pop = Activator.CreateInstance(typeof(T)) as IPop;
+            pop.num = num;
+
+            return pop;
+        }
     }
 }

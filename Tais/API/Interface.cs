@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-    public interface IPop
-    {
-    }
 
     public interface IEvent
     {

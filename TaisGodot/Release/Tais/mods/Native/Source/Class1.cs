@@ -10,9 +10,6 @@ using static Tais.API.VisitorGroup;
 
 namespace Native
 {
-    public class PopH : IPop
-    {
-    }
 
     public class GEventTest : IEvent
     {

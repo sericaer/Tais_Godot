@@ -20,7 +20,7 @@ namespace Tais.Run
         public IDate date;
 
         [JsonProperty]
-        public List<IDepart> departs = new List<IDepart>();
+        public List<Depart> departs = new List<Depart>();
 
         public List<Integration> integrations = new List<Integration>();
 
@@ -40,15 +40,6 @@ namespace Tais.Run
             settings.TypeNameHandling = TypeNameHandling.Objects;
             return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
-
-        //public Runner(Init.Initer initer)
-        //{
-        //    taishou = new Taishou(initer.name, initer.age, initer.party);
-
-        //    date = new Date();
-
-        //    DataReactive(new StreamingContext());
-        //}
 
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))

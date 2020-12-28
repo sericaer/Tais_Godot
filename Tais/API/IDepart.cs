@@ -9,5 +9,6 @@ namespace Tais.API
     public interface IDepart
     {
         Color color { get; }
+        IPop[] pops { get; }
     }
 }

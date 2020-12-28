@@ -68,9 +68,12 @@
   <ItemGroup>
     <Compile Include="API\Color.cs" />
     <Compile Include="API\IDepart.cs" />
+    <Compile Include="API\IPop.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Date.cs" />
+    <Compile Include="Run\Depart.cs" />
     <Compile Include="Run\Integration.cs" />
+    <Compile Include="Run\Pop.cs" />
     <Compile Include="Run\Taishou.cs" />
     <Compile Include="Visitor\GMVisitor.cs" />
     <Compile Include="API\IParty.cs" />

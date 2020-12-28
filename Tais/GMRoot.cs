@@ -28,7 +28,7 @@ namespace Tais
                 {
                     _runner.date = new Date();
                     _runner.taishou = new Taishou(initer.name, initer.age, initer.party);
-                    _runner.departs.AddRange(modder.departTypes.Select(x => Activator.CreateInstance(x) as IDepart));
+                    _runner.departs.AddRange(modder.departs.Select(x=>new Depart(x)));
                     _runner.IntegrateData();
                 }
             }

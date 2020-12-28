@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
 using System.Reactive;
+using System.Reactive.Linq;
+using DynamicData.Binding;
 
 namespace Tais
 {
@@ -46,6 +48,11 @@ namespace Tais
         public static bool Same(this Color left, (int r, int g, int b) right)
         {
             return left.r == right.r && left.g == right.g && left.b == right.b;
+        }
+
+        public static IObservable<IList<PropertyValue<TObject, TValue>>> ToOBSPropertyList<TObject, TValue>(this IEnumerable<TObject> source, Expression<Func<TObject, TValue>> propertyAccessor) where TObject : INotifyPropertyChanged
+        {
+            return Observable.CombineLatest(source.Select(x => x.WhenPropertyChanged(propertyAccessor, true)));
         }
     }
 }
