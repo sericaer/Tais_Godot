@@ -8,6 +8,7 @@ using Tais.API;
 using Xunit;
 using Tais.Run;
 using FluentAssertions;
+using Newtonsoft.Json;
 
 namespace XUnitTest.RunnerTest
 {
@@ -40,6 +41,34 @@ namespace XUnitTest.RunnerTest
 
             rslt.Should().Be(3000 + 123 - 456);
         }
+
+        [Fact]
+        public void TestSerialize()
+        {
+            var depart = new Depart(def);
+
+            var json = JsonConvert.SerializeObject(depart,
+                Formatting.Indented,
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+
+            var departDe = JsonConvert.DeserializeObject<Depart>(json,
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+
+            departDe.color.Should().Equals(depart.color);
+            departDe.popNum.Should().Be(depart.popNum);
+            departDe.name.Should().Be(depart.name);
+
+            int rslt = 0;
+            depart.OBSProperty(x => x.popNum).Subscribe(x => rslt = x);
+
+            depart.pops[0].num += 456;
+            depart.pops[1].num -= 123;
+            depart.pops[2].num -= 2000;
+
+            rslt.Should().Be(3000 + 456 - 123);
+        }
+
+
     }
 
     public class DepartTestFixture : IDisposable

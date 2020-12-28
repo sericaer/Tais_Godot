@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,15 +11,20 @@ using Tais.API;
 
 namespace Tais.Run
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Depart : INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
+        [JsonProperty]
         public readonly string name;
+
+        [JsonProperty]
         public readonly Color color;
 
+        [JsonProperty]
         public Pop[] pops;
 
         public int popNum => popNumDetail.Sum(x => x.value);
@@ -36,7 +42,7 @@ namespace Tais.Run
         }
 
         [OnDeserialized]
-        public void IntegrateData(StreamingContext context = default(StreamingContext))
+        private void IntegrateData(StreamingContext context = default(StreamingContext))
         {
             pops.Where(pop => pop.isTax).ToOBSPropertyList(pop => pop.num).Subscribe(change=>
             {
@@ -44,22 +50,11 @@ namespace Tais.Run
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("popNumDetail"));
             });
         }
-    }
 
-    public class Detail<T>
-    {
-        public string name;
-        public T value;
-
-        public Detail(string name, T value)
+        [JsonConstructor]
+        private Depart()
         {
-            this.name = name;
-            this.value = value;
-        }
-    }
 
-    public class TEST
-    {
-        public decimal a;
+        }
     }
 }

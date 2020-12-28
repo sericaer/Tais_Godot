@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
+using Newtonsoft.Json;
 using System;
 using Tais;
 using Tais.API;
@@ -22,6 +23,23 @@ namespace XUnitTest.RunnerTest
             pop.num.Should().Be(def.num);
             pop.name.Should().Be(def.GetType().FullName);
             pop.isTax.Should().BeTrue();
+        }
+
+        [Fact]
+        public void TestSerialize()
+        {
+            var pop = new Pop(def);
+
+            var json = JsonConvert.SerializeObject(pop, 
+                Formatting.Indented, 
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+
+            var popDe = JsonConvert.DeserializeObject<Pop>(json, 
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+
+            popDe.num.Should().Be(pop.num);
+            popDe.name.Should().Be(pop.name);
+            popDe.isTax.Should().Be(pop.isTax);
         }
     }
 

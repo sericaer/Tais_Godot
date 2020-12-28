@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,15 +9,20 @@ using Tais.API;
 
 namespace Tais.Run
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Pop : INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
+        [JsonProperty]
         public readonly string name;
+
+        [JsonProperty]
         public readonly bool isTax;
 
+        [JsonProperty]
         public decimal num { get; set; }
 
         public Pop(IPop def)
@@ -26,6 +32,10 @@ namespace Tais.Run
             isTax = def.is_tax;
         }
 
+        [JsonConstructor]
+        private Pop()
+        {
 
+        }
     }
 }
