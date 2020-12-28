@@ -25,6 +25,8 @@ namespace XUnitTest.RunnerTest
             pop.isTax.Should().BeTrue();
         }
 
+
+
         [Fact]
         public void TestSerialize()
         {

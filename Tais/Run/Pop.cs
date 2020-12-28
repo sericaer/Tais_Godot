@@ -25,11 +25,20 @@ namespace Tais.Run
         [JsonProperty]
         public decimal num { get; set; }
 
+        public decimal tax => num * tax_rate;
+
+        private decimal tax_rate { get; set; }
+
         public Pop(IPop def)
         {
             name = def.GetType().FullName;
             num = def.num;
             isTax = def.is_tax;
+        }
+
+        public void UpdateTaxRate(decimal rate)
+        {
+            tax_rate = rate;
         }
 
         [JsonConstructor]

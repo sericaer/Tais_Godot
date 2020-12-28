@@ -32,6 +32,9 @@ namespace Tais.Run
         public IEnumerable<(string name, int value)> popNumDetail { get; set; }
 
 
+        public decimal tax => taxDetail.Sum(x => x.value);
+        public IEnumerable<(string name, decimal value)> taxDetail { get; set; }
+
         public Depart(IDepart def)
         {
             name = def.GetType().FullName;
@@ -47,7 +50,11 @@ namespace Tais.Run
             pops.Where(pop => pop.isTax).ToOBSPropertyList(pop => pop.num).Subscribe(change=>
             {
                 popNumDetail = change.Select(elem => (elem.Sender.name, (int)elem.Value));
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("popNumDetail"));
+            });
+
+            pops.Where(pop => pop.isTax).ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
+            {
+                taxDetail = change.Select(elem => (elem.Sender.name, elem.Value));
             });
         }
 

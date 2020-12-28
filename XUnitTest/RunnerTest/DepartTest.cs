@@ -22,9 +22,14 @@ namespace XUnitTest.RunnerTest
         {
             var depart = new Depart(def);
 
-            depart.color.Should().Equals(new Color(1, 1, 1));
-            depart.popNum.Should().Be(def.pops.Where(x=>x.is_tax).Sum(x=>(int)x.num));
             depart.name.Should().Be(def.GetType().FullName);
+            depart.color.Should().Equals(new Color(1, 1, 1));
+
+            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.num)));
+            depart.popNum.Should().Be(depart.popNumDetail.Sum(x=>x.value));
+
+            depart.taxDetail.Should().BeEquivalentTo(depart.pops.Where(x=>x.isTax).Select(x=>(x.name, x.tax)));
+            depart.tax.Should().Be(depart.taxDetail.Sum(x => x.value));
         }
 
         [Fact]
@@ -58,17 +63,26 @@ namespace XUnitTest.RunnerTest
             departDe.popNum.Should().Be(depart.popNum);
             departDe.name.Should().Be(depart.name);
 
-            int rslt = 0;
-            depart.OBSProperty(x => x.popNum).Subscribe(x => rslt = x);
+            int popNum = 0;
+            IEnumerable<(string name, int num)> popNumDetail;
+            depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
+            depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
+
+            decimal tax = 0M;
+            IEnumerable<(string name, decimal num)> taxDetail;
+            depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
+            depart.OBSProperty(x => x.taxDetail).Subscribe(x => taxDetail = x);
 
             depart.pops[0].num += 456;
             depart.pops[1].num -= 123;
             depart.pops[2].num -= 2000;
 
-            rslt.Should().Be(3000 + 456 - 123);
+            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.num)));
+            depart.popNum.Should().Be(depart.popNumDetail.Sum(x => x.value));
+
+            depart.taxDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.tax)));
+            depart.tax.Should().Be(depart.taxDetail.Sum(x => x.value));
         }
-
-
     }
 
     public class DepartTestFixture : IDisposable

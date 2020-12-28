@@ -21,6 +21,9 @@ namespace Tais.Mod
         internal IEnumerable<InitSelect> initSelects;
 
         internal IEnumerable<IDepart> departs;
+
+        internal IEnumerable<IAdjust> adjusts;
+
         internal static Modder Load(string modPath)
         {
             var modder = new Modder();
@@ -54,6 +57,8 @@ namespace Tais.Mod
             }
 
             initSelects = modItems.SelectMany(x => x.Value.initSelects);
+
+            adjusts = modItems.SelectMany(x => x.Value.adjusts);
         }
     }
 }

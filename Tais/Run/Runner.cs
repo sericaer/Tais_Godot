@@ -22,7 +22,11 @@ namespace Tais.Run
         [JsonProperty]
         public List<Depart> departs = new List<Depart>();
 
+        [JsonProperty]
+        public List<Adjust> adjusts = new List<Adjust>();
+
         public List<Integration> integrations = new List<Integration>();
+
 
         internal bool isInitialized => integrations.Any();
 
@@ -45,6 +49,9 @@ namespace Tais.Run
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
             SetIntegration(date, taishou).With(x=>x.total_days, y=>y.DaysInc);
+
+            var taxAdjust = adjusts.Single(x => x.name == typeof(IAdjustTax).FullName);
+            SetIntegration(taxAdjust, departs.SelectMany(d => d.pops)).With(x => x.currRate, y =>y.UpdateTaxRate);
         }
 
         private IntegrationImp<TS, TD> SetIntegration<TS, TD>(TS source, TD dest) where TS : class, INotifyPropertyChanged
@@ -52,6 +59,18 @@ namespace Tais.Run
             IntegrationImp<TS, TD> integration = integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
                                                && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
             if(integration == null)
+            {
+                integration = new IntegrationImp<TS, TD>(source, dest);
+                integrations.Add(integration);
+            }
+
+            return integration;
+        }
+        private IntegrationImp<TS, TD> SetIntegration<TS, TD>(TS source, IEnumerable<TD> dest) where TS : class, INotifyPropertyChanged
+        {
+            IntegrationImp<TS, TD> integration = integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
+                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
+            if (integration == null)
             {
                 integration = new IntegrationImp<TS, TD>(source, dest);
                 integrations.Add(integration);

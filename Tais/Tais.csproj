@@ -69,7 +69,9 @@
     <Compile Include="API\Color.cs" />
     <Compile Include="API\IDepart.cs" />
     <Compile Include="API\IPop.cs" />
+    <Compile Include="API\IAdjust.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
+    <Compile Include="Run\Adjust.cs" />
     <Compile Include="Run\Date.cs" />
     <Compile Include="Run\Depart.cs" />
     <Compile Include="Run\Integration.cs" />
