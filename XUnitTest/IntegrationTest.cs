@@ -78,8 +78,6 @@ namespace XUnitTest
             runner.IntegrateData();
 
             IntegrationTest.runner = runner;
-
-
         }
 
         public void Dispose()

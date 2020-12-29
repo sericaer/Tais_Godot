@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,16 +9,20 @@ using Tais.API;
 
 namespace Tais.Run
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Adjust : INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
+        [JsonProperty]
         public string name;
 
+        [JsonProperty]
         public decimal[] rates;
 
+        [JsonProperty]
         public int currLevel { get; set; }
 
         public decimal currRate => rates[currLevel];
@@ -29,6 +34,8 @@ namespace Tais.Run
             currLevel = def.init_level;
         }
 
+        
+        [JsonConstructor]
         public Adjust()
         {
 
