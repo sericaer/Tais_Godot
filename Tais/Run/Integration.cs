@@ -42,6 +42,14 @@ namespace Tais.Run
             binds = new List<(LambdaExpression src, LambdaExpression dest)>();
         }
 
+        public IntegrationImp(IEnumerable<TS> srcObj, TD destObj)
+        {
+            this.srcObj = srcObj;
+            this.destObj = destObj;
+
+            binds = new List<(LambdaExpression src, LambdaExpression dest)>();
+        }
+
         public void With<TP>(Expression<Func<TS, TP>> src, Expression<Func<TD, Action<TP>>> dest)
         {
             binds.Add((src, dest));
@@ -51,6 +59,15 @@ namespace Tais.Run
                 foreach(var elem in (destObj as IEnumerable<TD>))
                 {
                     ((TS)srcObj).OBSProperty(src).Subscribe(dest.Compile().Invoke((TD)elem));
+                }
+                return;
+            }
+
+            if(srcObj is IEnumerable<TS>)
+            {
+                foreach (var elem in (srcObj as IEnumerable<TS>))
+                {
+                    ((TS)elem).OBSProperty(src).Subscribe(dest.Compile().Invoke((TD)destObj));
                 }
                 return;
             }

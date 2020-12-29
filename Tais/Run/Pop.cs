@@ -29,7 +29,7 @@ namespace Tais.Run
 
         private decimal tax_rate { get; set; }
 
-        public Pop(IPop def)
+        public Pop(IPopDef def)
         {
             name = def.GetType().FullName;
             num = def.num;

@@ -10,6 +10,7 @@ using Tais.API;
 using System.Reactive;
 using System.Reactive.Linq;
 using DynamicData.Binding;
+using Tais.Run;
 
 namespace Tais
 {
@@ -53,6 +54,45 @@ namespace Tais
         public static IObservable<IList<PropertyValue<TObject, TValue>>> ToOBSPropertyList<TObject, TValue>(this IEnumerable<TObject> source, Expression<Func<TObject, TValue>> propertyAccessor) where TObject : INotifyPropertyChanged
         {
             return Observable.CombineLatest(source.Select(x => x.WhenPropertyChanged(propertyAccessor, true)));
+        }
+
+        public static IntegrationImp<TS, TD> SetIntegration<TS, TD>(this Runner self, TS source, TD dest) where TS : class, INotifyPropertyChanged
+        {
+            IntegrationImp<TS, TD> integration = self.integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
+                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
+            if (integration == null)
+            {
+                integration = new IntegrationImp<TS, TD>(source, dest);
+                self.integrations.Add(integration);
+            }
+
+            return integration;
+        }
+
+        public static IntegrationImp<TS, TD> SetIntegration<TS, TD>(this Runner self, TS source, IEnumerable<TD> dest) where TS : class, INotifyPropertyChanged
+        {
+            IntegrationImp<TS, TD> integration = self.integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
+                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
+            if (integration == null)
+            {
+                integration = new IntegrationImp<TS, TD>(source, dest);
+                self.integrations.Add(integration);
+            }
+
+            return integration;
+        }
+
+        public static IntegrationImp<TS, TD> SetIntegration<TS, TD>(this Runner self, IEnumerable<TS> source, TD dest) where TS : class, INotifyPropertyChanged
+        {
+            IntegrationImp<TS, TD> integration = self.integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
+                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
+            if (integration == null)
+            {
+                integration = new IntegrationImp<TS, TD>(source, dest);
+                self.integrations.Add(integration);
+            }
+
+            return integration;
         }
     }
 }

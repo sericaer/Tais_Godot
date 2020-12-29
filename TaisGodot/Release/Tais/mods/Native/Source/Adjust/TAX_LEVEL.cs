@@ -7,7 +7,7 @@ using Tais.API;
 using static Tais.API.Method;
 namespace Native.Adjust
 {
-    public class TAX_LEVEL : IAdjustTax
+    public class TAX_LEVEL : IAdjustTaxDef
     {
         public decimal[] level_rates => ARRAY(
             0.001M,

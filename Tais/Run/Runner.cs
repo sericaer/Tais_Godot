@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
+using Tais;
 using Tais.API;
 
 namespace Tais.Run
@@ -19,6 +22,8 @@ namespace Tais.Run
         [JsonProperty]
         public IDate date;
 
+        public IEconomy economy;
+
         [JsonProperty]
         public List<Depart> departs = new List<Depart>();
 
@@ -27,8 +32,9 @@ namespace Tais.Run
 
         public List<Integration> integrations = new List<Integration>();
 
+        public IEnumerable<Pop> pops => departs.SelectMany(d => d.pops);
 
-        internal bool isInitialized => integrations.Any();
+        public bool isInitialized => integrations.Any();
 
         public static Runner Deserialize(string content)
         {
@@ -48,35 +54,13 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            SetIntegration(date, taishou).With(x=>x.total_days, y=>y.DaysInc);
+            this.SetIntegration(date, taishou).With(x=>x.total_days, y=>y.DaysInc);
+            this.SetIntegration(date, economy).With(x=>x.total_days, y=>y.DaysInc);
 
-            var taxAdjust = adjusts.Single(x => x.name == typeof(IAdjustTax).FullName);
-            SetIntegration(taxAdjust, departs.SelectMany(d => d.pops)).With(x => x.currRate, y =>y.UpdateTaxRate);
-        }
+            this.SetIntegration(departs, economy).With(x=>x.incomeDetail, y=>y.UpdateIncome);
 
-        private IntegrationImp<TS, TD> SetIntegration<TS, TD>(TS source, TD dest) where TS : class, INotifyPropertyChanged
-        {
-            IntegrationImp<TS, TD> integration = integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
-                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
-            if(integration == null)
-            {
-                integration = new IntegrationImp<TS, TD>(source, dest);
-                integrations.Add(integration);
-            }
-
-            return integration;
-        }
-        private IntegrationImp<TS, TD> SetIntegration<TS, TD>(TS source, IEnumerable<TD> dest) where TS : class, INotifyPropertyChanged
-        {
-            IntegrationImp<TS, TD> integration = integrations.SingleOrDefault(x => x.GetType().GetGenericArguments()[0] == typeof(TS)
-                                               && x.GetType().GetGenericArguments()[1] == typeof(TD)) as IntegrationImp<TS, TD>;
-            if (integration == null)
-            {
-                integration = new IntegrationImp<TS, TD>(source, dest);
-                integrations.Add(integration);
-            }
-
-            return integration;
+            var taxAdjust = adjusts.Single(x => x.name == typeof(IAdjustTaxDef).FullName);
+            this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y =>y.UpdateTaxRate);
         }
     }
 }

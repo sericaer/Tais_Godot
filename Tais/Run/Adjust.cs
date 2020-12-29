@@ -27,7 +27,7 @@ namespace Tais.Run
 
         public decimal currRate => rates[currLevel];
 
-        public Adjust(IAdjust def)
+        public Adjust(IAdjustDef def)
         {
             name = def.GetType().BaseType.FullName;
             rates = def.level_rates;

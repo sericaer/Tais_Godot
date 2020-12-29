@@ -31,11 +31,13 @@ namespace Tais.Run
 
         public IEnumerable<(string name, int value)> popNumDetail { get; set; }
 
+        public decimal tax => incomeDetail.Sum();
 
-        public decimal tax => taxDetail.Sum(x => x.value);
-        public IEnumerable<(string name, decimal value)> taxDetail { get; set; }
+        public IncomeDetail incomeDetail => _taxDetail;
 
-        public Depart(IDepart def)
+        private IncomeDetail _taxDetail;
+
+        public Depart(IDepartDef def)
         {
             name = def.GetType().FullName;
             pops = def.pops.Select(x => new Pop(x)).ToArray();
@@ -47,21 +49,23 @@ namespace Tais.Run
         [OnDeserialized]
         private void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            pops.Where(pop => pop.isTax).ToOBSPropertyList(pop => pop.num).Subscribe(change=>
+            _taxDetail = new IncomeDetail(name);
+
+            pops.ToOBSPropertyList(pop => pop.num).Subscribe(change=>
             {
                 popNumDetail = change.Select(elem => (elem.Sender.name, (int)elem.Value));
             });
 
-            pops.Where(pop => pop.isTax).ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
+            pops.ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
             {
-                taxDetail = change.Select(elem => (elem.Sender.name, elem.Value));
+                incomeDetail.Update(IncomeDetail.TYPE.POP_TAX, change.Select(elem => new Detail_Leaf(elem.Sender.name, elem.Value)));
             });
         }
 
         [JsonConstructor]
         private Depart()
         {
-
+            
         }
     }
 }

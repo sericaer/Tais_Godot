@@ -15,7 +15,7 @@ namespace XUnitTest.RunnerTest
     public class DepartTest: IClassFixture<DepartTestFixture>
     {
 
-        public static IDepart def;
+        public static IDepartDef def;
 
         [Fact]
         public void InitTest()
@@ -25,11 +25,12 @@ namespace XUnitTest.RunnerTest
             depart.name.Should().Be(def.GetType().FullName);
             depart.color.Should().Equals(new Color(1, 1, 1));
 
-            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.num)));
+            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
             depart.popNum.Should().Be(depart.popNumDetail.Sum(x=>x.value));
 
-            depart.taxDetail.Should().BeEquivalentTo(depart.pops.Where(x=>x.isTax).Select(x=>(x.name, x.tax)));
-            depart.tax.Should().Be(depart.taxDetail.Sum(x => x.value));
+
+            depart.incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            depart.tax.Should().Be(depart.incomeDetail.Sum());
         }
 
         [Fact]
@@ -64,24 +65,24 @@ namespace XUnitTest.RunnerTest
             departDe.name.Should().Be(depart.name);
 
             int popNum = 0;
-            IEnumerable<(string name, int num)> popNumDetail;
+            IEnumerable<(string name, int num)> popNumDetail = null;
             depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
             depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
 
             decimal tax = 0M;
-            IEnumerable<(string name, decimal num)> taxDetail;
+            IncomeDetail incomeDetail = null;
             depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
-            depart.OBSProperty(x => x.taxDetail).Subscribe(x => taxDetail = x);
+            depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
 
             depart.pops[0].num += 456;
             depart.pops[1].num -= 123;
             depart.pops[2].num -= 2000;
 
-            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.num)));
-            depart.popNum.Should().Be(depart.popNumDetail.Sum(x => x.value));
+            popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
+            popNum.Should().Be(depart.popNumDetail.Sum(x => x.value));
 
-            depart.taxDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.tax)));
-            depart.tax.Should().Be(depart.taxDetail.Sum(x => x.value));
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            tax.Should().Be(depart.incomeDetail.Sum());
         }
     }
 
@@ -89,8 +90,8 @@ namespace XUnitTest.RunnerTest
     {
         public DepartTestFixture()
         {
-            var mock = new Mock<IDepart>();
-            mock.Setup(l => l.pops).Returns(new IPop[] { new MockPop1(), new MockPop2(), new MockPop3() });
+            var mock = new Mock<IDepartDef>();
+            mock.Setup(l => l.pops).Returns(new IPopDef[] { new MockPop1(), new MockPop2(), new MockPop3() });
             mock.Setup(l => l.color).Returns((1, 1, 1));
 
             DepartTest.def = mock.Object;
@@ -102,20 +103,20 @@ namespace XUnitTest.RunnerTest
         }
     }
 
-    public class MockPop1 : IPop
+    public class MockPop1 : IPopDef
     {
         public bool is_tax => true;
 
-        decimal IPop.num { get => 1000; set { } }
+        decimal IPopDef.num { get => 1000; set { } }
     }
 
-    public class MockPop2 : IPop
+    public class MockPop2 : IPopDef
     {
         public bool is_tax => true;
         public decimal num { get => 2000; set { } }
     }
 
-    public class MockPop3 : IPop
+    public class MockPop3 : IPopDef
     {
         public bool is_tax => false;
         public decimal num { get => 3000; set { } }

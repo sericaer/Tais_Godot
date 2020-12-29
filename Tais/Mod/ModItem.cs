@@ -14,8 +14,8 @@ namespace Tais.Mod
         public IEnumerable<IEvent> events = new List<IEvent>();
         public IEnumerable<Language> languages = new List<Language>();
         public IEnumerable<InitSelect> initSelects = new List<InitSelect>();
-        public IEnumerable<IDepart> departs = new List<IDepart>();
-        public IEnumerable<IAdjust> adjusts = new List<IAdjust>();
+        public IEnumerable<IDepartDef> departs = new List<IDepartDef>();
+        public IEnumerable<IAdjustDef> adjusts = new List<IAdjustDef>();
 
         private string path;
         
@@ -38,8 +38,8 @@ namespace Tais.Mod
 
                 events = LoadAssemblyObjects<IEvent>(assembly);
                 initSelects = LoadAssemblyObjects<InitSelect>(assembly);
-                departs = LoadAssemblyObjects<IDepart>(assembly);
-                adjusts = LoadAssemblyObjects<IAdjust>(assembly);
+                departs = LoadAssemblyObjects<IDepartDef>(assembly);
+                adjusts = LoadAssemblyObjects<IAdjustDef>(assembly);
             }
 
             LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}, departs:{departs.Count()}");

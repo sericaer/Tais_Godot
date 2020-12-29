@@ -7,7 +7,7 @@ using Tais.API;
 
 namespace Native.Pop
 {
-    class HAOQIANG : IPop
+    class HAOQIANG : IPopDef
     {
         public decimal num { get; set; }
 

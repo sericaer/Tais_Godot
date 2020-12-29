@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-    public interface IAdjust
+    public interface IAdjustDef
     {
         decimal[] level_rates { get; }
 
         int init_level { get; }
     }
 
-    public interface IAdjustTax : IAdjust
+    public interface IAdjustTaxDef : IAdjustDef
     {
 
     }

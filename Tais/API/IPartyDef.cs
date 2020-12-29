@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-    public interface IParty
+    public interface IPartyDef
     {
     }
 }

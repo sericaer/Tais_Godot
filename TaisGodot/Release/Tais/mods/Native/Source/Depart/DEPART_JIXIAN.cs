@@ -8,10 +8,10 @@ using Tais.API;
 using static Tais.API.Method;
 namespace Native.Depart
 {
-    public class DEPART_JIXIAN : IDepart
+    public class DEPART_JIXIAN : IDepartDef
     {
         public Color color => (63,72,204);
 
-        public IPop[] pops => ARRAY(POP_NUM<HAOQIANG>(1000));
+        public IPopDef[] pops => ARRAY(POP_NUM<HAOQIANG>(1000));
     }
 }

@@ -13,7 +13,7 @@ namespace XUnitTest.RunnerTest
 {
     public class PopTest : IClassFixture<PopTestFixture>
     {
-        internal static IPop def;
+        internal static IPopDef def;
 
         [Fact]
         public void InitTest()
@@ -49,7 +49,7 @@ namespace XUnitTest.RunnerTest
     {
         public PopTestFixture()
         {
-            var mock = new Mock<IPop>();
+            var mock = new Mock<IPopDef>();
             mock.Setup(l => l.num).Returns(1000);
             mock.Setup(l => l.is_tax).Returns(true);
 
