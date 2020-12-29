@@ -13,7 +13,7 @@ namespace TaisGodot.Scripts
         public ReactiveLabel num;
         public Button btn;
 
-        public Pop gmObj;
+        public IPop gmObj;
 
         public override void _Ready()
         {

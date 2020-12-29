@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Tais;
 using Tais.Run;
 
@@ -27,7 +28,7 @@ namespace TaisGodot.Scripts
 			ShowPops(gmObj.pops);
 		}
 
-		private void ShowPops(Pop[] pops)
+		private void ShowPops(IEnumerable<IPop> pops)
 		{
 			foreach(var pop in pops)
             {

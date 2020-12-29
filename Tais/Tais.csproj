@@ -75,7 +75,7 @@
     <Compile Include="Run\Date.cs" />
     <Compile Include="Run\Depart.cs" />
     <Compile Include="Run\Detail.cs" />
-    <Compile Include="Run\IEconomy.cs" />
+    <Compile Include="Run\Economy.cs" />
     <Compile Include="Run\IncomeDetail.cs" />
     <Compile Include="Run\Integration.cs" />
     <Compile Include="Run\Pop.cs" />

@@ -10,41 +10,52 @@ using Tais.API;
 namespace Tais.Run
 {
     [JsonObject(MemberSerialization.OptIn)]
-    class Pop : INotifyPropertyChanged
+    public interface IPop : INotifyPropertyChanged
+    {
+        [JsonProperty]
+        string name { get; }
+
+        [JsonProperty]
+        bool isTax { get; }
+
+        [JsonProperty]
+        decimal num { get; set; }
+
+        decimal tax { get; }
+
+        void UpdateTaxRate(decimal rate);
+    }
+
+    class Pop : IPop
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
-        [JsonProperty]
-        public readonly string name;
+        public string name { get; set; }
 
-        [JsonProperty]
-        public readonly bool isTax;
+        public bool isTax { get; set; }
 
-        [JsonProperty]
         public decimal num { get; set; }
 
         public decimal tax => num * tax_rate;
 
         private decimal tax_rate { get; set; }
 
-        public Pop(IPopDef def)
+        public static Pop Gen(IPopDef def)
         {
-            name = def.GetType().FullName;
-            num = def.num;
-            isTax = def.is_tax;
+            var pop = new Pop();
+
+            pop.name = def.GetType().FullName;
+            pop.num = def.num;
+            pop.isTax = def.is_tax;
+
+            return pop;
         }
 
         public void UpdateTaxRate(decimal rate)
         {
             tax_rate = rate;
-        }
-
-        [JsonConstructor]
-        private Pop()
-        {
-
         }
     }
 }

@@ -23,16 +23,6 @@ namespace Tais
             {
                 _runner = value;
                 VisitorData.dict[typeof(Runner)] = value;
-
-                if(!_runner.isInitialized)
-                {
-                    _runner.date = new Date();
-                    _runner.taishou = new Taishou(initer.name, initer.age, initer.party);
-                    _runner.departs.AddRange(modder.departs.Select(x=>new Depart(x)));
-                    _runner.adjusts.AddRange(modder.adjusts.Select(x=>new Adjust(x)));
-
-                    _runner.IntegrateData();
-                }
             }
         }
 

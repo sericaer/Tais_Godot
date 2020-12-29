@@ -34,8 +34,6 @@ namespace XUnitTest
         [Fact]
         public void TestIntegrationImp()
         {
-
-
             ClassSource source = new ClassSource();
             ClassDest dest = new ClassDest();
 
@@ -71,6 +69,7 @@ namespace XUnitTest
 
             runner.date = new Mock<IDate>().Object;
             runner.taishou = new Mock<ITaishou>().Object;
+            runner.economy = new Mock<IEconomy>().Object;
 
             IntegrationTest.taxAdjust = new Adjust() { name = typeof(IAdjustTaxDef).FullName, rates = new Decimal[] { 1, 2, 3, 4 }, currLevel = 1 };
 

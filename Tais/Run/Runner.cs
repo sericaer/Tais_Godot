@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 using Tais;
 using Tais.API;
+using Tais.Init;
+using Tais.Mod;
 
 namespace Tais.Run
 {
@@ -32,7 +34,7 @@ namespace Tais.Run
 
         public List<Integration> integrations = new List<Integration>();
 
-        public IEnumerable<Pop> pops => departs.SelectMany(d => d.pops);
+        public IEnumerable<IPop> pops => departs.SelectMany(d => d.pops);
 
         public bool isInitialized => integrations.Any();
 
@@ -42,6 +44,22 @@ namespace Tais.Run
             settings.TypeNameHandling = TypeNameHandling.Objects;
             var obj = JsonConvert.DeserializeObject<Runner>(content, settings);
             return obj;
+        }
+
+        public static Runner Gen(Initer initer, Modder modder)
+        {
+            var runner = new Runner();
+
+            runner.date = new Date();
+            runner.economy = new Economy();
+
+            runner.taishou = new Taishou(initer.name, initer.age, initer.party);
+            runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
+            runner.adjusts.AddRange(modder.adjusts.Select(x => new Adjust(x)));
+            
+            runner.IntegrateData();
+
+            return runner;
         }
 
         public string Serialize()

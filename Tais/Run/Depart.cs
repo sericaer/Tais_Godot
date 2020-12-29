@@ -19,13 +19,13 @@ namespace Tais.Run
 #pragma warning restore 0067
 
         [JsonProperty]
-        public readonly string name;
+        public string name;
 
         [JsonProperty]
-        public readonly Color color;
+        public Color color;
 
         [JsonProperty]
-        public Pop[] pops;
+        public IPop[] pops;
 
         public int popNum => popNumDetail.Sum(x => x.value);
 
@@ -37,17 +37,21 @@ namespace Tais.Run
 
         private IncomeDetail _taxDetail;
 
-        public Depart(IDepartDef def)
+        public static Depart Gen(IDepartDef def)
         {
-            name = def.GetType().FullName;
-            pops = def.pops.Select(x => new Pop(x)).ToArray();
-            color = def.color;
+            var depart = new Depart();
 
-            IntegrateData();
+            depart.name = def.GetType().FullName;
+            depart.color = def.color;
+            depart.pops = def.pops.Select(x => Pop.Gen(x)).ToArray();
+
+            depart.IntegrateData();
+
+            return depart;
         }
 
         [OnDeserialized]
-        private void IntegrateData(StreamingContext context = default(StreamingContext))
+        public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
             _taxDetail = new IncomeDetail(name);
 
@@ -59,13 +63,9 @@ namespace Tais.Run
             pops.ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
             {
                 incomeDetail.Update(IncomeDetail.TYPE.POP_TAX, change.Select(elem => new Detail_Leaf(elem.Sender.name, elem.Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("incomeDetail"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("tax"));
             });
-        }
-
-        [JsonConstructor]
-        private Depart()
-        {
-            
         }
     }
 }

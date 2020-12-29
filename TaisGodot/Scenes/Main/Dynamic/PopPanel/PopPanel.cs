@@ -9,7 +9,7 @@ namespace TaisGodot.Scripts
     {
         public const string path = "res://Scenes/Main/Dynamic/PopPanel/PopPanel.tscn";
 
-        internal Pop gmObj;
+        internal IPop gmObj;
 
         private Label name;
         private ReactiveLabel num;

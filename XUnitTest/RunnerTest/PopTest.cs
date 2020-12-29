@@ -18,7 +18,7 @@ namespace XUnitTest.RunnerTest
         [Fact]
         public void InitTest()
         {
-            var pop = new Pop(def);
+            var pop = Pop.Gen(def);
 
             pop.num.Should().Be(def.num);
             pop.name.Should().Be(def.GetType().FullName);
@@ -30,7 +30,7 @@ namespace XUnitTest.RunnerTest
         [Fact]
         public void TestSerialize()
         {
-            var pop = new Pop(def);
+            var pop = Pop.Gen(def);
 
             var json = JsonConvert.SerializeObject(pop, 
                 Formatting.Indented, 

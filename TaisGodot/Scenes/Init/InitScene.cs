@@ -45,7 +45,7 @@ namespace TaisGodot.Scripts
 		{
 			if (nextSelect == null)
 			{
-				GMRoot.runner = new Tais.Run.Runner();
+				GMRoot.runner = Tais.Run.Runner.Gen(GMRoot.initer, GMRoot.modder);
 				GetTree().ChangeScene(MainScene.path);
 				return;
 			}
