@@ -31,7 +31,7 @@ namespace XUnitTest.RunnerTest
 
 
             depart.incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
-            depart.tax.Should().Be(depart.incomeDetail.Sum());
+            depart.tax.Should().Be(depart.incomeDetail.value);
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace XUnitTest.RunnerTest
             popNum.Should().Be(depart.popNumDetail.Sum(x => x.value));
 
             incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
-            tax.Should().Be(depart.incomeDetail.Sum());
+            tax.Should().Be(depart.incomeDetail.value);
         }
 
         

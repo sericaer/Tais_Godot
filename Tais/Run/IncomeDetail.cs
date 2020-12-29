@@ -19,11 +19,6 @@ namespace Tais.Run
 
         }
 
-        public decimal Sum()
-        {
-            return subs.Sum(x => x.value);
-        }
-
         public void Update(TYPE type, IEnumerable<Detail_Leaf> leafs)
         {
             var sub = subs.Find(x => x.name == type.ToString());

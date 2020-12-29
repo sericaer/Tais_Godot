@@ -23,26 +23,23 @@ namespace XUnitTest
 
         public static IntegrationTestElement<TS, TD> ContainSingle<TS, TD>(this GenericCollectionAssertions<Integration> self, TS source, TD dest)
         {
-            if(dest is IEnumerable)
-            {
-                var which1 = self.ContainSingle(x => x.srcObj.Equals(source) && ((IEnumerable)x.destObj).SameAs((IEnumerable)dest)).Which;
-                return new IntegrationTestElement<TS, TD>(which1.binds);
-            }
-
             var which2 = self.ContainSingle(x => x.srcObj.Equals(source) && x.destObj.Equals(dest)).Which;
             return new IntegrationTestElement<TS, TD>(which2.binds);
         }
 
         public static IntegrationTestElement<TS, TD> ContainSingle<TS, TD>(this GenericCollectionAssertions<Integration> self, TS source, IEnumerable<TD> dest)
         {
-            if (dest is IEnumerable)
-            {
-                var which1 = self.ContainSingle(x => x.srcObj.Equals(source) && ((IEnumerable)x.destObj).SameAs((IEnumerable)dest)).Which;
-                return new IntegrationTestElement<TS, TD>(which1.binds);
-            }
 
-            var which2 = self.ContainSingle(x => x.srcObj.Equals(source) && x.destObj.Equals(dest)).Which;
-            return new IntegrationTestElement<TS, TD>(which2.binds);
+            var which1 = self.ContainSingle(x => (x.destObj is IEnumerable) && x.srcObj.Equals(source) && ((IEnumerable)x.destObj).SameAs((IEnumerable)dest)).Which;
+            return new IntegrationTestElement<TS, TD>(which1.binds);
+
+        }
+
+        public static IntegrationTestElement<TS, TD> ContainSingle<TS, TD>(this GenericCollectionAssertions<Integration> self, IEnumerable<TS> source, TD dest)
+        {
+
+            var which = self.ContainSingle(x => (x.srcObj is IEnumerable) && ((IEnumerable)x.srcObj).SameAs((IEnumerable)source) && x.destObj.Equals(dest)).Which;
+            return new IntegrationTestElement<TS, TD>(which.binds);
         }
 
         public static bool SameAs(this IEnumerable src, IEnumerable dest)

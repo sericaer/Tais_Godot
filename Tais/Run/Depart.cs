@@ -31,7 +31,7 @@ namespace Tais.Run
 
         public IEnumerable<(string name, int value)> popNumDetail { get; set; }
 
-        public decimal tax => incomeDetail.Sum();
+        public decimal tax => incomeDetail.value;
 
         public IncomeDetail incomeDetail => _taxDetail;
 
