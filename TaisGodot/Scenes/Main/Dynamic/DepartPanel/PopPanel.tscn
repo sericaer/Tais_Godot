@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Main/MapRect/DepartPopPanel.cs" type="Script" id=1]
+[ext_resource path="res://Global/ReactiveLabel.cs" type="Script" id=2]
+
+[node name="PopPanel" type="Panel"]
+margin_right = 90.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 90, 120 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Type" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -45.0
+margin_top = -40.0
+margin_right = 45.0
+margin_bottom = -19.0
+text = "fdgdsfg"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Num" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -45.0
+margin_top = 30.0
+margin_right = 45.0
+margin_bottom = 51.0
+text = "100000"
+align = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
