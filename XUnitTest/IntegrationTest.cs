@@ -25,13 +25,13 @@ namespace XUnitTest
         public void TestIntegrationGroup()
         {
             var integration1 = runner.integrations.Should().ContainSingle(runner.date, runner.taishou);
-            integration1.IsBindWith(x => x.total_days, y => y.DaysInc);
+            integration1.IsBindWith(x => x.value, y => y.DaysInc);
 
             var integration2 = runner.integrations.Should().ContainSingle(taxAdjust, runner.departs.SelectMany(d=>d.pops));
             integration2.IsBindWith(x => x.currRate, y => y.UpdateTaxRate);
 
             var integration3 = runner.integrations.Should().ContainSingle(runner.date, runner.economy);
-            integration3.IsBindWith(x => x.total_days, y => y.DaysInc);
+            integration3.IsBindWith(x => x.value, y => y.DaysInc);
 
             var integration4 = runner.integrations.Should().ContainSingle(runner.departs as IEnumerable<Depart>, runner.economy);
             integration4.IsBindWith(x => x.incomeDetail, y => y.UpdateIncome);

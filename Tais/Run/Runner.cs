@@ -72,13 +72,14 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            this.SetIntegration(date, taishou).With(x=>x.total_days, y=>y.DaysInc);
-            this.SetIntegration(date, economy).With(x=>x.total_days, y=>y.DaysInc);
-
-            this.SetIntegration(departs, economy).With(x=>x.incomeDetail, y=>y.UpdateIncome);
-
             var taxAdjust = adjusts.Single(x => x.name == typeof(IAdjustTaxDef).FullName);
-            this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y =>y.UpdateTaxRate);
+            this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y => y.UpdateTaxRate);
+
+            this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
+
+            this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc);
+            this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
+
         }
     }
 }

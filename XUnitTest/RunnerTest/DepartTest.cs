@@ -26,12 +26,9 @@ namespace XUnitTest.RunnerTest
             depart.name.Should().Be(def.GetType().FullName);
             depart.color.Should().Equals(new Color(1, 1, 1));
 
-            depart.popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
-            depart.popNum.Should().Be(depart.popNumDetail.Sum(x=>x.value));
+            VerifyOBservedIncome(depart);
 
-
-            depart.incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
-            depart.tax.Should().Be(depart.incomeDetail.value);
+            VerifyObservedPopNum(depart);
         }
 
         [Fact]
@@ -41,33 +38,24 @@ namespace XUnitTest.RunnerTest
             depart.pops = new IPop[] { new MockPop() { isTax = true, num = 1000 }, new MockPop() { isTax = true, num = 2000 } };
             depart.IntegrateData();
 
-            int rslt = 0;
-            depart.OBSProperty(x => x.popNum).Subscribe(x => rslt = x);
-
-            depart.pops[0].num += 123;
-            depart.pops[1].num -= 456;
-
-            rslt.Should().Be(3000 + 123 - 456);
+            VerifyObservedPopNumChanged(depart, ()=>{
+                depart.pops[0].num += 123;
+                depart.pops[1].num -= 456;
+            });
         }
 
         [Fact]
         public void PopTaxChangedTest()
         {
             var depart = new Depart();
-            depart.pops = new IPop[] { new MockPop() {isTax= true, tax = 100 }, new MockPop() { isTax = true, tax = 200 } };
+            depart.pops = new IPop[] { new MockPop() { isTax = true, tax = 100 }, new MockPop() { isTax = true, tax = 200 } };
             depart.IntegrateData();
 
-            decimal tax = 0;
-            IncomeDetail incomeDetail = null;
-
-            depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
-            depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
-
-            (depart.pops[0] as MockPop).tax += 12;
-            (depart.pops[1] as MockPop).tax -= 45;
-
-            tax.Should().Be(300 + 12 - 45);
-            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            VerifyObservedIncomeChanged(depart, ()=>
+            {
+                (depart.pops[0] as MockPop).tax += 12;
+                (depart.pops[1] as MockPop).tax -= 45;
+            });
         }
 
         [Fact]
@@ -90,30 +78,68 @@ namespace XUnitTest.RunnerTest
             departDe.popNum.Should().Be(depart.popNum);
             departDe.name.Should().Be(depart.name);
 
-            int popNum = 0;
-            IEnumerable<(string name, int num)> popNumDetail = null;
-            depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
-            depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
+            VerifyObservedPopNumChanged(depart, () => {
+                depart.pops[0].num += 456;
+                depart.pops[1].num -= 789;
+            });
 
-            decimal tax = 0M;
+            VerifyObservedIncomeChanged(depart, () =>
+            {
+                (depart.pops[0] as MockPop).tax += 45;
+                (depart.pops[1] as MockPop).tax -= 89;
+            });
+        }
+
+
+        private static void VerifyOBservedIncome(Depart depart)
+        {
+            decimal tax = 0;
             IncomeDetail incomeDetail = null;
+
             depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
             depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
-
-            depart.pops[0].num += 456;
-            depart.pops[1].num -= 123;
-
-            (depart.pops[0] as MockPop).tax += 12;
-            (depart.pops[1] as MockPop).tax -= 45;
-
-            popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
-            popNum.Should().Be(depart.popNumDetail.Sum(x => x.value));
 
             incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
             tax.Should().Be(depart.incomeDetail.value);
         }
 
-        
+        private static void VerifyObservedPopNum(Depart depart)
+        {
+            int popNum = 0;
+            IEnumerable<(string name, int value)> popNumDetail = null;
+            depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
+            depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
+
+            popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
+            popNum.Should().Be(popNumDetail.Sum(x => x.value));
+        }
+
+        private static void VerifyObservedIncomeChanged(Depart depart, Action act)
+        {
+            decimal tax = 0;
+            IncomeDetail incomeDetail = null;
+
+            depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
+            depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
+
+            act();
+
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            tax.Should().Be(incomeDetail.value);
+        }
+
+        private static void VerifyObservedPopNumChanged(Depart depart, Action act)
+        {
+            int popNum = 0;
+            IEnumerable<(string name, int value)> popNumDetail = null;
+            depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
+            depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
+
+            act();
+
+            popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
+            popNum.Should().Be(popNumDetail.Sum(x => x.value));
+        }
     }
 
     public class DepartTestFixture : IDisposable

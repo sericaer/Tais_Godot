@@ -7,7 +7,7 @@ namespace TaisGodot.Scripts
 	{
 		private IDisposable reactiveDispose;
 
-		internal void Assoc<T>(IObservable<T> data, Func<string, string> adpt = null)
+		internal void Assoc<T>(IObservable<T> data, Func<T, string> adpt = null)
 		{
 			this.adpt = adpt;
 			reactiveDispose = data.Subscribe(x=>this.SetValue(x));
@@ -19,11 +19,11 @@ namespace TaisGodot.Scripts
 			reactiveDispose?.Dispose();
 		}
 
-		private Func<string, string> adpt;
+		private object adpt;
 
 		private void SetValue<T>(T value)
 		{ 
-			Text = adpt!=null ? adpt(value.ToString()) : value.ToString();
+			Text = adpt!=null ? (adpt as Func<T, string>)(value) : value.ToString();
 		}
 	}
 }

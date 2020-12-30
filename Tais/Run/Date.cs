@@ -11,15 +11,7 @@ namespace Tais.Run
 {
     interface IDate : INotifyPropertyChanged
     {
-        decimal year { get; }
-
-        decimal month { get;  }
-
-        decimal day { get;  }
-
-        string desc { get; }
-
-        decimal total_days { get; }
+        (int y, int m, int d) value { get; }
 
         void Inc();
     }
@@ -128,17 +120,18 @@ namespace Tais.Run
         //}
 
         [JsonProperty]
-        public decimal year { get; set; }
+        public int year { get; set; }
 
         [JsonProperty]
-        public decimal month { get; set; }
+        public int month { get; set; }
 
         [JsonProperty]
-        public decimal day { get; set; }
+        public int day { get; set; }
 
         public string desc { get; private set; }
 
-        public decimal total_days { get; private set; }
+
+        public (int y, int m, int d) value => (year, month, day);
 
         //public int total_days
         //{
@@ -190,14 +183,6 @@ namespace Tais.Run
         [OnDeserialized]
         internal void DataAssociate(StreamingContext context)
         {
-            Observable.Merge(this.OBSProperty(x => x.year),
-                           this.OBSProperty(x => x.month),
-                           this.OBSProperty(x => x.day))
-                .Subscribe(_ =>
-                {
-                    desc = $"{year}-{month}-{day}";
-                    total_days = day + (month - 1) * 30 + (year - 1) * 360;
-                });
         }
 
         //[JsonConstructor]

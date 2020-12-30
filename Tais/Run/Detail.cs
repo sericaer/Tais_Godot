@@ -15,9 +15,10 @@ namespace Tais.Run
     class Detail : IDetail
     {
         public string name { get; set; }
-        public decimal value => subs.Sum(x => x.value);
 
         public List<IDetail> subs = new List<IDetail>();
+
+        public decimal value => subs.Sum(x => x.value);
 
         public Detail(string name)
         {

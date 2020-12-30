@@ -9,7 +9,7 @@ namespace Tais.Run
         string name { get; }
         decimal age { get; }
 
-        void DaysInc(decimal days);
+        void DaysInc((int y, int m, int d) days);
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -31,7 +31,7 @@ namespace Tais.Run
             this.party = party.FullName;
         }
 
-        public void DaysInc(decimal days)
+        public void DaysInc((int y, int m, int d) days)
         {
 
         }

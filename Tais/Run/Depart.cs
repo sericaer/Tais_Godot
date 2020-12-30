@@ -58,6 +58,7 @@ namespace Tais.Run
             pops.ToOBSPropertyList(pop => pop.num).Subscribe(change=>
             {
                 popNumDetail = change.Select(elem => (elem.Sender.name, (int)elem.Value));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("popNumDetail"));
             });
 
             pops.ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
