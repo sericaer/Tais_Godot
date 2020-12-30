@@ -6,7 +6,7 @@ using System.Linq;
 namespace Tais.Run
 {
     [JsonObject(MemberSerialization.OptIn)]
-    interface IEconomy
+    interface IEconomy:INotifyPropertyChanged
     {
         [JsonProperty]
         decimal currValue { get; set; }
@@ -16,7 +16,7 @@ namespace Tais.Run
         void UpdateIncome(IncomeDetail detail);
     }
 
-    class Economy : IEconomy, INotifyPropertyChanged
+    class Economy : IEconomy
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,13 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Main/Dynamic/DepartPanel/PopBox.cs" type="Script" id=1]
 [ext_resource path="res://Global/ReactiveLabel.cs" type="Script" id=2]
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=3]
 
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="PopPanel" type="Panel"]
 margin_right = 90.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 90, 120 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -29,8 +35,10 @@ margin_left = -45.0
 margin_top = -40.0
 margin_right = 45.0
 margin_bottom = -19.0
-text = "fdgdsfg"
+custom_fonts/font = SubResource( 1 )
+text = "--"
 align = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
