@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scenes/Main/MapRect/DepartPopPanel.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Main/Dynamic/DepartPanel/PopBox.cs" type="Script" id=1]
 [ext_resource path="res://Global/ReactiveLabel.cs" type="Script" id=2]
+
 
 [node name="PopPanel" type="Panel"]
 margin_right = 90.0

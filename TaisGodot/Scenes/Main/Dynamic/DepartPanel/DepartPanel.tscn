@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Scenes/Main/MapRect/Depart/DepartPanel.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Main/Dynamic/DepartPanel/DepartPanel.cs" type="Script" id=1]
 [ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Global/ClickFreeMask.cs" type="Script" id=3]
 [ext_resource path="res://Global/ReactiveLabel.cs" type="Script" id=4]

@@ -31,7 +31,7 @@ namespace TaisGodot.Scripts
 		private void ShowPops(IEnumerable<IPop> pops)
 		{
 			foreach(var pop in pops)
-            {
+			{
 				var panel = ResourceLoader.Load<PackedScene>(PopBox.path).Instance() as PopBox;
 				panel.gmObj = pop;
 				popContainer.AddChild(panel);

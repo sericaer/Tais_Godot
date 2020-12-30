@@ -38,9 +38,9 @@ __meta__ = {
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 margin_left = 483.0
-margin_top = 391.0
+margin_top = 395.0
 margin_right = 957.0
-margin_bottom = 508.0
+margin_bottom = 505.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -49,20 +49,20 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 467.0
-margin_bottom = 110.0
+margin_bottom = 103.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 
 [node name="Name" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 margin_right = 460.0
-margin_bottom = 21.0
+margin_bottom = 14.0
 text = "--"
 align = 1
 
 [node name="StatisticContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
-margin_top = 25.0
+margin_top = 18.0
 margin_right = 460.0
-margin_bottom = 103.0
+margin_bottom = 96.0
 size_flags_horizontal = 4
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/VBoxContainer/StatisticContainer"]
