@@ -16,7 +16,7 @@ namespace XUnitTest.RunnerTest
     public class DepartTest: IClassFixture<DepartTestFixture>
     {
 
-        public static IDepartDef def;
+        public static DepartDef def;
 
         [Fact]
         public void InitTest()
@@ -146,8 +146,8 @@ namespace XUnitTest.RunnerTest
     {
         public DepartTestFixture()
         {
-            var mock = new Mock<IDepartDef>();
-            mock.Setup(l => l.pops).Returns(new IPopDef[] { new MockPop1Def(), new MockPop2Def(), new MockPop3Def() });
+            var mock = new Mock<DepartDef>();
+            mock.Setup(l => l.pops).Returns(new PopDef[] { new MockPop1Def(), new MockPop2Def(), new MockPop3Def() });
             mock.Setup(l => l.color).Returns((1, 1, 1));
 
             DepartTest.def = mock.Object;
@@ -159,23 +159,23 @@ namespace XUnitTest.RunnerTest
         }
     }
 
-    public class MockPop1Def : IPopDef
+    public class MockPop1Def : PopDef
     {
-        public bool is_tax => true;
+        public override bool is_tax => true;
 
-        decimal IPopDef.num { get => 1000; set { } }
+        public override decimal num { get => 1000; set { } }
     }
 
-    public class MockPop2Def : IPopDef
+    public class MockPop2Def : PopDef
     {
-        public bool is_tax => true;
-        public decimal num { get => 2000; set { } }
+        public override bool is_tax => true;
+        public override decimal num { get => 2000; set { } }
     }
 
-    public class MockPop3Def : IPopDef
+    public class MockPop3Def : PopDef
     {
-        public bool is_tax => false;
-        public decimal num { get => 3000; set { } }
+        public override bool is_tax => false;
+        public override decimal num { get => 3000; set { } }
     }
 
     public class MockPop : IPop

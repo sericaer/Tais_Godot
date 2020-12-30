@@ -20,9 +20,9 @@ namespace Tais.Mod
 
         internal IEnumerable<InitSelect> initSelects;
 
-        internal IEnumerable<IDepartDef> departs;
+        internal IEnumerable<DepartDef> departs;
 
-        internal IEnumerable<IAdjustDef> adjusts;
+        internal IEnumerable<AdjustDef> adjusts;
 
         internal static Modder Load(string modPath)
         {

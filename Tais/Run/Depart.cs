@@ -37,7 +37,7 @@ namespace Tais.Run
 
         private IncomeDetail _taxDetail;
 
-        public static Depart Gen(IDepartDef def)
+        public static Depart Gen(DepartDef def)
         {
             var depart = new Depart();
 

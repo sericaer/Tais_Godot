@@ -42,7 +42,7 @@ namespace Tais.Run
 
         private decimal tax_rate { get; set; }
 
-        public static Pop Gen(IPopDef def)
+        public static Pop Gen(PopDef def)
         {
             var pop = new Pop();
 

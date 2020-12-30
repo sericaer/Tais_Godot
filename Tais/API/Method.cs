@@ -29,9 +29,9 @@ namespace Tais.API
             return new Assign<T>(visitor, value);
         }
 
-        public static IPopDef POP_NUM<T>(decimal num) where T : IPopDef
+        public static PopDef POP_NUM<T>(decimal num) where T : PopDef
         {
-            var pop = Activator.CreateInstance(typeof(T)) as IPopDef;
+            var pop = Activator.CreateInstance(typeof(T)) as PopDef;
             pop.num = num;
 
             return pop;

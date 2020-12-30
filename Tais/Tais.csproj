@@ -27,10 +27,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -67,9 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Color.cs" />
-    <Compile Include="API\IDepartDef.cs" />
-    <Compile Include="API\IPopDef.cs" />
-    <Compile Include="API\IAdjustDef.cs" />
+    <Compile Include="API\DepartDef.cs" />
+    <Compile Include="API\PopDef.cs" />
+    <Compile Include="API\AdjustDef.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Adjust.cs" />
     <Compile Include="Run\Date.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Run\Pop.cs" />
     <Compile Include="Run\Taishou.cs" />
     <Compile Include="Visitor\GMVisitor.cs" />
-    <Compile Include="API\IPartyDef.cs" />
+    <Compile Include="API\PartyDef.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="GMRoot.cs" />
     <Compile Include="API\IDesc.cs" />

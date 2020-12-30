@@ -14,8 +14,8 @@ namespace Tais.Mod
         public IEnumerable<IEvent> events = new List<IEvent>();
         public IEnumerable<Language> languages = new List<Language>();
         public IEnumerable<InitSelect> initSelects = new List<InitSelect>();
-        public IEnumerable<IDepartDef> departs = new List<IDepartDef>();
-        public IEnumerable<IAdjustDef> adjusts = new List<IAdjustDef>();
+        public IEnumerable<DepartDef> departs = new List<DepartDef>();
+        public IEnumerable<AdjustDef> adjusts = new List<AdjustDef>();
 
         private string path;
         
@@ -38,22 +38,22 @@ namespace Tais.Mod
 
                 events = LoadAssemblyObjects<IEvent>(assembly);
                 initSelects = LoadAssemblyObjects<InitSelect>(assembly);
-                departs = LoadAssemblyObjects<IDepartDef>(assembly);
-                adjusts = LoadAssemblyObjects<IAdjustDef>(assembly);
+                departs = LoadAssemblyObjects<DepartDef>(assembly);
+                adjusts = LoadAssemblyObjects<AdjustDef>(assembly);
             }
 
-            LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}, departs:{departs.Count()}");
+            LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}, departs:{departs.Count()}, adjusts:{adjusts.Count()}");
 
         }
 
         private IEnumerable<Type> LoadAssemblyTypes<T>(Assembly assembly)
         {
-            return assembly.GetTypes().Where(x => x.GetInterfaces().Any(i=>i.IsAssignableFrom(typeof(T))) || x.IsSubclassOf(typeof(T)));
+            return assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(T)));
         }
 
         private IEnumerable<T> LoadAssemblyObjects<T>(Assembly assembly)
         {
-            return assembly.GetTypes().Where(x => x.GetInterfaces().Any(i => i.IsAssignableFrom(typeof(T))) || x.IsSubclassOf(typeof(T)))
+            return assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(T)))
                     .Select(x => (T)Activator.CreateInstance(x));
         }
     }

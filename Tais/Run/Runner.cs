@@ -72,7 +72,7 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            var taxAdjust = adjusts.Single(x => x.name == typeof(IAdjustTaxDef).FullName);
+            var taxAdjust = adjusts.Single(x => x.name == typeof(AdjustTaxDef).FullName);
             this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y => y.UpdateTaxRate);
 
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);

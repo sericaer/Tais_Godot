@@ -14,7 +14,7 @@ namespace XUnitTest.RunnerTest
 {
     public class AdjustTest : IClassFixture<AdjustTestFixture>
     {
-        public static IAdjustDef def;
+        public static AdjustDef def;
 
         [Fact]
         void TestInit()
@@ -71,7 +71,7 @@ namespace XUnitTest.RunnerTest
     {
         public AdjustTestFixture()
         {
-            var mock = new Mock<IAdjustDef>();
+            var mock = new Mock<AdjustDef>();
             mock.Setup(l => l.init_level).Returns(1);
             mock.Setup(l => l.level_rates).Returns(new decimal[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 

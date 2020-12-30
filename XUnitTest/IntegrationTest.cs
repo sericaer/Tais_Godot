@@ -56,11 +56,11 @@ namespace XUnitTest
 
     }
 
-    class TEST : IAdjustTaxDef
+    class TEST : AdjustTaxDef
     {
-        public decimal[] level_rates => throw new NotImplementedException();
+        public override decimal[] level_rates => throw new NotImplementedException();
 
-        public int init_level => throw new NotImplementedException();
+        public override int init_level => throw new NotImplementedException();
     }
 
     public class IntegrationTestsFixture : IDisposable
@@ -68,8 +68,8 @@ namespace XUnitTest
         public IntegrationTestsFixture()
         {
 
-            var r1 = typeof(TEST).GetInterfaces().Any(x=>x.IsAssignableFrom(typeof(IAdjustDef)));
-            var r2 = typeof(TEST).GetInterfaces().Any(x=>x.IsInstanceOfType(typeof(IAdjustDef)));
+            var r1 = typeof(TEST).GetInterfaces().Any(x=>x.IsAssignableFrom(typeof(AdjustDef)));
+            var r2 = typeof(TEST).GetInterfaces().Any(x=>x.IsInstanceOfType(typeof(AdjustDef)));
 
             var runner = new Tais.Run.Runner();
 
@@ -77,7 +77,7 @@ namespace XUnitTest
             runner.taishou = new Mock<ITaishou>().Object;
             runner.economy = new Mock<IEconomy>().Object;
 
-            IntegrationTest.taxAdjust = new Adjust() { name = typeof(IAdjustTaxDef).FullName, rates = new Decimal[] { 1, 2, 3, 4 }, currLevel = 1 };
+            IntegrationTest.taxAdjust = new Adjust() { name = typeof(AdjustTaxDef).FullName, rates = new Decimal[] { 1, 2, 3, 4 }, currLevel = 1 };
 
             runner.adjusts = new List<Adjust>() { IntegrationTest.taxAdjust };
             runner.IntegrateData();

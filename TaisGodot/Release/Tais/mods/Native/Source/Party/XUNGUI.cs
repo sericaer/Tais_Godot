@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tais.API;
 namespace Native.Party
 {
-    public class XUNGUI : IPartyDef
+    public class XUNGUI : PartyDef
     {
     }
 }

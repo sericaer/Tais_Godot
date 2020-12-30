@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-    public interface IPartyDef
+    public abstract class DepartDef
     {
+        public abstract Color color { get; }
+        public abstract PopDef[] pops { get; }
     }
 }

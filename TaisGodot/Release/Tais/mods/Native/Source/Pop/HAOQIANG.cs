@@ -7,10 +7,10 @@ using Tais.API;
 
 namespace Native.Pop
 {
-    class HAOQIANG : IPopDef
+    class HAOQIANG : PopDef
     {
-        public decimal num { get; set; }
+        public override decimal num { get; set; }
 
-        public bool is_tax => true;
+        public override bool is_tax => true;
     }
 }
