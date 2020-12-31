@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
@@ -10,7 +12,7 @@ using Tais.API;
 namespace Tais.Run
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public interface IPop : INotifyPropertyChanged
+    interface IPop : INotifyPropertyChanged
     {
         [JsonProperty]
         string name { get; }
@@ -21,7 +23,7 @@ namespace Tais.Run
         [JsonProperty]
         decimal num { get; set; }
 
-        decimal tax { get; }
+        IBuffedValue tax { get; }
 
         void UpdateTaxRate(decimal rate);
     }
@@ -38,7 +40,8 @@ namespace Tais.Run
 
         public decimal num { get; set; }
 
-        public decimal tax => num * tax_rate;
+        [DependsOn("num", "tax_rate")]
+        public IBuffedValue tax { get; set; }
 
         private decimal tax_rate { get; set; }
 
@@ -49,6 +52,9 @@ namespace Tais.Run
             pop.name = def.GetType().FullName;
             pop.num = def.num;
             pop.isTax = def.is_tax;
+            pop.tax = new BuffedValue();
+
+            pop.IntegrateData();
 
             return pop;
         }
@@ -56,6 +62,18 @@ namespace Tais.Run
         public void UpdateTaxRate(decimal rate)
         {
             tax_rate = rate;
+        }
+
+        [OnDeserialized]
+        public void IntegrateData(StreamingContext context = default(StreamingContext))
+        {
+            this.OBSProperty(x => x.num).Subscribe(_ => UpdateTax());
+            this.OBSProperty(x => x.tax_rate).Subscribe(_ => UpdateTax());
+        }
+
+        private void UpdateTax()
+        {
+            tax.baseValue = num * tax_rate;
         }
     }
 }

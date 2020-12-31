@@ -178,7 +178,7 @@ namespace XUnitTest.RunnerTest
         public override decimal num { get => 3000; set { } }
     }
 
-    public class MockPop : IPop
+    class MockPop : IPop
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
@@ -190,7 +190,7 @@ namespace XUnitTest.RunnerTest
 
         public decimal num { get; set; }
 
-        public decimal tax { get; set; }
+        public IBuffedValue tax { get; set; }
 
         public void UpdateTaxRate(decimal rate)
         {

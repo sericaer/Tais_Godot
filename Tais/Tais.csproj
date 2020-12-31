@@ -73,6 +73,7 @@
     <Compile Include="API\AdjustDef.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Adjust.cs" />
+    <Compile Include="Run\BuffedValue.cs" />
     <Compile Include="Run\Date.cs" />
     <Compile Include="Run\Depart.cs" />
     <Compile Include="Run\Detail.cs" />
