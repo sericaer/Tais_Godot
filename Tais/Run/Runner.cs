@@ -32,6 +32,8 @@ namespace Tais.Run
         [JsonProperty]
         public List<Adjust> adjusts = new List<Adjust>();
 
+        public List<IEffect> effects = new List<IEffect>();
+
         public List<Integration> integrations = new List<Integration>();
 
         public IEnumerable<IPop> pops => departs.SelectMany(d => d.pops);
@@ -72,6 +74,9 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
+            //var popTaxEffects = effects.Select(x => x.type == "");
+            //this.SetIntegration(popTaxEffects, pops).With(y => y.UpdateTaxRate);
+
             var taxAdjust = adjusts.Single(x => x.name == typeof(AdjustTaxDef).FullName);
             this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y => y.UpdateTaxRate);
 
@@ -82,4 +87,15 @@ namespace Tais.Run
 
         }
     }
+
+    public interface IEffect : INotifyPropertyChanged
+    {
+        string type { get; }
+
+        string name { get; }
+        decimal value { get; }
+        
+        bool enable { get; }
+    }
+        
 }

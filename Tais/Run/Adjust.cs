@@ -19,6 +19,11 @@ namespace Tais.Run
         [JsonProperty]
         public string name;
 
+        internal bool IsDefType<T>()
+        {
+            return name == typeof(T).Name;
+        }
+
         [JsonProperty]
         public decimal[] rates;
 

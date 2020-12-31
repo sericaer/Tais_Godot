@@ -18,7 +18,15 @@ namespace TaisGodot.Scripts
 			gmObj = GMRoot.runner.economy;
 
 			value.Assoc(gmObj.OBSProperty(x => x.currValue));
+
+			Connect("pressed", this, nameof(on_Button_Pressed));
 		}
-	}
+
+        private void on_Button_Pressed()
+        {
+			var panel = ResourceLoader.Load<PackedScene>(EconomyPanel.path).Instance();
+			MainScene.instance.AddChild(panel);
+		}
+    }
 }
 
