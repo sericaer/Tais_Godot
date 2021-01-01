@@ -29,21 +29,17 @@ namespace TaisGodot.Scripts
 			GetNode<Label>("HBoxContainer/Label").Text = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
 			buttonLoad = GetNode<Button>("HBoxContainer/ButtonLoad");
-			buttonDelete = GetNode<Button>("HBoxContainer/ButtonDelete");
-
-			buttonLoad.Connect("pressed", this, nameof(on_LoadButton_Pressed));
-			buttonDelete.Connect("pressed", this, nameof(on_DeleteButton_Pressed));
 
 			buttonLoad.Visible = this.GetParentRecursion<SaveLoadPanel>().enableLoad;
 		}
 
-		private void on_DeleteButton_Pressed()
+		private void _on_ButtonDelete_pressed()
 		{
 			actTriggerDelete(filePath);
 			QueueFree();
 		}
 
-		private void on_LoadButton_Pressed()
+		private void _on_ButtonLoad_pressed()
 		{
 			actTriggerLoad(filePath);
 		}

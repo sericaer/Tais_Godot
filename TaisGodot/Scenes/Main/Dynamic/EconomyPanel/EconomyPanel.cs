@@ -31,8 +31,6 @@ namespace TaisGodot.Scripts
 				var panel = ResourceLoader.Load<PackedScene>(AdjustPanel.path).Instance() as AdjustPanel;
 				panel.gmObj = elem;
 				incomeAdjustContainer.AddChild(panel);
-
-				MainScene.instance.AddChild(panel);
 			}
 		}
 	}
