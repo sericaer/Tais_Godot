@@ -24,7 +24,7 @@ namespace XUnitTest.RunnerTest
             adjust.name.Should().Be(def.GetType().BaseType.FullName);
             adjust.currLevel.Should().Be(def.init_level);
             adjust.rates.Should().BeEquivalentTo(def.level_rates);
-            adjust.currRate.Should().Be(def.level_rates[def.init_level]);
+            adjust.currRate.Should().Be(def.level_rates[def.init_level-1]);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace XUnitTest.RunnerTest
             adjust.OBSProperty(x => x.currRate).Subscribe(x=> rate = x);
 
             adjust.currLevel = 3;
-            rate.Should().Be(adjust.rates[adjust.currLevel]);
+            rate.Should().Be(adjust.rates[adjust.currLevel-1]);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace XUnitTest.RunnerTest
 
             adjustDe.currLevel = 6;
 
-            rate.Should().Be(adjustDe.rates[adjustDe.currLevel]);
+            rate.Should().Be(adjustDe.rates[adjustDe.currLevel-1]);
 
         }
     }
