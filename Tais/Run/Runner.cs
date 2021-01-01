@@ -24,6 +24,7 @@ namespace Tais.Run
         [JsonProperty]
         public IDate date;
 
+        [JsonProperty]
         public IEconomy economy;
 
         [JsonProperty]

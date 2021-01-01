@@ -44,7 +44,7 @@ namespace Tais.Run
         public void UpdateIncome(IncomeDetail detail)
         {
             var find = incomes.Find(x => x.name == detail.name);
-            if(find != null)
+            if (find != null)
             {
                 incomes.Remove(find);
             }
