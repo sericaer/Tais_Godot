@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/Main/Dynamic/EconomyPanel/AdjustPanel.cs" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="AdjustPanel" type="PanelContainer"]
+margin_top = 55.0
+margin_right = 464.0
+margin_bottom = 99.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 457.0
+margin_bottom = 37.0
+custom_constants/separation = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "--"
+align = 1
+valign = 1

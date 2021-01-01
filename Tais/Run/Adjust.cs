@@ -21,7 +21,7 @@ namespace Tais.Run
 
         internal bool IsDefType<T>()
         {
-            return name == typeof(T).Name;
+            return name == typeof(T).FullName;
         }
 
         [JsonProperty]
@@ -30,7 +30,7 @@ namespace Tais.Run
         [JsonProperty]
         public int currLevel { get; set; }
 
-        public decimal currRate => rates[currLevel];
+        public decimal currRate => rates[currLevel-1];
 
         public Adjust(AdjustDef def)
         {

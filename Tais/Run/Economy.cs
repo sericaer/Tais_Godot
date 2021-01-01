@@ -11,8 +11,9 @@ namespace Tais.Run
         [JsonProperty]
         decimal currValue { get; set; }
 
-        List<IncomeDetail> incomes { get; }
+        decimal incomeTotal { get; }
 
+        List<IncomeDetail> incomes { get; }
         void DaysInc((int y, int m, int d) date);
 
         void UpdateIncome(IncomeDetail detail);
@@ -26,6 +27,8 @@ namespace Tais.Run
 
         public decimal currValue { get; set; }
 
+        public decimal incomeTotal => incomes.Sum(x => x.value);
+
         public List<IncomeDetail> incomes { get { return _incomes; } set { _incomes = value; } }
 
         public List<IncomeDetail> _incomes = new List<IncomeDetail>();
@@ -34,7 +37,7 @@ namespace Tais.Run
         {
             if(date.d == 30)
             {
-                currValue += incomes.Sum(x => x.value);
+                currValue += incomeTotal;
             }
         }
 
@@ -49,6 +52,7 @@ namespace Tais.Run
             incomes.Add(detail);
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomes)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomeTotal)));
         }
     }
 }
