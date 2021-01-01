@@ -24,7 +24,7 @@ namespace TaisGodot.Scripts
 			name.Text = gmObj.name;
 
 			num.Assoc(gmObj.OBSProperty(x => x.num));
-			tax.Assoc(gmObj.OBSProperty(x => x.tax));
+			tax.Assoc(gmObj.OBSProperty(x => x.tax.value));
 		}
 	}
 }

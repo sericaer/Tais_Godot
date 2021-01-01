@@ -35,7 +35,7 @@ namespace XUnitTest.RunnerTest
         public void PopNumChangedTest()
         {
             var depart = new Depart();
-            depart.pops = new IPop[] { new MockPop() { isTax = true, num = 1000 }, new MockPop() { isTax = true, num = 2000 } };
+            depart.pops = new IPop[] { new MockPop() { isTax = true, num = 1000, tax = new MockBuffedValue() { value = 100 } }, new MockPop() { isTax = true, num = 2000, tax = new MockBuffedValue() { value = 200 } } };
             depart.IntegrateData();
 
             VerifyObservedPopNumChanged(depart, ()=>{
@@ -48,13 +48,13 @@ namespace XUnitTest.RunnerTest
         public void PopTaxChangedTest()
         {
             var depart = new Depart();
-            depart.pops = new IPop[] { new MockPop() { isTax = true, tax = 100 }, new MockPop() { isTax = true, tax = 200 } };
+            depart.pops = new IPop[] { new MockPop() { isTax = true, tax = new MockBuffedValue() { value = 100} }, new MockPop() { isTax = true, tax = new MockBuffedValue() { value = 200 } } };
             depart.IntegrateData();
 
             VerifyObservedIncomeChanged(depart, ()=>
             {
-                (depart.pops[0] as MockPop).tax += 12;
-                (depart.pops[1] as MockPop).tax -= 45;
+                (depart.pops[0] as MockPop).tax = new MockBuffedValue() { value = 120 };
+                (depart.pops[1] as MockPop).tax = new MockBuffedValue() { value = 90 };
             });
         }
 
@@ -64,7 +64,7 @@ namespace XUnitTest.RunnerTest
             var depart = new Depart();
             depart.name = "TEST_DEPART";
             depart.color = new Color(1, 2, 4);
-            depart.pops = new IPop[] { new MockPop() { isTax = true, num = 1000, tax = 100 }, new MockPop() { isTax = true, num = 2000, tax = 200 } };
+            depart.pops = new IPop[] { new MockPop() { isTax = true, num = 1000, tax = new MockBuffedValue() { value = 100 }  }, new MockPop() { isTax = true, num = 2000, tax = new MockBuffedValue() { value = 200 } } };
             depart.IntegrateData();
 
             var json = JsonConvert.SerializeObject(depart,
@@ -85,8 +85,8 @@ namespace XUnitTest.RunnerTest
 
             VerifyObservedIncomeChanged(depart, () =>
             {
-                (depart.pops[0] as MockPop).tax += 45;
-                (depart.pops[1] as MockPop).tax -= 89;
+                (depart.pops[0] as MockPop).tax = new MockBuffedValue() { value = 120 };
+                (depart.pops[1] as MockPop).tax = new MockBuffedValue() { value = 90 };
             });
         }
 
@@ -99,7 +99,7 @@ namespace XUnitTest.RunnerTest
             depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
             depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
 
-            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
             tax.Should().Be(depart.incomeDetail.value);
         }
 
@@ -124,7 +124,7 @@ namespace XUnitTest.RunnerTest
 
             act();
 
-            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax)));
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
             tax.Should().Be(incomeDetail.value);
         }
 
@@ -192,9 +192,24 @@ namespace XUnitTest.RunnerTest
 
         public IBuffedValue tax { get; set; }
 
+        public MockPop()
+        {
+            tax = new MockBuffedValue();
+        }
+
         public void UpdateTaxRate(decimal rate)
         {
             
         }
+    }
+
+    class MockBuffedValue : IBuffedValue
+    {
+        public decimal value { get;set; }
+
+        public decimal baseValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<(string name, decimal value)> buffers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

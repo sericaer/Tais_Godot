@@ -48,7 +48,7 @@ namespace Tais.Run
 
             incomes.Add(detail);
 
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(incomes)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomes)));
         }
     }
 }

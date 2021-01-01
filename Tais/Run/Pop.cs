@@ -40,10 +40,9 @@ namespace Tais.Run
 
         public decimal num { get; set; }
 
-        [DependsOn("num", "tax_rate")]
         public IBuffedValue tax { get; set; }
 
-        private decimal tax_rate { get; set; }
+        public decimal tax_rate { get; set; }
 
         public static Pop Gen(PopDef def)
         {
@@ -52,7 +51,6 @@ namespace Tais.Run
             pop.name = def.GetType().FullName;
             pop.num = def.num;
             pop.isTax = def.is_tax;
-            pop.tax = new BuffedValue();
 
             pop.IntegrateData();
 
@@ -67,13 +65,18 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
+            tax = new BuffedValue();
+
             this.OBSProperty(x => x.num).Subscribe(_ => UpdateTax());
-            this.OBSProperty(x => x.tax_rate).Subscribe(_ => UpdateTax());
+            var obs = this.OBSProperty(x => x.tax_rate);
+            obs.Subscribe(_ => UpdateTax());
         }
 
         private void UpdateTax()
         {
             tax.baseValue = num * tax_rate;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(tax)));
         }
     }
 }
