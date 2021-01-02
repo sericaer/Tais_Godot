@@ -55,13 +55,13 @@ namespace Tais.Run
         {
             _taxDetail = new IncomeDetail(name);
 
-            pops.ToOBSPropertyList(pop => pop.num).Subscribe(change=>
+            pops.Where(x=>x.isTax).ToOBSPropertyList(pop => pop.num).Subscribe(change=>
             {
                 popNumDetail = change.Select(elem => (elem.Sender.name, (int)elem.Value));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("popNumDetail"));
             });
 
-            pops.ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
+            pops.Where(x => x.isTax).ToOBSPropertyList(pop => pop.tax).Subscribe(change =>
             {
                 incomeDetail.Update(IncomeDetail.TYPE.POP_TAX, change.Select(elem => new Detail_Leaf(elem.Sender.name, elem.Value.value)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("incomeDetail"));

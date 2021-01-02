@@ -51,6 +51,8 @@
     <Compile Include="Class1.cs" />
     <Compile Include="InitSelect\INIT_SELECT_PARTY.cs" />
     <Compile Include="Pop\HAOQIANG.cs" />
+    <Compile Include="Pop\YINHU.cs" />
+    <Compile Include="Pop\MINHU.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

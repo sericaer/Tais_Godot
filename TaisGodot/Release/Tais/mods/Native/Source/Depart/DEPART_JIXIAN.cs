@@ -12,6 +12,10 @@ namespace Native.Depart
     {
         public override Color color => (63,72,204);
 
-        public override PopDef[] pops => ARRAY(POP_NUM<HAOQIANG>(1000));
+        public override PopDef[] pops => ARRAY(
+            POP_NUM<HAOQIANG>(1000),
+            POP_NUM<MINHU>(30000),
+            POP_NUM<YINHU>(10000)
+            );   
     }
 }

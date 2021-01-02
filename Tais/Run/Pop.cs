@@ -74,6 +74,12 @@ namespace Tais.Run
 
         private void UpdateTax()
         {
+            if(!isTax)
+            {
+                tax.baseValue = 0;
+                return;
+            }
+
             tax.baseValue = num * tax_rate;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(tax)));
