@@ -28,6 +28,9 @@ namespace Tais.Run
         public IEconomy economy;
 
         [JsonProperty]
+        public IChaoting chaoting;
+
+        [JsonProperty]
         public List<Depart> departs = new List<Depart>();
 
         [JsonProperty]
@@ -56,10 +59,13 @@ namespace Tais.Run
             runner.date = new Date();
             runner.economy = new Economy();
 
+            runner.chaoting = new Chaoting();
+
             runner.taishou = new Taishou(initer.name, initer.age, initer.party);
             runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
             runner.adjusts.AddRange(modder.adjusts.Select(x => new Adjust(x)));
             
+
             runner.IntegrateData();
 
             return runner;
@@ -82,9 +88,11 @@ namespace Tais.Run
             this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y => y.UpdateTaxRate);
 
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
-
+            
             this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc);
             this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
+
+            this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
 
         }
     }

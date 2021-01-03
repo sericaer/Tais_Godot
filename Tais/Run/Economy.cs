@@ -17,6 +17,8 @@ namespace Tais.Run
         void DaysInc((int y, int m, int d) date);
 
         void UpdateIncome(IncomeDetail detail);
+
+        void UpdateOutput(OutputDetail detail);
     }
 
     class Economy : IEconomy

@@ -30,7 +30,7 @@ namespace Tais.Run
         [JsonProperty]
         public int currLevel { get; set; }
 
-        public decimal currRate => rates[currLevel-1];
+        public decimal currRate => rates[currLevel];
 
         public Adjust(AdjustDef def)
         {

@@ -10,11 +10,17 @@ namespace Native.Adjust
     public class TAX_LEVEL : AdjustTaxDef
     {
         public override decimal[] level_rates => ARRAY(
-            0.001M,
-            0.002M,
-            0.003M,
-            0.004M,
-            0.005M
+            0M,
+            0.0001M,
+            0.0002M,
+            0.0003M,
+            0.0004M,
+            0.0005M,
+            0.0006M,
+            0.0007M,
+            0.0008M,
+            0.0009M,
+            0.001M
             );
 
         public override int init_level => 1;
