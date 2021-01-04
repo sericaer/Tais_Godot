@@ -12,6 +12,9 @@ namespace Tais.Run
         decimal currValue { get; set; }
 
         decimal incomeTotal { get; }
+        decimal outputTotal { get; }
+
+        decimal surplus { get; }
 
         List<IncomeDetail> incomes { get; }
         void DaysInc((int y, int m, int d) date);
@@ -32,6 +35,8 @@ namespace Tais.Run
         public decimal incomeTotal => incomes.Sum(x => x.value);
         public decimal outputTotal => outputs.Sum(x => x.value);
 
+        public decimal surplus => incomeTotal - outputTotal;
+
         public List<IncomeDetail> incomes { get { return _incomes; } set { _incomes = value; } }
         public List<OutputDetail> outputs { get { return _outputs; } set { _outputs = value; } }
 
@@ -42,7 +47,7 @@ namespace Tais.Run
         {
             if(date.d == 30)
             {
-                currValue += incomeTotal;
+                currValue += surplus;
             }
         }
 

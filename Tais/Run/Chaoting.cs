@@ -42,7 +42,7 @@ namespace Tais.Run
 
         public decimal reportRate { get; set; }
 
-        public decimal expectTax => taxRates[currTaxLevel] * reportPopNum;
+        public decimal expectTax => taxRates[currTaxLevel-1] * reportPopNum;
 
         public decimal reportTax => expectTax * reportRate;
 
