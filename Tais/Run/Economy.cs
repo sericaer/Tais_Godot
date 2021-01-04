@@ -30,10 +30,13 @@ namespace Tais.Run
         public decimal currValue { get; set; }
 
         public decimal incomeTotal => incomes.Sum(x => x.value);
+        public decimal outputTotal => outputs.Sum(x => x.value);
 
         public List<IncomeDetail> incomes { get { return _incomes; } set { _incomes = value; } }
+        public List<OutputDetail> outputs { get { return _outputs; } set { _outputs = value; } }
 
         public List<IncomeDetail> _incomes = new List<IncomeDetail>();
+        public List<OutputDetail> _outputs = new List<OutputDetail>();
 
         public void DaysInc((int y, int m, int d) date)
         {
@@ -55,6 +58,20 @@ namespace Tais.Run
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomes)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomeTotal)));
+        }
+
+        public void UpdateOutput(OutputDetail detail)
+        {
+            var find = outputs.Find(x => x.name == detail.name);
+            if (find != null)
+            {
+                outputs.Remove(find);
+            }
+
+            outputs.Add(detail);
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(outputs)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(outputTotal)));
         }
     }
 }

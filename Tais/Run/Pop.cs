@@ -25,7 +25,7 @@ namespace Tais.Run
 
         IBuffedValue tax { get; }
 
-        void UpdateTaxRate(decimal rate);
+        void UpdateTaxPercent(int rate);
     }
 
     class Pop : IPop
@@ -42,7 +42,15 @@ namespace Tais.Run
 
         public IBuffedValue tax { get; set; }
 
-        public decimal tax_rate { get; set; }
+        private int taxPercent { get; set; }
+
+        public decimal tax_rate => 0.001M;
+
+        public void UpdateTaxPercent(int percent)
+        {
+            taxPercent = percent;
+            UpdateTaxBase();
+        }
 
         public static Pop Gen(PopDef def)
         {
@@ -57,32 +65,22 @@ namespace Tais.Run
             return pop;
         }
 
-        public void UpdateTaxRate(decimal rate)
-        {
-            tax_rate = rate;
-        }
-
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
             tax = new BuffedValue();
 
-            this.OBSProperty(x => x.num).Subscribe(_ => UpdateTax());
-            var obs = this.OBSProperty(x => x.tax_rate);
-            obs.Subscribe(_ => UpdateTax());
+            this.OBSProperty(x => x.num).Subscribe(_ => UpdateTaxBase());
         }
 
-        private void UpdateTax()
+        private void UpdateTaxBase()
         {
-            if(!isTax)
+            if(isTax)
             {
-                tax.baseValue = 0;
-                return;
+                tax.baseValue = num * tax_rate * taxPercent / 100M;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(tax)));
             }
-
-            tax.baseValue = num * tax_rate;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(tax)));
         }
     }
 }

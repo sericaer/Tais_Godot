@@ -21,22 +21,8 @@ namespace XUnitTest.RunnerTest
         {
             var adjust = new Adjust(def);
 
-            adjust.name.Should().Be(def.GetType().BaseType.FullName);
-            adjust.currLevel.Should().Be(def.init_level);
-            adjust.rates.Should().BeEquivalentTo(def.level_rates);
-            adjust.currRate.Should().Be(def.level_rates[def.init_level-1]);
-        }
-
-        [Fact]
-        void TestLevelChanged()
-        {
-            var adjust = new Adjust(def);
-
-            decimal rate = 0M;
-            adjust.OBSProperty(x => x.currRate).Subscribe(x=> rate = x);
-
-            adjust.currLevel = 3;
-            rate.Should().Be(adjust.rates[adjust.currLevel-1]);
+            adjust.type.Should().Be(def.type);
+            adjust.percent.Should().Be(def.init_percent);
         }
 
         [Fact]
@@ -44,25 +30,17 @@ namespace XUnitTest.RunnerTest
         {
             var adjust = new Adjust(def);
 
-            adjust.currLevel = 2;
+            adjust.percent = 2;
 
             var json = JsonConvert.SerializeObject(adjust,
                 Formatting.Indented,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
 
-            var adjustDe= JsonConvert.DeserializeObject<Adjust>(json,
+            var adjustDe = JsonConvert.DeserializeObject<Adjust>(json,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
 
-            adjustDe.name.Should().Be(adjust.name);
-            adjustDe.currLevel.Should().Be(adjust.currLevel);
-            adjustDe.rates.Should().BeEquivalentTo(adjust.rates);
-
-            decimal rate = 0M;
-            adjustDe.OBSProperty(x => x.currRate).Subscribe(x => rate = x);
-
-            adjustDe.currLevel = 6;
-
-            rate.Should().Be(adjustDe.rates[adjustDe.currLevel-1]);
+            adjustDe.type.Should().Be(adjust.type);
+            adjustDe.percent.Should().Be(adjust.percent);
 
         }
     }
@@ -71,9 +49,8 @@ namespace XUnitTest.RunnerTest
     {
         public AdjustTestFixture()
         {
-            var mock = new Mock<AdjustDef>();
-            mock.Setup(l => l.init_level).Returns(1);
-            mock.Setup(l => l.level_rates).Returns(new decimal[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            var mock = new Mock<AdjustPopTaxDef>();
+            mock.Setup(l => l.init_percent).Returns(100);
 
             AdjustTest.def = mock.Object;
         }

@@ -34,15 +34,11 @@ namespace Tais.Run
         public List<Depart> departs = new List<Depart>();
 
         [JsonProperty]
-        public List<Adjust> adjusts = new List<Adjust>();
-
-        public List<IEffect> effects = new List<IEffect>();
-
-        public List<Integration> integrations = new List<Integration>();
+        public Dictionary<ADJUST_TYPE, IAdjust> adjusts = new Dictionary<ADJUST_TYPE, IAdjust>();
 
         public IEnumerable<IPop> pops => departs.SelectMany(d => d.pops);
 
-        public bool isInitialized => integrations.Any();
+        internal List<Integration> integrations = new List<Integration>();
 
         public static Runner Deserialize(string content)
         {
@@ -63,9 +59,13 @@ namespace Tais.Run
 
             runner.taishou = new Taishou(initer.name, initer.age, initer.party);
             runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
-            runner.adjusts.AddRange(modder.adjusts.Select(x => new Adjust(x)));
-            
 
+            foreach(ADJUST_TYPE type in Enum.GetValues(typeof(ADJUST_TYPE)))
+            {
+                var def = modder.adjusts.Single(x => x.type == type);
+                runner.adjusts.Add(type, new Adjust(def));
+            }
+            
             runner.IntegrateData();
 
             return runner;
@@ -81,11 +81,8 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            //var popTaxEffects = effects.Select(x => x.type == "");
-            //this.SetIntegration(popTaxEffects, pops).With(y => y.UpdateTaxRate);
-
-            var taxAdjust = adjusts.Single(x => x.name == typeof(AdjustTaxDef).FullName);
-            this.SetIntegration(taxAdjust, pops).With(x => x.currRate, y => y.UpdateTaxRate);
+            this.SetIntegration(adjusts[ADJUST_TYPE.POP_TAX], pops).With(x => x.percent, y => y.UpdateTaxPercent);
+            this.SetIntegration(adjusts[ADJUST_TYPE.CHAOTING_TAX], chaoting).With(x => x.percent, y => y.UpdateReportTaxPercent);
 
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
             

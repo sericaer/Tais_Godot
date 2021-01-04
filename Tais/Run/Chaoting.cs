@@ -3,47 +3,83 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Tais.API;
 
 namespace Tais.Run
 {
-    [JsonObject(MemberSerialization.OptIn)]
     interface IChaoting : INotifyPropertyChanged
     {
-        [JsonProperty]
-        int reportPopNum { get; }
 
-        [JsonProperty]
-        decimal yearTaxRate { get; }
+        int reportPopNum { get; set; }
+
+        int currTaxLevel { get; set; }
+
+        decimal expectTax { get; } 
+
+        decimal reportTax { get; }
+
 
         OutputDetail outputDetail { get; }
+
+        void UpdateReportTaxPercent(int percent);
     }
+
 
     class Chaoting : IChaoting
     {
+#pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
 
         public int reportPopNum { get; set; }
-        public decimal yearTaxRate { get; set; }
 
-        public OutputDetail outputDetail => _outputDetail;
+        public int currTaxLevel { get; set; }
+
+        public decimal[] taxRates { get; set; }
+
+        public decimal reportRate { get; set; }
+
+        public decimal expectTax => taxRates[currTaxLevel] * reportPopNum;
+
+        public decimal reportTax => expectTax * reportRate;
+
+        public OutputDetail outputDetail { get { return _outputDetail; } set { _outputDetail = value; } }
 
         private OutputDetail _outputDetail;
+
+        public static Chaoting Gen(ChaotingDef def)
+        {
+            var inst = new Chaoting();
+            inst.currTaxLevel = def.initTaxLevel;
+            inst.taxRates = def.taxRates;
+
+            inst.IntegrateData();
+            return inst;
+        }
 
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            _outputDetail = new OutputDetail("CBAOTING_TAX");
+            _outputDetail = new OutputDetail("REPORT_CHAOTING");
 
-            this.OBSProperty(x => x.reportPopNum).Subscribe(_ => UpdateOutput());
-            this.OBSProperty(x => x.yearTaxRate).Subscribe(_ => UpdateOutput());
+            this.OBSProperty(x => x.reportTax).Subscribe(_ => UpdateOutputDetail());
         }
 
-        private void UpdateOutput()
+        private void UpdateOutputDetail()
         {
-            _outputDetail.Update(OutputDetail.TYPE.CHAOTING_COMMON_TAX, new List<Detail_Leaf>() { new Detail_Leaf() });
+            _outputDetail.subs.Clear();
+            _outputDetail.subs.Add(new Detail_Leaf(OutputDetail.TYPE.CHAOTING_YEAR_TAX.ToString(), reportTax));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(outputDetail)));
+        }
+
+        public void UpdateReportTaxPercent(int percent)
+        {
+            reportRate = percent;
         }
     }
 }

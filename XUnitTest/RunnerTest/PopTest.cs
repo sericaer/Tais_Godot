@@ -25,7 +25,32 @@ namespace XUnitTest.RunnerTest
             pop.isTax.Should().BeTrue();
         }
 
+        [Fact]
+        public void TestNumChanged()
+        {
+            var pop = Pop.Gen(def);
+            pop.UpdateTaxPercent(100);
 
+            decimal baseValue = -1;
+            pop.OBSProperty(x => x.tax.baseValue).Subscribe(x => baseValue = x);
+            pop.num += 1000;
+
+            baseValue.Should().Be(pop.tax.baseValue);
+
+        }
+
+        [Fact]
+        public void TestTaxPercentChanged()
+        {
+            var pop = Pop.Gen(def);
+            pop.UpdateTaxPercent(100);
+
+            decimal baseValue = -1;
+            pop.OBSProperty(x => x.tax.baseValue).Subscribe(x => baseValue = x);
+            pop.UpdateTaxPercent(90);
+
+            baseValue.Should().Be(pop.tax.baseValue);
+        }
 
         [Fact]
         public void TestSerialize()

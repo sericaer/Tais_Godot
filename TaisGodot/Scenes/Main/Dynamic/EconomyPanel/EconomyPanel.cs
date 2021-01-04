@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tais;
+using Tais.Run;
 using Tais.API;
 
 namespace TaisGodot.Scripts
@@ -23,15 +24,10 @@ namespace TaisGodot.Scripts
 
 			incomeTotal.Assoc(GMRoot.runner.economy.OBSProperty(x=>x.incomeTotal));
 
-			var incomeObjs = GMRoot.runner.adjusts.Where(x => x.IsDefType<AdjustTaxDef>());
-
-			LOG.INFO(GMRoot.runner.adjusts.Count());
-			foreach (var elem in incomeObjs)
-			{
-				var panel = ResourceLoader.Load<PackedScene>(AdjustPanel.path).Instance() as AdjustPanel;
-				panel.gmObj = elem;
-				incomeAdjustContainer.AddChild(panel);
-			}
+			var incomeObj = GMRoot.runner.adjusts[ADJUST_TYPE.POP_TAX];
+			var panel = ResourceLoader.Load<PackedScene>(AdjustPanel.path).Instance() as AdjustPanel;
+			panel.gmObj = incomeObj;
+			incomeAdjustContainer.AddChild(panel);
 		}
 	}
 }

@@ -99,7 +99,7 @@ namespace XUnitTest.RunnerTest
             depart.OBSProperty(x => x.tax).Subscribe(x => tax = x);
             depart.OBSProperty(x => x.incomeDetail).Subscribe(x => incomeDetail = x);
 
-            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Where(x=>x.isTax).Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
             tax.Should().Be(depart.incomeDetail.value);
         }
 
@@ -110,7 +110,7 @@ namespace XUnitTest.RunnerTest
             depart.OBSProperty(x => x.popNum).Subscribe(x => popNum = x);
             depart.OBSProperty(x => x.popNumDetail).Subscribe(x => popNumDetail = x);
 
-            popNumDetail.Should().BeEquivalentTo(depart.pops.Select(x => (x.name, x.num)));
+            popNumDetail.Should().BeEquivalentTo(depart.pops.Where(x => x.isTax).Select(x => (x.name, x.num)));
             popNum.Should().Be(popNumDetail.Sum(x => x.value));
         }
 
@@ -124,7 +124,7 @@ namespace XUnitTest.RunnerTest
 
             act();
 
-            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
+            incomeDetail[IncomeDetail.TYPE.POP_TAX].Should().BeEquivalentTo(depart.pops.Where(x=>x.isTax).Select(pop => new Detail_Leaf(pop.name, pop.tax.value)));
             tax.Should().Be(incomeDetail.value);
         }
 
@@ -197,7 +197,7 @@ namespace XUnitTest.RunnerTest
             tax = new MockBuffedValue();
         }
 
-        public void UpdateTaxRate(decimal rate)
+        public void UpdateTaxPercent(int rate)
         {
             
         }

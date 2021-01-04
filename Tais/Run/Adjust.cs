@@ -9,38 +9,39 @@ using Tais.API;
 
 namespace Tais.Run
 {
+    enum ADJUST_TYPE
+    {
+        POP_TAX,
+        CHAOTING_TAX,
+    }
+
+    interface IAdjust : INotifyPropertyChanged
+    {
+        ADJUST_TYPE type { get; }
+
+        int percent { get; set; }
+    }
+
     [JsonObject(MemberSerialization.OptIn)]
-    class Adjust : INotifyPropertyChanged
+    class Adjust : IAdjust
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
         [JsonProperty]
-        public string name;
-
-        internal bool IsDefType<T>()
-        {
-            return name == typeof(T).FullName;
-        }
+        public ADJUST_TYPE type { get; set; }
 
         [JsonProperty]
-        public decimal[] rates;
-
-        [JsonProperty]
-        public int currLevel { get; set; }
-
-        public decimal currRate => rates[currLevel];
+        public int percent { get; set; }
 
         public Adjust(AdjustDef def)
         {
-            name = def.GetType().BaseType.FullName;
+            type = def.type;
 
-            rates = def.level_rates;
-            currLevel = def.init_level;
+            percent = def.init_percent;
         }
 
-        
         [JsonConstructor]
         public Adjust()
         {

@@ -19,22 +19,39 @@ namespace XUnitTest
     public class IntegrationTest : IClassFixture<IntegrationTestsFixture>
     {
         internal static Tais.Run.Runner runner;
-        internal static Adjust taxAdjust;
 
         [Fact]
-        public void TestIntegrationGroup()
+        public void TestIntegrationDate()
         {
             var integration1 = runner.integrations.Should().ContainSingle(runner.date, runner.taishou);
             integration1.IsBindWith(x => x.value, y => y.DaysInc);
 
-            var integration2 = runner.integrations.Should().ContainSingle(taxAdjust, runner.departs.SelectMany(d=>d.pops));
-            integration2.IsBindWith(x => x.currRate, y => y.UpdateTaxRate);
-
             var integration3 = runner.integrations.Should().ContainSingle(runner.date, runner.economy);
             integration3.IsBindWith(x => x.value, y => y.DaysInc);
+        }
 
-            var integration4 = runner.integrations.Should().ContainSingle(runner.departs as IEnumerable<Depart>, runner.economy);
-            integration4.IsBindWith(x => x.incomeDetail, y => y.UpdateIncome);
+        [Fact]
+        public void TestIntegrationAdjust()
+        {
+            var integration1 = runner.integrations.Should().ContainSingle(runner.adjusts[ADJUST_TYPE.POP_TAX], runner.departs.SelectMany(d => d.pops));
+            integration1.IsBindWith(x => x.percent, y => y.UpdateTaxPercent);
+
+            var integration2 = runner.integrations.Should().ContainSingle(runner.adjusts[ADJUST_TYPE.CHAOTING_TAX], runner.chaoting);
+            integration2.IsBindWith(x => x.percent, y => y.UpdateReportTaxPercent);
+        }
+
+        [Fact]
+        public void TestIntegrationDepart()
+        {
+            var integration1 = runner.integrations.Should().ContainSingle(runner.departs as IEnumerable<Depart>, runner.economy);
+            integration1.IsBindWith(x => x.incomeDetail, y => y.UpdateIncome);
+        }
+
+        [Fact]
+        public void TestIntegrationChaoting()
+        {
+            var integration5 = runner.integrations.Should().ContainSingle(runner.chaoting, runner.economy);
+            integration5.IsBindWith(x => x.outputDetail, y => y.UpdateOutput);
         }
 
         [Fact]
@@ -56,11 +73,9 @@ namespace XUnitTest
 
     }
 
-    class TEST : AdjustTaxDef
+    class TEST : AdjustPopTaxDef
     {
-        public override decimal[] level_rates => throw new NotImplementedException();
-
-        public override int init_level => throw new NotImplementedException();
+        public override int init_percent => 10;
     }
 
     public class IntegrationTestsFixture : IDisposable
@@ -76,10 +91,14 @@ namespace XUnitTest
             runner.date = new Mock<IDate>().Object;
             runner.taishou = new Mock<ITaishou>().Object;
             runner.economy = new Mock<IEconomy>().Object;
+            runner.chaoting = new Mock<IChaoting>().Object;
 
-            IntegrationTest.taxAdjust = new Adjust() { name = typeof(AdjustTaxDef).FullName, rates = new Decimal[] { 1, 2, 3, 4 }, currLevel = 1 };
+            runner.adjusts = new Dictionary<ADJUST_TYPE, IAdjust>()
+            {
+                { ADJUST_TYPE.POP_TAX, new Adjust() { type = ADJUST_TYPE.POP_TAX, percent = 10} },
+                { ADJUST_TYPE.CHAOTING_TAX, new Adjust() { type = ADJUST_TYPE.CHAOTING_TAX, percent = 100} }
+            };
 
-            runner.adjusts = new List<Adjust>() { IntegrationTest.taxAdjust };
             runner.IntegrateData();
 
             IntegrationTest.runner = runner;
