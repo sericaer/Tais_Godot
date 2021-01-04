@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adjust\TAX_LEVEL.cs" />
+    <Compile Include="Chaoting.cs" />
     <Compile Include="Depart\DEPART_JIXIAN.cs" />
+    <Compile Include="InitSelect\INIT_SELECT_CHAOTING_TAX_LEVEL.cs" />
     <Compile Include="Party\XUNGUI.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="InitSelect\INIT_SELECT_PARTY.cs" />

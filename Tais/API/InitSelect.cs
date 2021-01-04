@@ -2,12 +2,12 @@
 
 namespace Tais.API
 {
-    public abstract class InitSelect
+    public abstract class InitSelect : MethodGroup
     {
-        public IDesc title;
-        public IDesc desc;
-        public InitSelectOption[] options;
-        public bool IsFirst;
+        public abstract IDesc title { get; }
+        public abstract IDesc desc { get; }
+        public abstract InitSelectOption[] options { get; }
+        public virtual bool IsFirst => false;
     }
 
     public class InitSelectOption : IOption

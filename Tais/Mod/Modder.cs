@@ -24,6 +24,8 @@ namespace Tais.Mod
 
         internal IEnumerable<AdjustDef> adjusts;
 
+        internal ChaotingDef chaoting;
+
         internal static Modder Load(string modPath)
         {
             var modder = new Modder();
@@ -59,6 +61,8 @@ namespace Tais.Mod
             initSelects = modItems.SelectMany(x => x.Value.initSelects);
 
             adjusts = modItems.SelectMany(x => x.Value.adjusts);
+
+            chaoting = modItems.First().Value.chaoting;
         }
     }
 }

@@ -52,20 +52,20 @@ namespace Tais.Run
         {
             var runner = new Runner();
 
-            runner.date = new Date();
-            runner.economy = new Economy();
-
-            runner.chaoting = new Chaoting();
-
-            runner.taishou = new Taishou(initer.name, initer.age, initer.party);
-            runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
-
-            foreach(ADJUST_TYPE type in Enum.GetValues(typeof(ADJUST_TYPE)))
+            foreach (ADJUST_TYPE type in Enum.GetValues(typeof(ADJUST_TYPE)))
             {
                 var def = modder.adjusts.Single(x => x.type == type);
                 runner.adjusts.Add(type, new Adjust(def));
             }
-            
+
+            runner.date = new Date();
+            runner.economy = new Economy();
+
+            runner.chaoting = Chaoting.Gen(modder.chaoting, initer.chaoting_tax_level);
+
+            runner.taishou = new Taishou(initer.name, initer.age, initer.party);
+            runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
+
             runner.IntegrateData();
 
             return runner;

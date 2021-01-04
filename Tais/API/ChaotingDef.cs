@@ -9,7 +9,5 @@ namespace Tais.API
     public abstract class ChaotingDef
     {
         public abstract decimal[] taxRates { get; }
-
-        public abstract int initTaxLevel { get; }
     }
 }

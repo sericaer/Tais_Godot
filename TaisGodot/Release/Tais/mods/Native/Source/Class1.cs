@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Tais.API;
 using static Tais.API.Method;
-using static Tais.API.VisitorGroup;
 
 namespace Native
 {

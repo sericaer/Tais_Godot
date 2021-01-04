@@ -36,7 +36,7 @@ namespace Tais
                 return null;
             }
 
-            return Activator.CreateInstance(source.Next) as InitSelect;
+            return GMRoot.modder.initSelects.SingleOrDefault(x => x.GetType() == source.Next);
         }
 
         public static IObservable<TReturn> OBSProperty<TObj, TReturn>(this TObj objectToMonitor,

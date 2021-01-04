@@ -205,11 +205,13 @@ namespace XUnitTest.RunnerTest
 
     class MockBuffedValue : IBuffedValue
     {
+#pragma warning disable 0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
+
         public decimal value { get;set; }
 
         public decimal baseValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public List<(string name, decimal value)> buffers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

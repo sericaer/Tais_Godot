@@ -70,6 +70,7 @@
     <Compile Include="API\ChaotingDef.cs" />
     <Compile Include="API\Color.cs" />
     <Compile Include="API\DepartDef.cs" />
+    <Compile Include="API\MethodGroup.cs" />
     <Compile Include="API\PopDef.cs" />
     <Compile Include="API\AdjustDef.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />

@@ -7,19 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Tais;
 using Tais.API;
-using static Tais.API.Method;
-using static Tais.API.VisitorGroup;
+
 namespace Native.InitSelect
 {
     public class INIT_SELECT_PARTY : Tais.API.InitSelect
     {
-        public INIT_SELECT_PARTY()
-        {
-             
-            title = DESC("INIT_SELECT_PARTY_TITLE");
-            desc  = DESC("INIT_SELECT_PARTY_DESC");
 
-            options = ARRAY
+        public override IDesc title => DESC("INIT_SELECT_PARTY_TITLE");
+
+        public override IDesc desc => DESC("INIT_SELECT_PARTY_DESC");
+
+        public override InitSelectOption[] options => ARRAY
             (
                 OPTION_INIT_SELECT
                 (
@@ -27,12 +25,14 @@ namespace Native.InitSelect
                     ARRAY
                     (
                         ASSIGN(INIT_PARTY, typeof(XUNGUI))
+                    ),
+                    NEXT
+                    (
+                        typeof(INIT_SELECT_CHAOTING_TAX_LEVEL)
                     )
                 )
-            ) ;
+            );
 
-            IsFirst = true;
-        }
- 
+        public override bool IsFirst => true;
     }
 }

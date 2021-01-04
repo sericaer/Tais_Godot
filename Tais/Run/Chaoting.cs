@@ -28,7 +28,6 @@ namespace Tais.Run
         void UpdateReportTaxPercent(int percent);
     }
 
-
     class Chaoting : IChaoting
     {
 #pragma warning disable 0067
@@ -51,11 +50,11 @@ namespace Tais.Run
 
         private OutputDetail _outputDetail;
 
-        public static Chaoting Gen(ChaotingDef def)
+        public static Chaoting Gen(ChaotingDef def, int initTaxLevel)
         {
             var inst = new Chaoting();
-            inst.currTaxLevel = def.initTaxLevel;
             inst.taxRates = def.taxRates;
+            inst.currTaxLevel = initTaxLevel;
 
             inst.IntegrateData();
             return inst;

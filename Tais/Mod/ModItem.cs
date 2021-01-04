@@ -17,8 +17,11 @@ namespace Tais.Mod
         public IEnumerable<DepartDef> departs = new List<DepartDef>();
         public IEnumerable<AdjustDef> adjusts = new List<AdjustDef>();
 
+        public ChaotingDef chaoting;
+
         private string path;
         
+
         private string assemblyPath => $"{path}/Assemblies/{name}.dll";
 
         
@@ -40,10 +43,22 @@ namespace Tais.Mod
                 initSelects = LoadAssemblyObjects<InitSelect>(assembly);
                 departs = LoadAssemblyObjects<DepartDef>(assembly);
                 adjusts = LoadAssemblyObjects<AdjustDef>(assembly);
+                chaoting = LoadAssemblyObject<ChaotingDef>(assembly);
             }
 
             LOG.INFO($"Load mod {name} finished. events:{events.Count()}, initSelects:{initSelects.Count()}, departs:{departs.Count()}, adjusts:{adjusts.Count()}");
 
+        }
+
+        private T LoadAssemblyObject<T>(Assembly assembly)
+        {
+            var types = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(T)));
+            if(types.Count() != 1)
+            {
+                throw new Exception();
+            }
+
+            return (T)Activator.CreateInstance(types.First());
         }
 
         private IEnumerable<Type> LoadAssemblyTypes<T>(Assembly assembly)
