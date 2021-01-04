@@ -26,8 +26,11 @@ namespace Tais.Run
         public decimal baseValue { get; set; }
         public List<(string name, decimal value)> buffers { get { return _buffers; } set { _buffers = value; } }
 
-        public List<(string name, decimal value)> _buffers = new List<(string name, decimal value)>();
+        private List<(string name, decimal value)> _buffers = new List<(string name, decimal value)>();
 
+        public void UpdateBuffer(string name, decimal value)
+        {
 
+        }
     }
 }

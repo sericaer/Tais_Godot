@@ -78,11 +78,11 @@
     <Compile Include="Run\Chaoting.cs" />
     <Compile Include="Run\Date.cs" />
     <Compile Include="Run\Depart.cs" />
-    <Compile Include="Run\Detail.cs" />
+    <Compile Include="Run\Detail\Detail.cs" />
     <Compile Include="Run\Economy.cs" />
-    <Compile Include="Run\IncomeDetail.cs" />
+    <Compile Include="Run\Detail\IncomeDetail.cs" />
     <Compile Include="Run\Integration.cs" />
-    <Compile Include="Run\OutputDetail.cs" />
+    <Compile Include="Run\Detail\OutputDetail.cs" />
     <Compile Include="Run\Pop.cs" />
     <Compile Include="Run\Taishou.cs" />
     <Compile Include="Visitor\GMVisitor.cs" />
