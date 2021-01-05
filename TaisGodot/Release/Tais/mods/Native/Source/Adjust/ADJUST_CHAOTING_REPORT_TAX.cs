@@ -7,8 +7,8 @@ using Tais.API;
 using static Tais.API.Method;
 namespace Native.Adjust
 {
-    public class TAX_LEVEL : AdjustPopTaxDef
+    public class ADJUST_CHAOTING_REPORT_TAX : AdjustChaotingTaxDef
     {
-        public override int init_percent => 10;
+        public override int init_percent => 100;
     }
 }

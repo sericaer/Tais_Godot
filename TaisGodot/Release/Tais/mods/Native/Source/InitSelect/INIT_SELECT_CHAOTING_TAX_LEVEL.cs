@@ -19,7 +19,5 @@ namespace Native.InitSelect
                     )
                 )
             );
-
-        public override bool IsFirst => true;
     }
 }

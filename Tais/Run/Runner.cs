@@ -36,6 +36,8 @@ namespace Tais.Run
         [JsonProperty]
         public Dictionary<ADJUST_TYPE, IAdjust> adjusts = new Dictionary<ADJUST_TYPE, IAdjust>();
 
+        public IEventManager eventMgr;
+
         public IEnumerable<IPop> pops => departs.SelectMany(d => d.pops);
 
         internal List<Integration> integrations = new List<Integration>();
@@ -81,14 +83,23 @@ namespace Tais.Run
         [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
+            LOG.INFO("1");
+
             this.SetIntegration(adjusts[ADJUST_TYPE.POP_TAX], pops).With(x => x.percent, y => y.UpdateTaxPercent);
+
+            LOG.INFO("2");
             this.SetIntegration(adjusts[ADJUST_TYPE.CHAOTING_TAX], chaoting).With(x => x.percent, y => y.UpdateReportTaxPercent);
 
+            LOG.INFO("3");
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
-            
+
+            LOG.INFO("4");
             this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc);
+
+            LOG.INFO("5");
             this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
 
+            LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
 
         }

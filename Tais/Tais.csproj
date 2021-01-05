@@ -82,6 +82,7 @@
     <Compile Include="Run\Detail\Detail.cs" />
     <Compile Include="Run\Economy.cs" />
     <Compile Include="Run\Detail\IncomeDetail.cs" />
+    <Compile Include="Run\EventManager.cs" />
     <Compile Include="Run\Integration.cs" />
     <Compile Include="Run\Detail\OutputDetail.cs" />
     <Compile Include="Run\Pop.cs" />

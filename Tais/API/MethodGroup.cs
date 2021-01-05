@@ -19,7 +19,7 @@ namespace Tais.API
             return array;
         }
 
-        public static InitSelectOption OPTION_INIT_SELECT(IDesc _desc, IOperation[] ops, Type next = null)
+        public static InitSelectOption OPTION_INIT_SELECT(IDesc _desc, IOperation[] ops, String next = null)
         {
             return new InitSelectOption() { desc = _desc, operations = ops, Next = next };
         }
@@ -37,9 +37,9 @@ namespace Tais.API
             return pop;
         }
 
-        public static Type NEXT(Type type)
+        public static String NEXT(Type type)
         {
-            return type;
+            return type.FullName;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Release\**" />

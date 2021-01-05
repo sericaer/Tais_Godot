@@ -12,7 +12,7 @@ namespace Tais.API
 
     public class InitSelectOption : IOption
     {
-        public Type Next;
+        public String Next;
     }
 
     static class Extention_InitSelect

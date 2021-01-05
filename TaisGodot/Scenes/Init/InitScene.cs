@@ -41,7 +41,7 @@ namespace TaisGodot.Scripts
 			AddChild(initSelectPanel);
 		}
 
-		private void _on_SelectNext_Signal(InitSelect nextSelect)
+		private void _on_SelectNext_Signal(string nextSelect)
 		{
 			if (nextSelect == null)
 			{
@@ -50,7 +50,7 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
-			CreateInitSelectPanel(nextSelect);
+			CreateInitSelectPanel(GMRoot.modder.initSelects.SingleOrDefault(x => x.GetType().FullName == nextSelect));
 		}
 	}
 }

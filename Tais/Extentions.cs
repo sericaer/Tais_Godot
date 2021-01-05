@@ -36,7 +36,12 @@ namespace Tais
                 return null;
             }
 
-            return GMRoot.modder.initSelects.SingleOrDefault(x => x.GetType() == source.Next);
+            foreach(var elem in GMRoot.modder.initSelects)
+            {
+                LOG.INFO(elem.GetType().FullName);
+            }
+
+            return GMRoot.modder.initSelects.SingleOrDefault(x => x.GetType().FullName == source.Next);
         }
 
         public static IObservable<TReturn> OBSProperty<TObj, TReturn>(this TObj objectToMonitor,

@@ -12,6 +12,11 @@ namespace TaisGodot.Scripts
 
 		static StartScene()
 		{
+			if(Engine.EditorHint)
+			{
+				return;
+			}
+
 			UserSetting.lang = "zh";
 
 			GMRoot.logger = (objs) => GD.Print(objs);

@@ -12,9 +12,6 @@ namespace TaisGodot.Scripts
 		internal Action<string> actTriggerLoad;
 		internal Action<string> actTriggerDelete;
 
-		internal Button buttonLoad;
-		internal Button buttonDelete;
-
 		internal static SaveFileItemPanel Instance(Node parent, bool enableLoad, string filePath)
 		{
 			var panel = (SaveFileItemPanel)ResourceLoader.Load<PackedScene>(panelPath).Instance();
@@ -28,7 +25,7 @@ namespace TaisGodot.Scripts
 		{
 			GetNode<Label>("HBoxContainer/Label").Text = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
-			buttonLoad = GetNode<Button>("HBoxContainer/ButtonLoad");
+			var buttonLoad = GetNode<Button>("HBoxContainer/ButtonLoad");
 
 			buttonLoad.Visible = this.GetParentRecursion<SaveLoadPanel>().enableLoad;
 		}

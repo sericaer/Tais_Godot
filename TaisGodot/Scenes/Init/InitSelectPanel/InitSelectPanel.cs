@@ -65,7 +65,7 @@ namespace TaisGodot.Scripts
 
 			gmObj.options[index].Do();
 
-			EmitSignal(nameof(SelectNext), gmObj.options[index].GetNext());
+			EmitSignal(nameof(SelectNext), gmObj.options[index].Next);
 
 			QueueFree();
 		}
