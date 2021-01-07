@@ -39,6 +39,14 @@ namespace TaisGodot.Scripts
 					value.Text = incomes.SelectMany(income => income[IncomeDetail.TYPE.POP_TAX]).Sum(t => t.value).ToString();
 				}).EndWith(this);
 			}
+
+			if (gmObj.type == ADJUST_TYPE.CHAOTING_TAX)
+			{
+				GMRoot.runner.economy.OBSProperty(x => x.outputs).Subscribe(outputs =>
+				{
+					value.Text = outputs.Select(output => output[OutputDetail.TYPE.CHAOTING_YEAR_TAX]).Sum().ToString();
+				}).EndWith(this);
+			}
 		}
 
 		private void _on_HSlider_value_changed(float value)

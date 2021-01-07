@@ -63,12 +63,13 @@ namespace Tais.Run
             runner.date = new Date();
             runner.economy = new Economy();
 
-            runner.chaoting = Chaoting.Gen(modder.chaoting, initer.chaoting_tax_level);
-
             runner.taishou = new Taishou(initer.name, initer.age, initer.party);
             runner.departs.AddRange(modder.departs.Select(x => Depart.Gen(x)));
 
+            runner.chaoting = Chaoting.Gen(modder.chaoting, initer.chaoting_tax_level, runner.pops.Where(x=>x.isTax).Sum(x=>(int)x.num));
+
             runner.IntegrateData();
+
 
             return runner;
         }
@@ -101,6 +102,10 @@ namespace Tais.Run
 
             LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
+
+            LOG.INFO(chaoting.reportTax);
+            LOG.INFO(chaoting.expectTax);
+            LOG.INFO(chaoting.currTaxLevel);
 
         }
     }

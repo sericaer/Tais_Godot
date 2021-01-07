@@ -44,17 +44,18 @@ namespace Tais.Run
 
         public decimal expectTax => taxRates[currTaxLevel-1] * reportPopNum;
 
-        public decimal reportTax => expectTax * reportRate;
+        public decimal reportTax => expectTax * reportRate / 100;
 
         public OutputDetail outputDetail { get { return _outputDetail; } set { _outputDetail = value; } }
 
         private OutputDetail _outputDetail;
 
-        public static Chaoting Gen(ChaotingDef def, int initTaxLevel)
+        public static Chaoting Gen(ChaotingDef def, int initTaxLevel, int reportPopNum)
         {
             var inst = new Chaoting();
             inst.taxRates = def.taxRates;
             inst.currTaxLevel = initTaxLevel;
+            inst.reportPopNum = reportPopNum;
 
             inst.IntegrateData();
             return inst;

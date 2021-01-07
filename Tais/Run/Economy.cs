@@ -17,6 +17,9 @@ namespace Tais.Run
         decimal surplus { get; }
 
         List<IncomeDetail> incomes { get; }
+
+        List<OutputDetail> outputs { get; }
+
         void DaysInc((int y, int m, int d) date);
 
         void UpdateIncome(IncomeDetail detail);
