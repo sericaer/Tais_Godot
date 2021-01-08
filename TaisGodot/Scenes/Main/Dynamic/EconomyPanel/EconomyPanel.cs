@@ -17,6 +17,7 @@ namespace TaisGodot.Scripts
 
 		private ReactiveLabel incomeTotal;
 		private ReactiveLabel outputTotal;
+		private ReactiveLabel surplus;
 
 		public override void _Ready()
 		{
@@ -25,10 +26,13 @@ namespace TaisGodot.Scripts
 
 			incomeTotal = GetNode<ReactiveLabel>("CenterContainer/PanelContainer/AdjustContainer/AdjustInputContainer/VBoxContainer/HBoxContainer/Value");
 			outputTotal = GetNode<ReactiveLabel>("CenterContainer/PanelContainer/AdjustContainer/AdjustOutputContainer/VBoxContainer/HBoxContainer/Value");
+			surplus = GetNode<ReactiveLabel>("CenterContainer/PanelContainer/AdjustContainer/AdjustSurplusContainer/HBoxContainer/Value");
 
 			incomeTotal.Assoc(GMRoot.runner.economy.OBSProperty(x => x.incomeTotal));
 
 			outputTotal.Assoc(GMRoot.runner.economy.OBSProperty(x => x.outputTotal));
+
+			surplus.Assoc(GMRoot.runner.economy.OBSProperty(x => x.surplus));
 
 			AddIncomeAdjust(ADJUST_TYPE.POP_TAX);
 			AddOutputAdjust(ADJUST_TYPE.CHAOTING_TAX);

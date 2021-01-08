@@ -33,11 +33,14 @@ namespace Tais.Run
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
-
+        
+        [JsonProperty]
         public int reportPopNum { get; set; }
 
+        [JsonProperty]
         public int currTaxLevel { get; set; }
 
+        [JsonProperty]
         public decimal[] taxRates { get; set; }
 
         public decimal reportRate { get; set; }

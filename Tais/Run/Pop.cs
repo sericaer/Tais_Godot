@@ -44,7 +44,7 @@ namespace Tais.Run
 
         private int taxPercent { get; set; }
 
-        public decimal tax_rate => 0.001M;
+        public decimal tax_rate => 0.01M;
 
         public void UpdateTaxPercent(int percent)
         {
