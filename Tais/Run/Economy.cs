@@ -50,6 +50,9 @@ namespace Tais.Run
         {
             if(date.d == 30)
             {
+                LOG.INFO(surplus);
+                LOG.INFO(incomeTotal);
+                LOG.INFO(outputTotal);
                 currValue += surplus;
             }
         }
@@ -66,6 +69,7 @@ namespace Tais.Run
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomes)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(incomeTotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(surplus)));
         }
 
         public void UpdateOutput(OutputDetail detail)
@@ -80,6 +84,7 @@ namespace Tais.Run
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(outputs)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(outputTotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(surplus)));
         }
     }
 }
