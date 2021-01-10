@@ -100,6 +100,8 @@ namespace Tais.Run
             LOG.INFO("5");
             this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
 
+            this.SetIntegration(date, chaoting).With(x => x.value, y => y.DaysInc);
+
             LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
 

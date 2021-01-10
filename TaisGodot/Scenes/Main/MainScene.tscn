@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Scenes/Main/Top/Sys/Sys.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Main/MapRect/MapRect.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Main/Top/Economy/Economy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.cs" type="Script" id=11]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -139,13 +141,8 @@ __meta__ = {
 [node name="ButtonTaishou" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 2 )]
 custom_fonts/font = SubResource( 2 )
 
-[node name="ButtonChaoting" type="Button" parent="VBoxContainer/WinContainer/ImpContainer"]
-margin_left = 121.0
-margin_right = 241.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 120, 150 )
-text = "STATIC_CHAOTING"
-clip_text = true
+[node name="ButtonChaoting" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 10 )]
+script = ExtResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer/ImpContainer"]
 margin_left = 242.0
@@ -254,4 +251,3 @@ __meta__ = {
 }
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/PopNum" to="." method="_on_Button_RegistPop_pressed"]
 [connection signal="DaysInc" from="VBoxContainer/TopContainer/HBoxContainer/Speed" to="." method="_on_Speed_DaysInc"]
-[connection signal="pressed" from="VBoxContainer/WinContainer/ImpContainer/ButtonChaoting" to="." method="_on_ButtonChaoting_pressed"]

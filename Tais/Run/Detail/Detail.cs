@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,11 @@ namespace Tais.Run
         decimal value { get; }
     }
 
-    class Detail : IDetail
+    class Detail : IDetail, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public string name { get; set; }
 
         public List<IDetail> subs = new List<IDetail>();

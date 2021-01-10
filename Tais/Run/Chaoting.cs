@@ -22,10 +22,14 @@ namespace Tais.Run
 
         decimal reportTax { get; }
 
+        decimal expectYearTax { get; }
+
+        decimal reportYearTax { get; }
 
         OutputDetail outputDetail { get; }
 
         void UpdateReportTaxPercent(int percent);
+        void DaysInc((int y, int m, int d) date);
     }
 
     class Chaoting : IChaoting
@@ -43,11 +47,18 @@ namespace Tais.Run
         [JsonProperty]
         public decimal[] taxRates { get; set; }
 
+        [JsonProperty]
+        public decimal expectYearTax { get; set; }
+
+        [JsonProperty]
+        public decimal reportYearTax { get; set; }
+
         public decimal reportRate { get; set; }
 
         public decimal expectTax => taxRates[currTaxLevel-1] * reportPopNum;
 
         public decimal reportTax => expectTax * reportRate / 100;
+
 
         public OutputDetail outputDetail { get { return _outputDetail; } set { _outputDetail = value; } }
 
@@ -83,6 +94,18 @@ namespace Tais.Run
         public void UpdateReportTaxPercent(int percent)
         {
             reportRate = percent;
+        }
+
+        public void DaysInc((int y, int m, int d) date)
+        {
+            if(date.d == 30)
+            {
+                expectYearTax += expectTax;
+                reportYearTax += reportTax;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(expectYearTax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(reportYearTax)));
+            }
         }
     }
 }

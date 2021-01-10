@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/fonts/NSimSun/NSimSun-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.cs" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="ButtonChaoting" type="Button"]
+margin_left = 121.0
+margin_right = 241.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 120, 150 )
+custom_fonts/font = SubResource( 1 )
+text = "STATIC_CHAOTING"
+clip_text = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="." to="." method="_on_ButtonChaoting_pressed"]
