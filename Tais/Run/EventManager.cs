@@ -1,12 +1,58 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Tais.API;
 
 namespace Tais.Run
 {
+
     interface IEventManager : INotifyPropertyChanged
     {
         IEvent currEvent { get; }
+
+        void DaysIncAsync((int y, int m, int d) obj);
     }
+
+    interface IEvent
+    {
+        string title_format { get; }
+        string[] title_objs { get; }
+
+        string desc_format { get; }
+        string[] desc_objs { get; }
+
+        Func<Task> FinishNotify{ get; set; }
+    }
+
+    class Event : IEvent
+    {
+        public string title_format => _title.format;
+        public string[] title_objs => _title.objs.Select(x => x.ToString()).ToArray();
+
+        public string desc_format => _desc.format;
+        public string[] desc_objs => _desc.objs.Select(x => x.ToString()).ToArray();
+
+        public IDesc desc { get; set; }
+
+        public Func<Task> FinishNotify { get; set; }
+
+        private IDesc _title;
+        private IDesc _desc;
+        internal static Event Gen(EventDef def)
+        {
+            var inst = new Event();
+
+            inst._title = def.title;
+            inst._desc = def.desc;
+
+            return inst;
+        }
+
+    }
+
 
     class EventManager : IEventManager
     {
@@ -14,6 +60,38 @@ namespace Tais.Run
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
-        public IEvent currEvent { get; }
+        public IEvent currEvent { get; set; }
+
+        internal List<IEvent> events = new List<IEvent>();
+
+        internal static IEventManager Gen(IEnumerable<EventDef> defs)
+        {
+            var inst = new EventManager();
+
+            foreach(var def in defs)
+            {
+                inst.events.Add(Event.Gen(def));
+            }
+
+            return inst;
+        }
+
+        public async void DaysIncAsync((int y, int m, int d) date)
+        {
+            if(GMRoot.runner != null)
+            {
+                foreach (var eventobj in events)
+                {
+                    currEvent = eventobj;
+
+                    LOG.INFO("FinishNotify");
+                    await currEvent.FinishNotify();
+                    LOG.INFO("FinishNotifyed");
+                }
+            }
+
+        }
     }
+
+
 }

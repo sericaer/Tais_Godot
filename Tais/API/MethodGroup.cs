@@ -9,7 +9,7 @@ namespace Tais.API
         public readonly static IVisitor INIT_PARTY = HelperClass<Init.Initer>.Property(x => x.party);
         public readonly static IVisitor INIT_CHAOTING_TAX_LEVEL = HelperClass<Init.Initer>.Property(x => x.chaoting_tax_level);
 
-        public static IDesc DESC(string _format, params string[] _objs)
+        public static IDesc DESC(string _format, params object[] _objs)
         {
             return new Desc() { format = _format, objs = _objs };
         }

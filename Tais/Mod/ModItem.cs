@@ -11,7 +11,7 @@ namespace Tais.Mod
     {
         public readonly string name;
 
-        public IEnumerable<IEvent> events = new List<IEvent>();
+        public IEnumerable<EventDef> events = new List<EventDef>();
         public IEnumerable<Language> languages = new List<Language>();
         public IEnumerable<InitSelect> initSelects = new List<InitSelect>();
         public IEnumerable<DepartDef> departs = new List<DepartDef>();
@@ -39,7 +39,7 @@ namespace Tais.Mod
             {
                 var assembly = Assembly.LoadFile(assemblyPath);
 
-                events = LoadAssemblyObjects<IEvent>(assembly);
+                events = LoadAssemblyObjects<EventDef>(assembly);
                 initSelects = LoadAssemblyObjects<InitSelect>(assembly);
                 departs = LoadAssemblyObjects<DepartDef>(assembly);
                 adjusts = LoadAssemblyObjects<AdjustDef>(assembly);

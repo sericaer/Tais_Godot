@@ -15,6 +15,11 @@ namespace Tais.Visitor
         private Func<T, TProp> getter;
         private Action<T, TProp> setter;
 
+        public override string ToString()
+        {
+            return GetValue().ToString();
+        }
+
         public GMVisitor(Expression<Func<T, TProp>> expr)
         {
             this.lambda = expr;

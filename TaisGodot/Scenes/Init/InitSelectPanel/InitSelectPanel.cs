@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Tais;
 using Tais.API;
@@ -28,7 +29,7 @@ namespace TaisGodot.Scripts
 			desc = GetNode<RichTextLabel>("VBoxContainer/RichTextLabel");
 			buttonContainer = GetNode<VBoxContainer>("VBoxContainer/VBoxContainer");
 
-			desc.Text = TranslateServerEx.Translate(gmObj.desc.format, gmObj.desc.objs);
+			desc.Text = TranslateServerEx.Translate(gmObj.desc.format, gmObj.desc.objs.Select(x=>x.ToString()).ToArray());
 
 			var buttons = CreateButton(gmObj.options.Length);
 
@@ -37,7 +38,7 @@ namespace TaisGodot.Scripts
 				var currBtn = buttons[i];
 				var currOpt = gmObj.options[i];
 
-				currBtn.Text = TranslateServerEx.Translate(currOpt.desc.format, currOpt.desc.objs);
+				currBtn.Text = TranslateServerEx.Translate(currOpt.desc.format, currOpt.desc.objs.Select(x => x.ToString()).ToArray());
 				currBtn.Connect("pressed", this, nameof(_on_Button_Pressed), new Godot.Collections.Array() { i });
 			}
 		}

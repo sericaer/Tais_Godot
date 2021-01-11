@@ -92,6 +92,7 @@ namespace XUnitTest
             runner.taishou = new Mock<ITaishou>().Object;
             runner.economy = new Mock<IEconomy>().Object;
             runner.chaoting = new Mock<IChaoting>().Object;
+            runner.eventMgr = new Mock<IEventManager>().Object;
 
             runner.adjusts = new Dictionary<ADJUST_TYPE, IAdjust>()
             {

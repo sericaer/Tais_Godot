@@ -12,7 +12,7 @@ namespace Tais.Mod
     {
         internal Dictionary<string, ModItem> modItems;
 
-        internal Dictionary<string, IEnumerable<IEvent>> events;
+        internal IEnumerable<EventDef> events;
 
         internal Dictionary<string, IEnumerable<Language>> languages;
 
@@ -47,7 +47,7 @@ namespace Tais.Mod
 
         private void Init()
         {
-            events = modItems.ToDictionary(x=>x.Key, y=>y.Value.events);
+            events = modItems.SelectMany(y=>y.Value.events);
             languages = modItems.ToDictionary(x => x.Key, y => y.Value.languages);
 
             personName = modItems.SelectMany(x => x.Value.languages).ToDictionary(x => x.locale, y => y.personName);

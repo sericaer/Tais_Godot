@@ -9,13 +9,13 @@ namespace Tais.API
     public interface IDesc
     {
         string format { get; }
-        string[] objs { get; }
+        object[] objs { get; }
     }
 
     class Desc : IDesc
     {
         public string format { get; set; }
 
-        public string[] objs { get; set; }
+        public object[] objs { get; set; }
     }
 }

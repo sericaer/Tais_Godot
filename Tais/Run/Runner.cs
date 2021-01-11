@@ -68,8 +68,11 @@ namespace Tais.Run
 
             runner.chaoting = Chaoting.Gen(modder.chaoting, initer.chaoting_tax_level, runner.pops.Where(x=>x.isTax).Sum(x=>(int)x.num));
 
+            runner.eventMgr = EventManager.Gen(modder.events);
+
             runner.IntegrateData();
 
+            
 
             return runner;
         }
@@ -101,6 +104,8 @@ namespace Tais.Run
             this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
 
             this.SetIntegration(date, chaoting).With(x => x.value, y => y.DaysInc);
+
+            this.SetIntegration(date, eventMgr).With(x => x.value, y => y.DaysIncAsync);
 
             LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Tais;
 using Tais.API;
+using Tais.Run;
 
 namespace TaisGodot.Scripts
 {
@@ -18,11 +19,24 @@ namespace TaisGodot.Scripts
 			GMRoot.runner.eventMgr.OBSProperty(x => x.currEvent).Subscribe(e => CreateEventDialog(e));
 		}
 
-		private void CreateEventDialog(IEvent e)
+		private void CreateEventDialog(IEvent gmObj)
 		{
-			//var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
-			//panel.gmObj = e;
-			//AddChild(panel);
+			if (gmObj == null)
+			{
+				return;
+			}
+
+			var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
+			panel.gmObj = gmObj;
+			panel.gmObj.FinishNotify  = async () =>
+			{
+				await ToSignal(panel, "tree_exited");
+				SpeedContrl.UnPause();
+			};
+
+			SpeedContrl.Pause();
+
+			AddChild(panel);
 		}
 
 		private void _on_Speed_DaysInc()

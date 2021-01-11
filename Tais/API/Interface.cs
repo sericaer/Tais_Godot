@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-
-    public interface IEvent
-    {
-        IOperation op { get; }
-    }
-
     public interface IOperation
     {
         void Do();
