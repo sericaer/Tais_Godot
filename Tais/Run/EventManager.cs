@@ -112,6 +112,8 @@ namespace Tais.Run
                     LOG.INFO("FinishNotify");
                     await currEvent.FinishNotify();
                     LOG.INFO("FinishNotifyed");
+
+                    currEvent = null;
                 }
             }
 
