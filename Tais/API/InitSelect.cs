@@ -10,7 +10,7 @@ namespace Tais.API
         public virtual bool IsFirst => false;
     }
 
-    public class InitSelectOption : IOption
+    public class InitSelectOption : OptionDef
     {
         public String Next;
     }

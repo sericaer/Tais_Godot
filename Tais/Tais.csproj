@@ -94,7 +94,7 @@
     <Compile Include="GMRoot.cs" />
     <Compile Include="API\IDesc.cs" />
     <Compile Include="API\Interface.cs" />
-    <Compile Include="API\IOption.cs" />
+    <Compile Include="API\OptionDef.cs" />
     <Compile Include="API\Method.cs" />
     <Compile Include="Init\Initer.cs" />
     <Compile Include="LOG.cs" />

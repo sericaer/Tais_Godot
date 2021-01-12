@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tais.API
 {
-    public abstract class IOption
+    public class OptionDef
     {
         public IDesc desc;
         public IOperation[] operations;

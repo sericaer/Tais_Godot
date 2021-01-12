@@ -5,6 +5,6 @@
         public abstract IDesc title { get; }
         public abstract IDesc desc { get; }
 
-        public abstract IOperation op { get; }
+        public abstract OptionDef[] options { get; }
     }
 }

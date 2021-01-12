@@ -24,9 +24,9 @@ namespace TaisGodot.Scripts
         internal static string Translate(string format, params string[] pp)
         {
             var tranFormat = TranslationServer.Translate(format);
-            if(pp.Count() == 0)
+            if(pp.Count() != 0 && format == tranFormat)
             {
-                return tranFormat;
+                return $"{tranFormat}({String.Join(",", pp)})";
             }
 
             return String.Format(tranFormat, pp);

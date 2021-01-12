@@ -36,5 +36,10 @@ namespace Tais.API
 
             return pop;
         }
+
+        public static OptionDef EVENT_OPTION(IDesc _desc)
+        {
+            return new OptionDef() { desc = _desc };
+        }
     }
 }

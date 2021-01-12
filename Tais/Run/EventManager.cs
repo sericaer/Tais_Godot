@@ -24,7 +24,29 @@ namespace Tais.Run
         string desc_format { get; }
         string[] desc_objs { get; }
 
+        IOption[] options { get; }
+
         Func<Task> FinishNotify{ get; set; }
+    }
+
+    public interface IOption
+    {
+        string desc_format { get; }
+        string[] desc_objs { get; }
+    }
+
+    public class Option : IOption
+    {
+        private OptionDef def;
+
+        public Option(OptionDef def)
+        {
+            this.def = def;
+        }
+
+        public string desc_format => def.desc.format;
+
+        public string[] desc_objs => def.desc.objs.Select(x => x.ToString()).ToArray();
     }
 
     class Event : IEvent
@@ -35,18 +57,21 @@ namespace Tais.Run
         public string desc_format => _desc.format;
         public string[] desc_objs => _desc.objs.Select(x => x.ToString()).ToArray();
 
-        public IDesc desc { get; set; }
+        public IOption[] options => _options;
 
         public Func<Task> FinishNotify { get; set; }
 
         private IDesc _title;
         private IDesc _desc;
+        private Option[] _options;
+
         internal static Event Gen(EventDef def)
         {
             var inst = new Event();
 
             inst._title = def.title;
             inst._desc = def.desc;
+            inst._options = def.options.Select(x => new Option(x)).ToArray();
 
             return inst;
         }
