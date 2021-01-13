@@ -47,7 +47,12 @@ namespace Tais.API
 
         public static ConditionDef EQUAL<T>(IVisitor<T> left, T right)
         {
-            return new Mod.Equal<T>(left, right);
+            return new Mod.Condition.Equal<T>(left, right);
+        }
+
+        public static ConditionDef LESS<T>(IVisitor<T> left, T right) where T : unmanaged, IComparable, IEquatable<T>
+        {
+            return new Mod.Condition.Less<T>(left, right);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
 
-namespace Tais.Mod
+namespace Tais.Mod.Condition
 {
     public class Equal<T> : ConditionDef
     {

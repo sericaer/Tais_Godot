@@ -76,6 +76,7 @@
     <Compile Include="API\MethodGroup.cs" />
     <Compile Include="API\PopDef.cs" />
     <Compile Include="API\AdjustDef.cs" />
+    <Compile Include="Mod\Condition\Less.cs" />
     <Compile Include="Mod\Operation\Assign.cs" />
     <Compile Include="Run\Adjust.cs" />
     <Compile Include="Run\BuffedValue.cs" />
