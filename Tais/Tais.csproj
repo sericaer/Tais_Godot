@@ -70,6 +70,7 @@
     <Compile Include="API\ChaotingDef.cs" />
     <Compile Include="API\Color.cs" />
     <Compile Include="API\ConditionDef.cs" />
+    <Compile Include="API\DateFilter.cs" />
     <Compile Include="Mod\Condition\Equal.cs" />
     <Compile Include="API\DepartDef.cs" />
     <Compile Include="API\EventDef.cs" />

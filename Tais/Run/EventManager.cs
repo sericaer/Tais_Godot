@@ -18,6 +18,8 @@ namespace Tais.Run
 
     interface IEvent
     {
+        (int? y, int? m, int? d)? date { get; }
+
         ConditionDef trigger { get; }
 
         string title_format { get; }
@@ -30,7 +32,7 @@ namespace Tais.Run
 
         Func<Task> FinishNotify{ get; set; }
 
-        bool isTrigger();
+        bool isVaildDate((int y, int m, int d) date);
     }
 
     interface IOption
@@ -60,6 +62,8 @@ namespace Tais.Run
 
     class Event : IEvent
     {
+        public (int? y, int? m, int? d)? date { get; set; }
+
         public ConditionDef trigger { get; set; }
 
         public string title_format => _title.format;
@@ -71,6 +75,8 @@ namespace Tais.Run
         public IOption[] options => _options;
 
         public Func<Task> FinishNotify { get; set; }
+
+        
 
         private IDesc _title;
         private IDesc _desc;
@@ -84,13 +90,32 @@ namespace Tais.Run
             inst._title = def.title;
             inst._desc = def.desc;
             inst._options = def.options.Select(x => new Option(x)).ToArray();
+            inst.date = def.date;
 
             return inst;
         }
 
-        public bool isTrigger()
+        public bool isVaildDate((int y, int m, int d) _date)
         {
-            throw new NotImplementedException();
+            if(date == null)
+            {
+                return true;
+            }
+
+            if(date.Value.y != null && _date.y != date.Value.y)
+            {
+                return false;
+            }
+            if (date.Value.m != null && _date.m != date.Value.m)
+            {
+                return false;
+            }
+            if (date.Value.d != null && _date.d != date.Value.d)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -121,6 +146,11 @@ namespace Tais.Run
         {
             foreach (var eventobj in events)
             {
+                if (!eventobj.isVaildDate(date))
+                {
+                    continue;
+                }
+
                 if (!eventobj.trigger.isTrue())
                 {
                     continue;
