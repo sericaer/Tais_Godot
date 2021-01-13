@@ -13,7 +13,7 @@ namespace XUnitTest
 {
     static class Extension
     {
-        public static void ShouldBe<T, P>(this IVisitor self, Expression<Func<T, P>> expr)
+        public static void ShouldBe<T, P>(this IVisitor<P> self, Expression<Func<T, P>> expr)
         {
             var self_expr = (IExpr)self;
             self_expr.lambda.ToString().Should().Be(expr.ToString());

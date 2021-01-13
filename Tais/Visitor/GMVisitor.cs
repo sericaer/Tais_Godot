@@ -8,7 +8,7 @@ using Tais.API;
 namespace Tais.Visitor
 {
 
-    class GMVisitor<T, TProp> : VisitorData, IExpr, IVisitor
+    class GMVisitor<T, TProp> : VisitorData, IExpr, IVisitor<TProp>
     {
         public LambdaExpression lambda { get; set; }
      
@@ -28,7 +28,7 @@ namespace Tais.Visitor
             this.getter = expr.Compile();
         }
 
-        public void SetValue(dynamic value)
+        public void SetValue(TProp value)
         {
             var obj = (T)dict[typeof(T)];
             setter(obj, value);

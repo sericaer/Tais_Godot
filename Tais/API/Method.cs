@@ -24,7 +24,7 @@ namespace Tais.API
             return new InitSelectOption() { desc = _desc, operations = ops };
         }
 
-        public static Assign<T> ASSIGN<T>(IVisitor visitor, T value)
+        public static Assign<T> ASSIGN<T>(IVisitor<T> visitor, T value)
         {
             return new Assign<T>(visitor, value);
         }

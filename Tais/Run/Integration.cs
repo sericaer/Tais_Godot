@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,15 +51,18 @@ namespace Tais.Run
             binds = new List<(LambdaExpression src, LambdaExpression dest)>();
         }
 
-        public void With<TP>(Expression<Func<TS, TP>> src, Expression<Func<TD, Action<TP>>> dest)
+        public void With<TP>(Expression<Func<TS, TP>> src, Expression<Func<TD, Action<TP>>> dest, bool isIgnoreInit = false)
         {
             binds.Add((src, dest));
+
+            int skip = isIgnoreInit ? 1 : 0;
+
 
             if(destObj is IEnumerable<TD>)
             {
                 foreach(var elem in (destObj as IEnumerable<TD>))
                 {
-                    ((TS)srcObj).OBSProperty(src).Subscribe(dest.Compile().Invoke((TD)elem));
+                    ((TS)srcObj).OBSProperty(src).Skip(skip).Subscribe(dest.Compile().Invoke((TD)elem));
                 }
                 return;
             }
@@ -67,12 +71,12 @@ namespace Tais.Run
             {
                 foreach (var elem in (srcObj as IEnumerable<TS>))
                 {
-                    ((TS)elem).OBSProperty(src).Subscribe(dest.Compile().Invoke((TD)destObj));
+                    ((TS)elem).OBSProperty(src).Skip(skip).Subscribe(dest.Compile().Invoke((TD)destObj));
                 }
                 return;
             }
 
-            ((TS)srcObj).OBSProperty(src).Subscribe(dest.Compile().Invoke((TD)destObj));
+            ((TS)srcObj).OBSProperty(src).Skip(skip).Subscribe(dest.Compile().Invoke((TD)destObj));
         }
     }
 }

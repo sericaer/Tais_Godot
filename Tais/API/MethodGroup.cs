@@ -1,13 +1,16 @@
 ﻿using System;
-using Tais.Mod.Operation;
 using Tais.Visitor;
 
 namespace Tais.API
 {
     public class MethodGroup
     {
-        public readonly static IVisitor INIT_PARTY = HelperClass<Init.Initer>.Property(x => x.party);
-        public readonly static IVisitor INIT_CHAOTING_TAX_LEVEL = HelperClass<Init.Initer>.Property(x => x.chaoting_tax_level);
+        public readonly static IVisitor<Type> INIT_PARTY = HelperClass<Init.Initer>.Property(x => x.party);
+        public readonly static IVisitor<int> INIT_CHAOTING_TAX_LEVEL = HelperClass<Init.Initer>.Property(x => x.chaoting_tax_level);
+
+        public readonly static IVisitor<int> YEAR = HelperClass<Run.Runner>.Property(x => x.date.value.y);
+        public readonly static IVisitor<int> MONTH = HelperClass<Run.Runner>.Property(x => x.date.value.m);
+        public readonly static IVisitor<int> DAY = HelperClass<Run.Runner>.Property(x => x.date.value.d);
 
         public static IDesc DESC(string _format, params object[] _objs)
         {
@@ -24,9 +27,9 @@ namespace Tais.API
             return new InitSelectOption() { desc = _desc, operations = ops, Next = next };
         }
 
-        public static Assign<T> ASSIGN<T>(IVisitor visitor, T value)
+        public static IOperation ASSIGN<T>(IVisitor<T> visitor, T value)
         {
-            return new Assign<T>(visitor, value);
+            return new Mod.Operation.Assign<T>(visitor, value);
         }
 
         public static PopDef POP_NUM<T>(decimal num) where T : PopDef
@@ -40,6 +43,11 @@ namespace Tais.API
         public static String NEXT(Type type)
         {
             return type.FullName;
+        }
+
+        public static ConditionDef EQUAL<T>(IVisitor<T> left, T right)
+        {
+            return new Mod.Equal<T>(left, right);
         }
     }
 }

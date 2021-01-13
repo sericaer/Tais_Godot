@@ -11,6 +11,7 @@ namespace Native
 {
     public class EVENT_TEST : EventDef
     {
+        public override ConditionDef trigger => EQUAL(DAY, 10);
         public override IDesc title => DESC("EVENT_TEST_TITLE", INIT_PARTY);
 
         public override IDesc desc => DESC("EVENT_TEST_DESC");
@@ -23,5 +24,7 @@ namespace Native
                     DESC("EVENT_TEST_OPTION2_DESC")
                 )
             );
+
+        
     }
 }

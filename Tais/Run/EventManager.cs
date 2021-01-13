@@ -18,6 +18,8 @@ namespace Tais.Run
 
     interface IEvent
     {
+        ConditionDef trigger { get; }
+
         string title_format { get; }
         string[] title_objs { get; }
 
@@ -27,15 +29,17 @@ namespace Tais.Run
         IOption[] options { get; }
 
         Func<Task> FinishNotify{ get; set; }
+
+        bool isTrigger();
     }
 
-    public interface IOption
+    interface IOption
     {
         string desc_format { get; }
         string[] desc_objs { get; }
     }
 
-    public class Option : IOption
+    class Option : IOption
     {
         private OptionDef def;
 
@@ -49,8 +53,15 @@ namespace Tais.Run
         public string[] desc_objs => def.desc.objs.Select(x => x.ToString()).ToArray();
     }
 
+    interface ICondition
+    {
+        bool isTrue();
+    }
+
     class Event : IEvent
     {
+        public ConditionDef trigger { get; set; }
+
         public string title_format => _title.format;
         public string[] title_objs => _title.objs.Select(x => x.ToString()).ToArray();
 
@@ -69,6 +80,7 @@ namespace Tais.Run
         {
             var inst = new Event();
 
+            inst.trigger = def.trigger;
             inst._title = def.title;
             inst._desc = def.desc;
             inst._options = def.options.Select(x => new Option(x)).ToArray();
@@ -76,6 +88,10 @@ namespace Tais.Run
             return inst;
         }
 
+        public bool isTrigger()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -103,18 +119,20 @@ namespace Tais.Run
 
         public async void DaysIncAsync((int y, int m, int d) date)
         {
-            if(GMRoot.runner != null)
+            foreach (var eventobj in events)
             {
-                foreach (var eventobj in events)
+                if (!eventobj.trigger.isTrue())
                 {
-                    currEvent = eventobj;
-
-                    LOG.INFO("FinishNotify");
-                    await currEvent.FinishNotify();
-                    LOG.INFO("FinishNotifyed");
-
-                    currEvent = null;
+                    continue;
                 }
+
+                currEvent = eventobj;
+
+                LOG.INFO("FinishNotify");
+                await currEvent.FinishNotify();
+                LOG.INFO("FinishNotifyed");
+
+                currEvent = null;
             }
 
         }

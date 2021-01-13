@@ -98,14 +98,14 @@ namespace Tais.Run
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
 
             LOG.INFO("4");
-            this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc);
+            this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc, true);
 
             LOG.INFO("5");
-            this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc);
+            this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc, true);
 
-            this.SetIntegration(date, chaoting).With(x => x.value, y => y.DaysInc);
+            this.SetIntegration(date, chaoting).With(x => x.value, y => y.DaysInc, true);
 
-            this.SetIntegration(date, eventMgr).With(x => x.value, y => y.DaysIncAsync);
+            this.SetIntegration(date, eventMgr).With(x => x.value, y => y.DaysIncAsync, true);
 
             LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);

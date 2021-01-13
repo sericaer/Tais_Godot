@@ -33,8 +33,8 @@ namespace XUnitTest.RunnerTest
 
             List<IEvent> events = new List<IEvent>()
             {
-                Mock.Of<IEvent>(e=>e.title_format == "EVENT_TITLE_1"),
-                Mock.Of<IEvent>(e=>e.title_format == "EVENT_TITLE_2")
+                Mock.Of<IEvent>(e=>e.title_format == "EVENT_TITLE_1" && e.trigger ==  Mock.Of<ConditionDef>(c=>c.isTrue() == true)),
+                Mock.Of<IEvent>(e=>e.title_format == "EVENT_TITLE_2" && e.trigger ==  Mock.Of<ConditionDef>(c=>c.isTrue() == true))
             };
 
             eventManager.events = events;
