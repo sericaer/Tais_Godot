@@ -7,6 +7,30 @@ using Tais.API;
 
 namespace Tais.Visitor
 {
+    class GMVisitorR<T, TProp> : VisitorData, IExpr, IVisitorR<TProp>
+    {
+        public LambdaExpression lambda { get; set; }
+
+        private Func<T, TProp> getter;
+
+        public override string ToString()
+        {
+            return GetValue().ToString();
+        }
+
+        public GMVisitorR(Expression<Func<T, TProp>> expr)
+        {
+            this.lambda = expr;
+
+            this.getter = expr.Compile();
+        }
+
+        public TProp GetValue()
+        {
+            var obj = (T)dict[typeof(T)];
+            return getter(obj);
+        }
+    }
 
     class GMVisitor<T, TProp> : VisitorData, IExpr, IVisitor<TProp>
     {
@@ -71,6 +95,11 @@ namespace Tais.Visitor
         public static GMVisitor<T, TProp> Property<TProp>(Expression<Func<T, TProp>> expression)
         {
             return new GMVisitor<T, TProp>(expression);
+        }
+
+        public static GMVisitorR<T, TProp> PropertyOnlyRead<TProp>(Expression<Func<T, TProp>> expression)
+        {
+            return new GMVisitorR<T, TProp>(expression);
         }
     }
 }

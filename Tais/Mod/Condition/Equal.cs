@@ -9,10 +9,10 @@ namespace Tais.Mod.Condition
 {
     public class Equal<T> : ConditionDef
     {
-        public IVisitor<T> left;
+        public IVisitorR<T> left;
         public T right;
 
-        public Equal(IVisitor<T> left, T right)
+        public Equal(IVisitorR<T> left, T right)
         {
             this.left = left;
             this.right = right;

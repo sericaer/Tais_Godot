@@ -5,10 +5,10 @@ namespace Tais.Mod.Condition
 {
     internal class Less<T> : ConditionDef where T : unmanaged, IComparable, IEquatable<T>
     {
-        private IVisitor<T> left;
+        private IVisitorR<T> left;
         private T right;
 
-        public Less(IVisitor<T> left, T right)
+        public Less(IVisitorR<T> left, T right)
         {
             this.left = left;
             this.right = right;

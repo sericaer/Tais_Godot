@@ -32,7 +32,7 @@ namespace Tais.Run
 
         Func<Task> FinishNotify{ get; set; }
 
-        bool isVaildDate((int y, int m, int d) date);
+        bool isTrigger((int y, int m, int d) date);
     }
 
     interface IOption
@@ -77,12 +77,11 @@ namespace Tais.Run
         public Func<Task> FinishNotify { get; set; }
 
         
-
         private IDesc _title;
         private IDesc _desc;
         private Option[] _options;
 
-        internal static Event Gen(EventDef def)
+        public static Event Gen(EventDef def)
         {
             var inst = new Event();
 
@@ -90,16 +89,37 @@ namespace Tais.Run
             inst._title = def.title;
             inst._desc = def.desc;
             inst._options = def.options.Select(x => new Option(x)).ToArray();
-            inst.date = def.date;
+
+            if (def.date != null)
+            {
+                inst.date = (def.date.year, def.date.month, def.date.day);
+            }
+            
 
             return inst;
         }
 
-        public bool isVaildDate((int y, int m, int d) _date)
+
+        public bool isTrigger((int y, int m, int d) date)
+        {
+            if(!isVaildDate(date))
+            {
+                return false;
+            }
+
+            if(trigger == null)
+            {
+                return true;
+            }
+
+            return trigger.isTrue();
+        }
+
+        private bool isVaildDate((int y, int m, int d) _date)
         {
             if(date == null)
             {
-                return true;
+                return false;
             }
 
             if(date.Value.y != null && _date.y != date.Value.y)
@@ -146,12 +166,7 @@ namespace Tais.Run
         {
             foreach (var eventobj in events)
             {
-                if (!eventobj.isVaildDate(date))
-                {
-                    continue;
-                }
-
-                if (!eventobj.trigger.isTrue())
+                if (!eventobj.isTrigger(date))
                 {
                     continue;
                 }

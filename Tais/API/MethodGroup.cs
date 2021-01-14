@@ -8,9 +8,13 @@ namespace Tais.API
         public readonly static IVisitor<Type> INIT_PARTY = HelperClass<Init.Initer>.Property(x => x.party);
         public readonly static IVisitor<int> INIT_CHAOTING_TAX_LEVEL = HelperClass<Init.Initer>.Property(x => x.chaoting_tax_level);
 
-        public readonly static IVisitor<int> YEAR = HelperClass<Run.Runner>.Property(x => x.date.value.y);
-        public readonly static IVisitor<int> MONTH = HelperClass<Run.Runner>.Property(x => x.date.value.m);
-        public readonly static IVisitor<int> DAY = HelperClass<Run.Runner>.Property(x => x.date.value.d);
+        public readonly static IVisitorR<int> YEAR = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.y);
+        public readonly static IVisitorR<int> MONTH = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.m);
+        public readonly static IVisitorR<int> DAY = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.d);
+
+        public readonly static IVisitorR<decimal> CHAOTING_EXPECT_YEAR_TAX = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.expectYearTax);
+        public readonly static IVisitor<decimal> CHAOTING_REPORT_YEAR_TAX = HelperClass<Run.Runner>.Property(x => x.chaoting.reportYearTax);
+        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_DIFF = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxDiff);
 
         public static IDesc DESC(string _format, params object[] _objs)
         {
@@ -45,14 +49,19 @@ namespace Tais.API
             return type.FullName;
         }
 
-        public static ConditionDef EQUAL<T>(IVisitor<T> left, T right)
+        public static ConditionDef EQUAL<T>(IVisitorR<T> left, T right)
         {
             return new Mod.Condition.Equal<T>(left, right);
         }
 
-        public static ConditionDef LESS<T>(IVisitor<T> left, T right) where T : unmanaged, IComparable, IEquatable<T>
+        public static ConditionDef LESS<T>(IVisitorR<T> left, T right) where T : unmanaged, IComparable, IEquatable<T>
         {
             return new Mod.Condition.Less<T>(left, right);
+        }
+
+        public static EventDef.VaildDate VAILID_DATE(int? y, int? m, int? d)
+        {
+            return new EventDef.VaildDate() { year = y, month = m, day = d };
         }
     }
 }

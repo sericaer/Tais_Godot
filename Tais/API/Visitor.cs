@@ -8,9 +8,13 @@ using Tais.Visitor;
 
 namespace Tais.API
 {
-    public interface IVisitor<T>
+    public interface IVisitor<T> : IVisitorR<T>
+    {
+        void SetValue(T value);
+    }
+
+    public interface IVisitorR<T>
     {
         T GetValue();
-        void SetValue(T value);
     }
 }

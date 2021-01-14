@@ -2,13 +2,23 @@
 {
     public abstract class EventDef : MethodGroup
     {
-        public abstract (int? y, int? m, int? d)? date { get; }
+        public abstract VaildDate date { get; }
 
-        public abstract ConditionDef trigger { get; }
+        public virtual ConditionDef trigger => null;
 
         public abstract IDesc title { get; }
         public abstract IDesc desc { get; }
 
         public abstract OptionDef[] options { get; }
+
+        public class VaildDate
+        {
+            public static VaildDate NULL = null;
+            public static VaildDate ALL = new VaildDate() { };
+
+            public int? year;
+            public int? month;
+            public int? day;
+        }
     }
 }
