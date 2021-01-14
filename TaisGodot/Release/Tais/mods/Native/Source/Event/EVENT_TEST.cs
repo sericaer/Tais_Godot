@@ -15,7 +15,7 @@ namespace Native
 
         public override ConditionDef trigger => LESS(CHAOTIN_YEAR_TAX_DIFF, 0);
 
-        public override IDesc title => DESC("EVENT_TEST_TITLE", INIT_PARTY);
+        public override IDesc title => DESC("EVENT_TEST_TITLE", 100);
 
         public override IDesc desc => DESC("EVENT_TEST_DESC");
 

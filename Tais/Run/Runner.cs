@@ -42,11 +42,15 @@ namespace Tais.Run
 
         internal List<Integration> integrations = new List<Integration>();
 
-        public static Runner Deserialize(string content)
+        public static Runner Deserialize(string content, Modder modder)
         {
             var settings = new JsonSerializerSettings();
             settings.TypeNameHandling = TypeNameHandling.Objects;
             var obj = JsonConvert.DeserializeObject<Runner>(content, settings);
+
+            obj.eventMgr = EventManager.Gen(modder.events);
+            obj.IntegrateData();
+
             return obj;
         }
 
@@ -72,8 +76,6 @@ namespace Tais.Run
 
             runner.IntegrateData();
 
-            
-
             return runner;
         }
 
@@ -84,7 +86,6 @@ namespace Tais.Run
             return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
 
-        [OnDeserialized]
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
             LOG.INFO("1");
@@ -109,11 +110,6 @@ namespace Tais.Run
 
             LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
-
-            LOG.INFO(chaoting.reportTax);
-            LOG.INFO(chaoting.expectTax);
-            LOG.INFO(chaoting.currTaxLevel);
-
         }
     }
 

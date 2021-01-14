@@ -52,7 +52,7 @@ namespace TaisGodot.Scripts
 		private void _on_LoadSaveFile_Signed(string path)
 		{
 			var content = System.IO.File.ReadAllText(path);
-			GMRoot.runner = Tais.Run.Runner.Deserialize(content);
+			GMRoot.runner = Tais.Run.Runner.Deserialize(content, GMRoot.modder);
 
 			GetTree().ChangeScene(MainScene.path);
 		}
