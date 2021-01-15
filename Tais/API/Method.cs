@@ -37,9 +37,9 @@ namespace Tais.API
             return pop;
         }
 
-        public static OptionDef EVENT_OPTION(IDesc _desc)
+        public static OptionDef EVENT_OPTION(IDesc _desc, IOperation[] _opertions = null)
         {
-            return new OptionDef() { desc = _desc };
+            return new OptionDef() { desc = _desc, operations = _opertions };
         }
     }
 }

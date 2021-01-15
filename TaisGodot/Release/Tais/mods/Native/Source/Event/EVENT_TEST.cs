@@ -21,7 +21,10 @@ namespace Native
 
         public override OptionDef[] options => ARRAY(
                 EVENT_OPTION(
-                    DESC("EVENT_TEST_OPTION1_DESC")
+                    DESC("EVENT_TEST_OPTION1_DESC"),
+                    ARRAY(
+                        ASSIGN(GM_END, true)
+                    )
                 ),
                 EVENT_OPTION(
                     DESC("EVENT_TEST_OPTION2_DESC")

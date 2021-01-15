@@ -18,6 +18,8 @@ namespace Tais.Run
     [JsonObject(MemberSerialization.OptIn)]
     class Runner
     {
+        public bool gmEnd = false;
+
         [JsonProperty]
         public ITaishou taishou;
 

@@ -8,6 +8,8 @@ namespace Tais.API
         public readonly static IVisitor<Type> INIT_PARTY = HelperClass<Init.Initer>.Property(x => x.party);
         public readonly static IVisitor<int> INIT_CHAOTING_TAX_LEVEL = HelperClass<Init.Initer>.Property(x => x.chaoting_tax_level);
 
+        public readonly static IVisitor<bool> GM_END = HelperClass<Run.Runner>.Property(x => x.gmEnd);
+
         public readonly static IVisitorR<int> YEAR = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.y);
         public readonly static IVisitorR<int> MONTH = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.m);
         public readonly static IVisitorR<int> DAY = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.date.value.d);

@@ -39,20 +39,30 @@ namespace Tais.Run
     {
         string desc_format { get; }
         string[] desc_objs { get; }
+
+        IOperation[] operations { get; }
     }
 
     class Option : IOption
     {
-        private OptionDef def;
+        public Option()
+        {
+
+        }
 
         public Option(OptionDef def)
         {
-            this.def = def;
+            desc_format = def.desc.format;
+            desc_objs = def.desc.objs.Select(x => x.ToString()).ToArray();
+
+            operations = def.operations;
         }
 
-        public string desc_format => def.desc.format;
+        public string desc_format { get; set; }
 
-        public string[] desc_objs => def.desc.objs.Select(x => x.ToString()).ToArray();
+        public string[] desc_objs { get; set; }
+
+        public IOperation[] operations { get; set; }
     }
 
     interface ICondition
@@ -136,6 +146,37 @@ namespace Tais.Run
             }
 
             return true;
+        }
+    }
+
+    class EndEvent : IEvent
+    {
+        public (int? y, int? m, int? d)? date => null;
+
+        public ConditionDef trigger => null;
+
+        public string title_format => "GAME_OVER_TITLE";
+
+        public string[] title_objs => null;
+
+        public string desc_format => "GAME_OVER_DESC";
+
+        public string[] desc_objs => null;
+
+        public IOption[] options => new IOption[]
+        {
+            new Option()
+            {
+                desc_format = "GAME_OVER_OPTION_DESC"
+            }
+        };
+
+
+        public Func<Task> FinishNotify { get; set; }
+
+        public bool isTrigger((int y, int m, int d) date)
+        {
+            return false;
         }
     }
 

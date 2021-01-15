@@ -26,6 +26,13 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
+			if(gmObj is EndEvent)
+			{
+				var pEndanel = ResourceLoader.Load<PackedScene>(EndPanel.path).Instance() as EndPanel;
+				AddChild(pEndanel);
+				return;
+			}
+
 			var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
 			panel.gmObj = gmObj;
 			panel.gmObj.FinishNotify  = async () =>
