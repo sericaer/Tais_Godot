@@ -10,12 +10,12 @@ namespace TaisGodot.Scripts
 
 		public static void UnPause()
 		{
-			sysPause = false;
+			sysPause--;
 		}
 
 		public static void Pause()
 		{
-			sysPause = true;
+			sysPause++;
 		}
 
 		public override void _Ready()
@@ -80,12 +80,12 @@ namespace TaisGodot.Scripts
 		{
 			get
 			{
-				return usrPause||sysPause;
+				return usrPause||sysPause!=0;
 			}
 		}
 
 		private static bool usrPause;
-		private static bool sysPause;
+		private static int sysPause;
 
 		private int speed
 		{

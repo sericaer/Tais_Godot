@@ -33,19 +33,24 @@ namespace TaisGodot.Scripts
 				
 			for(int i=0; i< btns.Count; i++)
 			{
-				AssocOption(btns[i], gmObj.options[i]);
+				AssocOption(btns[i], gmObj.options[i], i);
 			}
 		}
 
-		private void AssocOption(Button button, IOption option)
+		private void AssocOption(Button button, IOption option, int index)
 		{
 			button.Text = TranslateServerEx.Translate(option.desc_format, option.desc_objs);
-			button.Connect("pressed", this, nameof(Exit));
+
+			button.Connect("pressed", this, nameof(Exit), new Godot.Collections.Array { index });
 		}
 
-		private void Exit()
+		private void Exit(int index)
 		{
-			GD.Print("pressed");
+			foreach (var op in gmObj.options[index].operations)
+			{
+				op.Do();
+			}
+
 			QueueFree();
 		}
 

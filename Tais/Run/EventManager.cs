@@ -55,7 +55,7 @@ namespace Tais.Run
             desc_format = def.desc.format;
             desc_objs = def.desc.objs.Select(x => x.ToString()).ToArray();
 
-            operations = def.operations;
+            operations = def.operations == null ? new IOperation[] { }: def.operations;
         }
 
         public string desc_format { get; set; }

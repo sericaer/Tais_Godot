@@ -30,6 +30,8 @@ namespace TaisGodot.Scripts
 
 			if (gmObj is EndEvent)
 			{
+				GD.Print("EndEvent");
+
 				var pEndanel = ResourceLoader.Load<PackedScene>(EndPanel.path).Instance() as EndPanel;
 
 				AddChild(pEndanel);
@@ -40,7 +42,7 @@ namespace TaisGodot.Scripts
 			panel.gmObj = gmObj;
 			panel.gmObj.FinishNotify  = async () =>
 			{
-				await ToSignal(panel, "tree_exited");
+				await ToSignal(panel, "tree_exiting");
 				SpeedContrl.UnPause();
 			};
 
