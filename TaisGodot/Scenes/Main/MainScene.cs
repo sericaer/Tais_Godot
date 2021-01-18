@@ -26,9 +26,12 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
-			if(gmObj is EndEvent)
+			SpeedContrl.Pause();
+
+			if (gmObj is EndEvent)
 			{
 				var pEndanel = ResourceLoader.Load<PackedScene>(EndPanel.path).Instance() as EndPanel;
+
 				AddChild(pEndanel);
 				return;
 			}
@@ -40,8 +43,6 @@ namespace TaisGodot.Scripts
 				await ToSignal(panel, "tree_exited");
 				SpeedContrl.UnPause();
 			};
-
-			SpeedContrl.Pause();
 
 			AddChild(panel);
 		}

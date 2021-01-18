@@ -18,7 +18,20 @@ namespace Tais.Run
     [JsonObject(MemberSerialization.OptIn)]
     class Runner
     {
-        public bool gmEnd = false;
+        public bool gmEnd
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
+                if(value)
+                {
+                    eventMgr.currEvent = new EndEvent();
+                }
+            }
+        }
 
         [JsonProperty]
         public ITaishou taishou;

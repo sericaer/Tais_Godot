@@ -11,7 +11,7 @@ namespace Tais.Run
 
     interface IEventManager : INotifyPropertyChanged
     {
-        IEvent currEvent { get; }
+        IEvent currEvent { get; set; }
 
         void DaysIncAsync((int y, int m, int d) obj);
     }

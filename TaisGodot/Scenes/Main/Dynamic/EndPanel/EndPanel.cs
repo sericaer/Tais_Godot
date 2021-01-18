@@ -1,26 +1,25 @@
 using Godot;
 using System;
+using Tais;
 
 namespace TaisGodot.Scripts
 {
-    public class EndPanel : Panel
-    {
-        public const string path = "res://Scenes/Main/Dynamic/EventDialogPanel/EndPanel.tscn";
+	public class EndPanel : Panel
+	{
+		public const string path = "res://Scenes/Main/Dynamic/EventDialogPanel/EndPanel.tscn";
 
-        // Declare member variables here. Examples:
-        // private int a = 2;
-        // private string b = "text";
+		public override void _ExitTree()
+		{
+			GMRoot.runner = null;
 
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
-        {
+			GetTree().ChangeScene(StartScene.path);
+		}
 
-        }
-
-        //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-        //  public override void _Process(float delta)
-        //  {
-        //      
-        //  }
-    }
+		private void _on_Button_pressed()
+		{
+			QueueFree();
+		}
+	}
 }
+
+
