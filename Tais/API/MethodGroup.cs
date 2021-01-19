@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Tais.Run;
 using Tais.Visitor;
 
 namespace Tais.API
@@ -19,6 +20,8 @@ namespace Tais.API
         public readonly static IVisitor<decimal> CHAOTING_REPORT_YEAR_TAX = HelperClass<Run.Runner>.Property(x => x.chaoting.reportYearTax);
         public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_OWE = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxOwe);
         public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_EXCESS = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxExcess);
+        
+        public readonly static IVisitor<int> PERCENT_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.percent);
 
         public static IDesc DESC(string _format, params object[] _objs)
         {

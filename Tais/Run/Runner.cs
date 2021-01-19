@@ -53,6 +53,8 @@ namespace Tais.Run
 
         public IEventManager eventMgr;
 
+        public IAdjust adjustReportChaotingTax => adjusts[ADJUST_TYPE.CHAOTING_TAX];
+
         public IEnumerable<IPop> pops => departs.SelectMany(d => d.pops);
 
         internal List<Integration> integrations = new List<Integration>();
