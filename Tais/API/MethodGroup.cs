@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Tais.Visitor;
 
 namespace Tais.API
@@ -16,7 +17,8 @@ namespace Tais.API
 
         public readonly static IVisitorR<decimal> CHAOTING_EXPECT_YEAR_TAX = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.expectYearTax);
         public readonly static IVisitor<decimal> CHAOTING_REPORT_YEAR_TAX = HelperClass<Run.Runner>.Property(x => x.chaoting.reportYearTax);
-        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_DIFF = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxDiff);
+        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_OWE = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxOwe);
+        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_EXCESS = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxExcess);
 
         public static IDesc DESC(string _format, params object[] _objs)
         {
@@ -55,15 +57,39 @@ namespace Tais.API
         {
             return new Mod.Condition.Equal<T>(left, right);
         }
-
-        public static ConditionDef LESS<T>(IVisitorR<T> left, T right) where T : unmanaged, IComparable, IEquatable<T>
+        public static ConditionDef EQUAL<T>(IVisitorR<T> left, IVisitorR<T> right)
         {
-            return new Mod.Condition.Less<T>(left, right);
+            return new Mod.Condition.Equal<T>(left, right);
+        }
+
+        public static ConditionDef LESS(IVisitorR<decimal> left, decimal right)
+        {
+            return new Mod.Condition.Less(left, right);
+        }
+
+        public static ConditionDef LESS(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> Expression = null)
+        {
+            return new Mod.Condition.Less(left, right, Expression);
+        }
+
+        public static ConditionDef GREATER(IVisitorR<decimal> left, decimal right)
+        {
+            return new Mod.Condition.Greater(left, right);
+        }
+
+        public static ConditionDef GREATER(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> Expression = null)
+        {
+            return new Mod.Condition.Greater(left, right, Expression);
         }
 
         public static EventDef.VaildDate VAILID_DATE(int? y, int? m, int? d)
         {
             return new EventDef.VaildDate() { year = y, month = m, day = d };
+        }
+
+        public static MathOp<decimal> ADD(decimal value)
+        {
+            return new MathOp<decimal>(value);
         }
     }
 }

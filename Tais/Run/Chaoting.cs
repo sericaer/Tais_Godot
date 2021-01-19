@@ -26,7 +26,9 @@ namespace Tais.Run
 
         decimal reportYearTax { get; set; }
 
-        decimal yearTaxDiff { get; }
+        decimal yearTaxOwe { get; }
+
+        decimal yearTaxExcess { get; }
 
         OutputDetail outputDetail { get; }
 
@@ -61,7 +63,10 @@ namespace Tais.Run
 
         public decimal reportTax => expectTax * reportRate / 100;
 
-        public decimal yearTaxDiff => reportYearTax - expectYearTax;
+        public decimal yearTaxExcess => reportYearTax > expectYearTax ? reportYearTax - expectYearTax : 0;
+
+        public decimal yearTaxOwe => reportYearTax < expectYearTax ? expectYearTax - reportYearTax : 0;
+
 
         public OutputDetail outputDetail { get { return _outputDetail; } set { _outputDetail = value; } }
 

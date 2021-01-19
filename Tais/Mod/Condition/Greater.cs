@@ -4,7 +4,7 @@ using Tais.API;
 
 namespace Tais.Mod.Condition
 {
-    internal class Less : ConditionDef
+    internal class Greater : ConditionDef
     {
         public IVisitorR<decimal> left;
 
@@ -14,13 +14,13 @@ namespace Tais.Mod.Condition
 
         public Expression<Func<decimal, decimal>> lamda;
 
-        public Less(IVisitorR<decimal> left, decimal right)
+        public Greater(IVisitorR<decimal> left, decimal right)
         {
             this.left = left;
             this.rightConst = right;
         }
 
-        public Less(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> lamda)
+        public Greater(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> lamda)
         {
             this.left = left;
             this.right = right;
@@ -40,7 +40,7 @@ namespace Tais.Mod.Condition
                 rightValue = lamda.Compile().Invoke(rightValue);
             }
 
-            return left.GetValue().CompareTo(rightValue) < 0;
+            return left.GetValue().CompareTo(rightValue) > 0;
         }
     }
 }
