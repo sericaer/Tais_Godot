@@ -10,26 +10,31 @@ namespace TaisGodot.Scripts
 {
 	class AdjustPanel : PanelContainer
 	{
-		public const string path = "res://Scenes/Main/Dynamic/EconomyPanel/AdjustPanel2.tscn";
+		public const string path = "res://Scenes/Main/Dynamic/EconomyPanel/AdjustPanel.tscn";
 
 		public IAdjust gmObj;
 
 		private Label name;
 		private Label value;
-		private Slider slider;
+		private List<Button> buttons;
 
 		public override void _Ready()
 		{
 			name = GetNode<Label>("HBoxContainer/Label");
-			slider = GetNode<Slider>("HBoxContainer/HSlider");
+			buttons = GetNode("HBoxContainer").GetChildren<Button>().ToList();
 			value = GetNode<Label>("HBoxContainer/Value");
 
 			name.Text = gmObj.type.ToString();
 
 
+			for(int i=0; i< buttons.Count; i++)
+			{
+				buttons[i].Connect("pressed", this, nameof(_on_Button_pressed), new Godot.Collections.Array { i });
+			}
+
 			gmObj.OBSProperty(x => x.percent).Subscribe(l =>
 			{
-				slider.Value = l;
+				buttons[l/10-1].Pressed = true;
 			}).EndWith(this);
 
 			if (gmObj.type == ADJUST_TYPE.POP_TAX)
@@ -49,9 +54,9 @@ namespace TaisGodot.Scripts
 			}
 		}
 
-		private void _on_HSlider_value_changed(float value)
+		private void _on_Button_pressed(int value)
 		{
-			gmObj.percent = (int)value;
+			gmObj.percent = (value + 1) * 10;
 		}
 	}
 }

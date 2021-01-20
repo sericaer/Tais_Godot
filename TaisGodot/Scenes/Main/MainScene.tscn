@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://Scenes/Main/MapRect/MapRect.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Main/Top/Economy/Economy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.cs" type="Script" id=11]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -142,7 +141,6 @@ __meta__ = {
 custom_fonts/font = SubResource( 2 )
 
 [node name="ButtonChaoting" parent="VBoxContainer/WinContainer/ImpContainer" instance=ExtResource( 10 )]
-script = ExtResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WinContainer/ImpContainer"]
 margin_left = 242.0
