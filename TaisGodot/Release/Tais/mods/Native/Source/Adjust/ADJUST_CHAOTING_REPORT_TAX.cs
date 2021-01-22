@@ -9,6 +9,6 @@ namespace Native.Adjust
 {
     public class ADJUST_CHAOTING_REPORT_TAX : AdjustChaotingTaxDef
     {
-        public override int init_percent => 100;
+        public override int init_level => 10;
     }
 }

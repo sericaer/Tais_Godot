@@ -32,9 +32,23 @@ namespace TaisGodot.Scripts
 				buttons[i].Connect("pressed", this, nameof(_on_Button_pressed), new Godot.Collections.Array { i });
 			}
 
-			gmObj.OBSProperty(x => x.percent).Subscribe(l =>
+			gmObj.OBSProperty(x => x.level).Subscribe(level =>
 			{
-				buttons[l/10-1].Pressed = true;
+				GD.Print("level:", level);
+				buttons[level - 1].Pressed = true;
+			}).EndWith(this);
+
+			gmObj.OBSProperty(x => x.min_level).Subscribe(min_level =>
+			{
+				GD.Print("min_level:", min_level);
+				for (int i=0; i< min_level-1; i++)
+                {
+					buttons[i].Disabled = true;
+				}
+				for (int i = min_level-1; i < 10; i++)
+				{
+					buttons[i].Disabled = false;
+				}
 			}).EndWith(this);
 
 			if (gmObj.type == ADJUST_TYPE.POP_TAX)
@@ -56,7 +70,7 @@ namespace TaisGodot.Scripts
 
 		private void _on_Button_pressed(int value)
 		{
-			gmObj.percent = (value + 1) * 10;
+			gmObj.level = (value + 1);
 		}
 	}
 }

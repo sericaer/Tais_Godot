@@ -75,7 +75,7 @@ namespace XUnitTest
 
     class TEST : AdjustPopTaxDef
     {
-        public override int init_percent => 10;
+        public override int init_level => 10;
     }
 
     public class IntegrationTestsFixture : IDisposable
@@ -96,8 +96,8 @@ namespace XUnitTest
 
             runner.adjusts = new Dictionary<ADJUST_TYPE, IAdjust>()
             {
-                { ADJUST_TYPE.POP_TAX, new Adjust() { type = ADJUST_TYPE.POP_TAX, percent = 10} },
-                { ADJUST_TYPE.CHAOTING_TAX, new Adjust() { type = ADJUST_TYPE.CHAOTING_TAX, percent = 100} }
+                { ADJUST_TYPE.POP_TAX, new Adjust() { type = ADJUST_TYPE.POP_TAX, level = 1, min_level = 10} },
+                { ADJUST_TYPE.CHAOTING_TAX, new Adjust() { type = ADJUST_TYPE.CHAOTING_TAX, level = 10, min_level = 10} }
             };
 
             runner.IntegrateData();

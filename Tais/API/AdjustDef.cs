@@ -11,7 +11,7 @@ namespace Tais.API
     {
         internal abstract ADJUST_TYPE type { get; } 
 
-        public abstract int init_percent { get; }
+        public abstract int init_level { get; }
     }
 
     public abstract class AdjustPopTaxDef : AdjustDef

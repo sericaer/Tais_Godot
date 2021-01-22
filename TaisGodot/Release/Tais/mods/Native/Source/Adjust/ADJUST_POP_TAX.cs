@@ -9,6 +9,6 @@ namespace Native.Adjust
 {
     public class ADJUST_POP_TAX : AdjustPopTaxDef
     {
-        public override int init_percent => 10;
+        public override int init_level => 3;
     }
 }

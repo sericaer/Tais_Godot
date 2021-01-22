@@ -49,9 +49,11 @@
     <Compile Include="Adjust\ADJUST_POP_TAX.cs" />
     <Compile Include="Chaoting.cs" />
     <Compile Include="Depart\DEPART_JIXIAN.cs" />
+    <Compile Include="Event\EVENT_TEST_CHANGE_MIN_LEVEL_REPORT_CHAOTING_TAX.cs" />
+    <Compile Include="Event\EVENT_TEST_CHANGE_LEVEL_REPORT_CHAOTING_TAX.cs" />
     <Compile Include="InitSelect\INIT_SELECT_CHAOTING_TAX_LEVEL.cs" />
     <Compile Include="Party\XUNGUI.cs" />
-    <Compile Include="Event\EVENT_TEST.cs" />
+    <Compile Include="Event\EVENT_YEAR_CHECK_CHAOTING_YEAR_TAX_OWE.cs" />
     <Compile Include="InitSelect\INIT_SELECT_PARTY.cs" />
     <Compile Include="Pop\HAOQIANG.cs" />
     <Compile Include="Pop\YINHU.cs" />

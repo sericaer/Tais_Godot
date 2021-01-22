@@ -18,10 +18,11 @@ namespace Tais.API
 
         public readonly static IVisitorR<decimal> CHAOTING_EXPECT_YEAR_TAX = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.expectYearTax);
         public readonly static IVisitor<decimal> CHAOTING_REPORT_YEAR_TAX = HelperClass<Run.Runner>.Property(x => x.chaoting.reportYearTax);
-        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_OWE = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxOwe);
-        public readonly static IVisitorR<decimal> CHAOTIN_YEAR_TAX_EXCESS = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxExcess);
+        public readonly static IVisitorR<decimal> CHAOTING_YEAR_TAX_OWE = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxOwe);
+        public readonly static IVisitorR<decimal> CHAOTING_YEAR_TAX_EXCESS = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxExcess);
         
-        public readonly static IVisitor<int> PERCENT_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.percent);
+        public readonly static IVisitor<int> LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.level);
+        public readonly static IVisitor<int> MIN_LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.min_level);
 
         public static IDesc DESC(string _format, params object[] _objs)
         {

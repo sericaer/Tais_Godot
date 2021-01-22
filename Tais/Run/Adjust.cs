@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Tais.API;
@@ -19,7 +20,11 @@ namespace Tais.Run
     {
         ADJUST_TYPE type { get; }
 
-        int percent { get; set; }
+        int level { get; set; }
+
+        int percent { get; }
+
+        int min_level { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -33,19 +38,41 @@ namespace Tais.Run
         public ADJUST_TYPE type { get; set; }
 
         [JsonProperty]
-        public int percent { get; set; }
+        public int level { get; set; }
+
+        [JsonProperty]
+        public int min_level { get; set; }
+
+        public int percent => level * 10;
+
 
         public Adjust(AdjustDef def)
         {
             type = def.type;
 
-            percent = def.init_percent;
+            level = def.init_level;
+
+            min_level = 1;
+
+            IntegrateData();
         }
 
         [JsonConstructor]
         public Adjust()
         {
 
+        }
+
+        [OnDeserialized]
+        public void IntegrateData(StreamingContext context = default(StreamingContext))
+        {
+            this.OBSProperty(x => x.min_level).Subscribe(min =>
+            {
+                if (level < min)
+                {
+                    level = min;
+                }
+            });
         }
     }
 }

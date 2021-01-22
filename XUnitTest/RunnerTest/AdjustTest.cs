@@ -22,7 +22,8 @@ namespace XUnitTest.RunnerTest
             var adjust = new Adjust(def);
 
             adjust.type.Should().Be(def.type);
-            adjust.percent.Should().Be(def.init_percent);
+            adjust.level.Should().Be(def.init_level);
+            adjust.percent.Should().Be(adjust.level * 10);
         }
 
         [Fact]
@@ -30,7 +31,8 @@ namespace XUnitTest.RunnerTest
         {
             var adjust = new Adjust(def);
 
-            adjust.percent = 2;
+            adjust.level = 2;
+            adjust.min_level = 1;
 
             var json = JsonConvert.SerializeObject(adjust,
                 Formatting.Indented,
@@ -40,8 +42,45 @@ namespace XUnitTest.RunnerTest
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
 
             adjustDe.type.Should().Be(adjust.type);
+            adjustDe.level.Should().Be(adjust.level);
+            adjustDe.min_level.Should().Be(adjust.min_level);
             adjustDe.percent.Should().Be(adjust.percent);
 
+        }
+
+        [Fact]
+        void TestLevelChanged()
+        {
+            var adjust = new Adjust(def);
+
+            decimal percent = adjust.percent;
+            adjust.OBSProperty(x => x.percent).Subscribe(p => percent = p);
+
+            for(int i=1; i<=10; i++)
+            {
+                adjust.level = i;
+                percent.Should().Be(i*10);
+            }
+            
+        }
+
+        [Fact]
+        void TestMinChanged()
+        {
+            var adjust = new Adjust(def);
+
+            int level = adjust.level;
+            adjust.OBSProperty(x => x.level).Subscribe(p => level = p);
+
+            adjust.min_level = level + 1;
+
+            level.Should().Be(adjust.min_level);
+
+            int old_level = level;
+
+            adjust.min_level -= 1;
+
+            level.Should().Be(old_level);
         }
     }
 
@@ -50,7 +89,7 @@ namespace XUnitTest.RunnerTest
         public AdjustTestFixture()
         {
             var mock = new Mock<AdjustPopTaxDef>();
-            mock.Setup(l => l.init_percent).Returns(100);
+            mock.Setup(l => l.init_level).Returns(100);
 
             AdjustTest.def = mock.Object;
         }
