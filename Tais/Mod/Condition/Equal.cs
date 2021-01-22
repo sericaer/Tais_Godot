@@ -7,36 +7,23 @@ using Tais.API;
 
 namespace Tais.Mod.Condition
 {
-    public class Equal<T> : ConditionDef
+    public class Equal<T> : ConditionBase<T>
     {
-        public IVisitorR<T> left;
-
-        public IVisitorR<T> right;
-
-        public T rightConst;
-
-        public Equal(IVisitorR<T> left, T right)
+        public Equal(IVisitorR<T> left, T right) : base(left, right)
         {
             this.left = left;
             this.rightConst = right;
         }
 
-        public Equal(IVisitorR<T> left, IVisitorR<T> right)
+        public Equal(IVisitorR<T> left, IVisitorR<T> right) : base(left, right, null)
         {
             this.left = left;
             this.right = right;
         }
 
-        public bool isTrue()
+        public override bool Result(T left, T right)
         {
-            if(right != null) 
-            {
-                return EqualityComparer<T>.Default.Equals(left.GetValue(), right.GetValue());
-            }
-            else
-            {
-                return EqualityComparer<T>.Default.Equals(left.GetValue(), rightConst);
-            }
+            return EqualityComparer<T>.Default.Equals(right, left);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Tais.Run
 {
     interface IChaoting : INotifyPropertyChanged
     {
+        decimal power { get; set; }
 
         int reportPopNum { get; set; }
 
@@ -41,7 +42,10 @@ namespace Tais.Run
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
-        
+
+        [JsonProperty]
+        public decimal power { get; set; }
+
         [JsonProperty]
         public int reportPopNum { get; set; }
 

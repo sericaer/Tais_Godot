@@ -4,43 +4,19 @@ using Tais.API;
 
 namespace Tais.Mod.Condition
 {
-    internal class Less : ConditionDef
+    internal class Less : ConditionBase<decimal>
     {
-        public IVisitorR<decimal> left;
-
-        public IVisitorR<decimal> right;
-
-        public decimal rightConst;
-
-        public Expression<Func<decimal, decimal>> lamda;
-
-        public Less(IVisitorR<decimal> left, decimal right)
+        public Less(IVisitorR<decimal> left, decimal right) : base(left, right)
         {
-            this.left = left;
-            this.rightConst = right;
         }
 
-        public Less(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> lamda)
+        public Less(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> lamda) : base(left, right, lamda)
         {
-            this.left = left;
-            this.right = right;
-            this.lamda = lamda;
         }
 
-        public bool isTrue()
+        public override bool Result(decimal left, decimal right)
         {
-            decimal rightValue = rightConst;
-
-            if (right != null)
-            {
-                rightValue = right.GetValue();
-            }
-            if (lamda != null)
-            {
-                rightValue = lamda.Compile().Invoke(rightValue);
-            }
-
-            return left.GetValue().CompareTo(rightValue) < 0;
+            return left.CompareTo(right) < 0;
         }
     }
 }

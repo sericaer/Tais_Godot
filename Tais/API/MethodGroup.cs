@@ -20,7 +20,8 @@ namespace Tais.API
         public readonly static IVisitor<decimal> CHAOTING_REPORT_YEAR_TAX = HelperClass<Run.Runner>.Property(x => x.chaoting.reportYearTax);
         public readonly static IVisitorR<decimal> CHAOTING_YEAR_TAX_OWE = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxOwe);
         public readonly static IVisitorR<decimal> CHAOTING_YEAR_TAX_EXCESS = HelperClass<Run.Runner>.PropertyOnlyRead(x => x.chaoting.yearTaxExcess);
-        
+        public readonly static IVisitor<decimal> CHAOTING_POWER = HelperClass<Run.Runner>.Property(x => x.chaoting.power);
+
         public readonly static IVisitor<int> LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.level);
         public readonly static IVisitor<int> MIN_LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.min_level);
 
@@ -76,14 +77,19 @@ namespace Tais.API
             return new Mod.Condition.Less(left, right, Expression);
         }
 
-        public static ConditionDef GREATER(IVisitorR<decimal> left, decimal right)
+        public static ConditionDef GREATER<T>(IVisitorR<T> left, T right) where T : IComparable
         {
-            return new Mod.Condition.Greater(left, right);
+            return new Mod.Condition.Greater<T>(left, right);
         }
 
-        public static ConditionDef GREATER(IVisitorR<decimal> left, IVisitorR<decimal> right, Expression<Func<decimal, decimal>> Expression = null)
+        public static ConditionDef GREATER<T>(IVisitorR<T> left, IVisitorR<T> right, Expression<Func<T, T>> Expression = null) where T : IComparable
         {
-            return new Mod.Condition.Greater(left, right, Expression);
+            return new Mod.Condition.Greater<T>(left, right, Expression);
+        }
+
+        public static ConditionDef AND(ConditionDef left, ConditionDef right)
+        {
+            return new Mod.Condition.AndGroup(left, right);
         }
 
         public static EventDef.VaildDate VAILID_DATE(int? y, int? m, int? d)

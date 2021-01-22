@@ -71,6 +71,8 @@
     <Compile Include="API\Color.cs" />
     <Compile Include="API\ConditionDef.cs" />
     <Compile Include="API\DateFilter.cs" />
+    <Compile Include="Mod\Condition\And.cs" />
+    <Compile Include="Mod\Condition\ConditionBase.cs" />
     <Compile Include="Mod\Condition\Equal.cs" />
     <Compile Include="API\DepartDef.cs" />
     <Compile Include="API\EventDef.cs" />
