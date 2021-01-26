@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaisGodot", "TaisGodot.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tais", "..\Tais\Tais.csproj", "{AF0BB211-6571-4CB9-BDFE-E40A567741C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "..\XUnitTest\XUnitTest.csproj", "{F7F4CF19-0D59-43ED-AA5E-B0BFC03897E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "..\XUnitTest\XUnitTest.csproj", "{F7F4CF19-0D59-43ED-AA5E-B0BFC03897E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

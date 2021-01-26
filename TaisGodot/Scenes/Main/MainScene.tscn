@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Main/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/Imp/Taishou/Taishou.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/Main/MapRect/MapRect.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Main/Top/Economy/Economy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Main/Imp/Chaoting/Chaoting.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Main/ConsoleCtrl.cs" type="Script" id=11]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -21,6 +22,14 @@ font_data = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConsoleCtrl" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

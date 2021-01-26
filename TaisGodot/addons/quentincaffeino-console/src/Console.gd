@@ -51,6 +51,7 @@ var consume_input = true
 # @var  Control
 var previous_focus_owner = null
 
+var is_vaild = false
 
 ### Console nodes
 onready var _consoleBox = $ConsoleBox
@@ -96,6 +97,8 @@ func _ready():
 
 # @param  InputEvent  e
 func _input(e):
+	if !self.is_vaild:
+		return
 	if Input.is_action_just_pressed(self.get_action_service().get_real_action_name(DefaultActions.action_console_toggle)):
 		self.toggle_console()
 
