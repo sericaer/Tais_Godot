@@ -25,6 +25,8 @@ namespace Tais.Run
         int percent { get; }
 
         int min_level { get; set; }
+
+        void UpdateMinLevel(int obj);
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -73,6 +75,12 @@ namespace Tais.Run
                     level = min;
                 }
             });
+        }
+
+        public void UpdateMinLevel(int level)
+        {
+            min_level = level;
+            LOG.INFO("level", min_level);
         }
     }
 }

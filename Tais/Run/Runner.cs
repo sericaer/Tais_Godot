@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,28 +106,20 @@ namespace Tais.Run
 
         public void IntegrateData(StreamingContext context = default(StreamingContext))
         {
-            LOG.INFO("1");
-
             this.SetIntegration(adjusts[ADJUST_TYPE.POP_TAX], pops).With(x => x.percent, y => y.UpdateTaxPercent);
-
-            LOG.INFO("2");
             this.SetIntegration(adjusts[ADJUST_TYPE.CHAOTING_TAX], chaoting).With(x => x.percent, y => y.UpdateReportTaxPercent);
 
-            LOG.INFO("3");
             this.SetIntegration(departs, economy).With(x => x.incomeDetail, y => y.UpdateIncome);
 
-            LOG.INFO("4");
             this.SetIntegration(date, taishou).With(x=>x.value, y=>y.DaysInc, true);
-
-            LOG.INFO("5");
             this.SetIntegration(date, economy).With(x=>x.value, y=>y.DaysInc, true);
-
             this.SetIntegration(date, chaoting).With(x => x.value, y => y.DaysInc, true);
-
             this.SetIntegration(date, eventMgr).With(x => x.value, y => y.DaysIncAsync, true);
 
-            LOG.INFO("6");
             this.SetIntegration(chaoting, economy).With(x => x.outputDetail, y => y.UpdateOutput);
+
+            chaoting.OBSProperty(x => x.powerStatus).Select(x => x.effect.min_chaoting_report_tax_level)
+                .Subscribe(x=> adjustReportChaotingTax.UpdateMinLevel(x));
         }
     }
 

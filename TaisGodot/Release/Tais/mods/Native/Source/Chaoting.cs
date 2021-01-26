@@ -19,5 +19,10 @@ namespace Native
             0.0075M,
             0.009M
             );
+
+        public override PowerStatus[] powerStatusArray => new PowerStatus[]
+        {
+            new PowerStatus(){ desc = "POWER_STATUS_1", powerRange = (0, 9), effect = new PowerStatus.Effect{ min_chaoting_report_tax_level = 10} }
+        };
     }
 }

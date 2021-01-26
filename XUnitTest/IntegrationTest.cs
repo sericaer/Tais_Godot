@@ -71,6 +71,19 @@ namespace XUnitTest
             dest.data.Should().Be(200);
         }
 
+        [Fact]
+        public void TestChaotingPowerStatus2AdjustChaotingReportTaxMinLevel()
+        {
+            runner.adjustReportChaotingTax.min_level.Should().Be(MockIChaoting.DEFAULT_POWER_STATUS1.effect.min_chaoting_report_tax_level);
+
+            ((MockIChaoting)runner.chaoting).powerStatus = MockIChaoting.DEFAULT_POWER_STATUS2;
+
+            runner.adjustReportChaotingTax.min_level.Should().Be(MockIChaoting.DEFAULT_POWER_STATUS2.effect.min_chaoting_report_tax_level);
+
+            ((MockIChaoting)runner.chaoting).powerStatus = MockIChaoting.DEFAULT_POWER_STATUS3;
+
+            runner.adjustReportChaotingTax.min_level.Should().Be(MockIChaoting.DEFAULT_POWER_STATUS3.effect.min_chaoting_report_tax_level);
+        }
     }
 
     class TEST : AdjustPopTaxDef
@@ -91,7 +104,9 @@ namespace XUnitTest
             runner.date = new Mock<IDate>().Object;
             runner.taishou = new Mock<ITaishou>().Object;
             runner.economy = new Mock<IEconomy>().Object;
-            runner.chaoting = new Mock<IChaoting>().Object;
+
+            runner.chaoting = new MockIChaoting();
+
             runner.eventMgr = new Mock<IEventManager>().Object;
 
             runner.adjusts = new Dictionary<ADJUST_TYPE, IAdjust>()
@@ -128,5 +143,61 @@ namespace XUnitTest
         {
             this.data = data;
         }
+    }
+
+    class MockIChaoting : IChaoting
+    {
+        public decimal power { get; set; }
+
+        public PowerStatus powerStatus { get; set; }
+
+        public int reportPopNum { get; set; }
+        public int currTaxLevel { get; set; }
+
+        public decimal expectTax { get; set; }
+
+        public decimal reportTax { get; set; }
+
+        public decimal expectYearTax { get; set; }
+        public decimal reportYearTax { get; set; }
+
+        public decimal yearTaxOwe { get; set; }
+
+        public decimal yearTaxExcess { get; set; }
+
+        public OutputDetail outputDetail { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public MockIChaoting()
+        {
+            powerStatus = DEFAULT_POWER_STATUS1;
+        }
+
+        public void DaysInc((int y, int m, int d) date)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void UpdateReportTaxPercent(int percent)
+        {
+           // throw new NotImplementedException();
+        }
+
+        public static PowerStatus DEFAULT_POWER_STATUS1 = new PowerStatus()
+        {
+            effect = new PowerStatus.Effect() { min_chaoting_report_tax_level = 1 }
+        };
+
+        public static PowerStatus DEFAULT_POWER_STATUS2 = new PowerStatus()
+        {
+            effect = new PowerStatus.Effect() { min_chaoting_report_tax_level = 2 }
+        };
+
+        public static PowerStatus DEFAULT_POWER_STATUS3 = new PowerStatus()
+        {
+            effect = new PowerStatus.Effect() { min_chaoting_report_tax_level = 3 }
+        };
     }
 }

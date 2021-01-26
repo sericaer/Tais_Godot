@@ -13,6 +13,11 @@ namespace Tais
 {
     class GMRoot
     {
+        static GMRoot()
+        {
+            Chaoting.def = () => modder.chaoting;
+        }
+
         public static Runner runner
         {
             get

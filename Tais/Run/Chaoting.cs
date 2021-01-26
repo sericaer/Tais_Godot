@@ -15,6 +15,8 @@ namespace Tais.Run
     {
         decimal power { get; set; }
 
+        PowerStatus powerStatus { get; }
+
         int reportPopNum { get; set; }
 
         int currTaxLevel { get; set; }
@@ -39,6 +41,8 @@ namespace Tais.Run
 
     class Chaoting : IChaoting
     {
+        public static Func<ChaotingDef> def;
+
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
@@ -71,8 +75,9 @@ namespace Tais.Run
 
         public decimal yearTaxOwe => reportYearTax < expectYearTax ? expectYearTax - reportYearTax : 0;
 
-
         public OutputDetail outputDetail { get { return _outputDetail; } set { _outputDetail = value; } }
+
+        public PowerStatus powerStatus => def().powerStatusArray.Single(x=>x.isValid(power));
 
         private OutputDetail _outputDetail;
 
