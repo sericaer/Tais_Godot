@@ -42,7 +42,7 @@ namespace TaisGodot.Scripts
 			{
 				GD.Print("min_level:", min_level);
 				for (int i=0; i< min_level-1; i++)
-                {
+				{
 					buttons[i].Disabled = true;
 				}
 				for (int i = min_level-1; i < 10; i++)
