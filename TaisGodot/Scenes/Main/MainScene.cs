@@ -19,6 +19,15 @@ namespace TaisGodot.Scripts
 			GMRoot.runner.eventMgr.OBSProperty(x => x.currEvent).Subscribe(e => CreateEventDialog(e));
 		}
 
+
+		public static Node CreateEventDialog(string path)
+        {
+			var panel = ResourceLoader.Load<PackedScene>(path).Instance();
+			instance.AddChild(panel);
+
+			return panel;
+		}
+
 		private void CreateEventDialog(IEvent gmObj)
 		{
 			if (gmObj == null)
@@ -30,23 +39,17 @@ namespace TaisGodot.Scripts
 
 			if (gmObj is EndEvent)
 			{
-				GD.Print("EndEvent");
-
-				var pEndanel = ResourceLoader.Load<PackedScene>(EndPanel.path).Instance() as EndPanel;
-
-				AddChild(pEndanel);
+				CreateEventDialog(EndPanel.path);
 				return;
 			}
 
-			var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
+			var panel = CreateEventDialog(EventDialogPanel.path) as EventDialogPanel;
 			panel.gmObj = gmObj;
 			panel.gmObj.FinishNotify  = async () =>
 			{
 				await ToSignal(panel, "tree_exiting");
 				SpeedContrl.UnPause();
 			};
-
-			AddChild(panel);
 		}
 
 		private void _on_Speed_DaysInc()

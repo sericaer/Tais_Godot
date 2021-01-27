@@ -1,17 +1,37 @@
 using Godot;
 using System;
+using System.Reactive.Linq;
+using Tais;
+using Tais.API;
+using Tais.Run;
 
 namespace TaisGodot.Scripts
 {
 	public class Chaoting : Button
 	{
-		// Declare member variables here. Examples:
-		// private int a = 2;
-		// private string b = "text";
+		IChaoting gmObj;
 
-		// Called when the node enters the scene tree for the first time.
+		decimal power;
+
+		PowerStatus powerStatus = null;
+
 		public override void _Ready()
 		{
+			gmObj = GMRoot.runner.chaoting;
+
+			gmObj.OBSProperty(x => x.power).Skip(1).Subscribe(x => UpdatePower(x)).EndWith(this);
+		}
+
+
+		private void UpdatePower(decimal power)
+        {
+			if(powerStatus != null && gmObj.powerStatus != powerStatus)
+            {
+				MainScene.CreateEventDialog(this.power > power ? ChaotingPowerStatusIncPanel.path : ChaotingPowerStatusDecPanel.path);
+			}
+
+			this.powerStatus = gmObj.powerStatus;
+			this.power = power;
 
 		}
 
@@ -20,12 +40,6 @@ namespace TaisGodot.Scripts
 			var panel = ResourceLoader.Load<PackedScene>(ChaotingDetail.path).Instance() as ChaotingDetail;
 			MainScene.instance.AddChild(panel);
 		}
-
-		//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-		//  public override void _Process(float delta)
-		//  {
-		//      
-		//  }
 	}
 
 }
