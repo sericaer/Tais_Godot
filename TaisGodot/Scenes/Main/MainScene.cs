@@ -25,7 +25,6 @@ namespace TaisGodot.Scripts
 			SpeedContrl.Pause();
 
 			var panel = ResourceLoader.Load<PackedScene>(path).Instance() as Control;
-			panel.GrabFocus();
 
 			instance.GetNode<CanvasLayer>("EventLayer").AddChild(panel);
 
@@ -39,19 +38,24 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
+			SpeedContrl.Pause();
+
 			if (gmObj is EndEvent)
 			{
-				CreateEventDialog(EndPanel.path);
+
+				GetNode<CanvasLayer>("EventLayer").AddChild(ResourceLoader.Load<PackedScene>(path).Instance() as Control);
 				return;
 			}
 
-			var panel = CreateEventDialog(EventDialogPanel.path) as EventDialogPanel;
+			var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
 			panel.gmObj = gmObj;
 			panel.gmObj.FinishNotify  = async () =>
 			{
 				await ToSignal(panel, "tree_exiting");
 				SpeedContrl.UnPause();
 			};
+
+			GetNode<CanvasLayer>("EventLayer").AddChild(panel);
 		}
 
 		private void _on_Speed_DaysInc()

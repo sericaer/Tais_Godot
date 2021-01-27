@@ -87,6 +87,7 @@ namespace Tais.Run
             inst.taxRates = def.taxRates;
             inst.currTaxLevel = initTaxLevel;
             inst.reportPopNum = reportPopNum;
+            inst.power = def.initPower;
 
             inst.IntegrateData();
             return inst;

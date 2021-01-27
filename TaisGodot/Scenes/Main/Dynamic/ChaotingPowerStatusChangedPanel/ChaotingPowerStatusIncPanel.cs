@@ -17,7 +17,7 @@ namespace TaisGodot.Scripts
 		{
 			gmObj = GMRoot.runner.chaoting;
 
-			content = GetNode<RichTextLabel>("");
+			content = GetNode<RichTextLabel>("CenterContainer/PanelContainer/VBoxContainer/Desc");
 
 			content.Text = TranslateServerEx.Translate("CHAOTING_POWER_STATUS_DEC_DESC", gmObj.powerStatus.desc);
 
@@ -25,9 +25,9 @@ namespace TaisGodot.Scripts
 
 		private void _on_Button_pressed()
 		{
+			QueueFree();
+
 			SpeedContrl.UnPause();
 		}
 	}
 }
-
-

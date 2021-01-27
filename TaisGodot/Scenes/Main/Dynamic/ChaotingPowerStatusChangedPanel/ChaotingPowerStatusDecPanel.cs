@@ -14,19 +14,19 @@ namespace TaisGodot.Scripts
 		RichTextLabel content;
 
 		public override void _Ready()
-        {
+		{
 			gmObj = GMRoot.runner.chaoting;
 
-			content = GetNode<RichTextLabel>("");
+			content = GetNode<RichTextLabel>("CenterContainer/PanelContainer/VBoxContainer/Desc");
 
 			content.Text = TranslateServerEx.Translate("CHAOTING_POWER_STATUS_DEC_DESC", gmObj.powerStatus.desc);
 		}
 
-        private void _on_Button_pressed()
+		private void _on_Button_pressed()
 		{
+			QueueFree();
+
 			SpeedContrl.UnPause();
 		}
 	}
 }
-
-

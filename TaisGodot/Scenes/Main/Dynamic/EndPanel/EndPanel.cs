@@ -15,8 +15,6 @@ namespace TaisGodot.Scripts
 
 			SpeedContrl.UnPause();
 
-			GMRoot.runner = null;
-
 			GetTree().ChangeScene(StartScene.path);
 		}
 	}

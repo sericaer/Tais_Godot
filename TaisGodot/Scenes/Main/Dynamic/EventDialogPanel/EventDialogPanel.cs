@@ -21,7 +21,10 @@ namespace TaisGodot.Scripts
 		{
 			title = GetNode<Label>("CenterContainer/PanelContainer/VBoxContainer/Title");
 
-			
+
+			GD.Print(gmObj.title_format);
+			GD.Print(gmObj.title_objs);
+
 			title.Text = TranslateServerEx.Translate(gmObj.title_format, gmObj.title_objs);
 
 			AddOptions();

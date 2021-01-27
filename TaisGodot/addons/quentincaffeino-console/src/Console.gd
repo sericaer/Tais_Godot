@@ -174,7 +174,10 @@ func remove_command(name):
 	emit_signal("command_removed", name)
 	return self._command_service.remove(name)
 
-
+func remove_command_all():
+	var command_names = self._command_service.get_all_command_name()
+	for name in command_names:
+		remove_command(name);
 # @param    String  message
 # @returns  void
 func write(message):
@@ -182,7 +185,6 @@ func write(message):
 	if self.Text:
 		self.Text.set_bbcode(self.Text.get_bbcode() + message)
 	print(self._erase_bb_tags_regex.sub(message, '', true))
-
 
 # @deprecated
 # @param    String  message

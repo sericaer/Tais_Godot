@@ -61,6 +61,7 @@ namespace Tais.API
         {
             try
             {
+
                 var field = typeof(VisitorGroup).GetField(key, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
 
                 var fieldValue = field.GetValue(null);
@@ -73,11 +74,11 @@ namespace Tais.API
                 SetValueMethod.Invoke(fieldValue, new object[] { realValue });
 
                 return "SET VALUE SUCCESS";
-            }
+        }
             catch (Exception e)
             {
                 return e.Message;
             }
-        }
+}
     }
 }

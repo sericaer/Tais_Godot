@@ -92,3 +92,6 @@ func autocomplete(command_name):
 		letter_i += 1
 
 	return command_name
+
+func get_all_command_name():
+	return self._command_collection.getKeys()

@@ -19,15 +19,14 @@ namespace TaisGodot.Scripts
 		{
 			gmObj = GMRoot.runner.chaoting;
 
-			gmObj.OBSProperty(x => x.power).Skip(1).Subscribe(x => UpdatePower(x)).EndWith(this);
+			gmObj.OBSProperty(x => x.power).Subscribe(x => UpdatePower(x)).EndWith(this);
 		}
 
-
 		private void UpdatePower(decimal power)
-        {
+		{
 			if(powerStatus != null && gmObj.powerStatus != powerStatus)
-            {
-				MainScene.CreateEventDialog(this.power > power ? ChaotingPowerStatusIncPanel.path : ChaotingPowerStatusDecPanel.path);
+			{
+				MainScene.CreateEventDialog(this.power < power ? ChaotingPowerStatusIncPanel.path : ChaotingPowerStatusDecPanel.path);
 			}
 
 			this.powerStatus = gmObj.powerStatus;
