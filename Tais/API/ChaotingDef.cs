@@ -8,6 +8,8 @@ namespace Tais.API
 {
     public abstract class ChaotingDef
     {
+        public abstract decimal initPower {get;}
+
         public abstract decimal[] taxRates { get; }
 
         public abstract PowerStatus[] powerStatusArray { get; }

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Tais.API;
 
 namespace TaisGodot.Scripts
 {
@@ -17,9 +18,13 @@ namespace TaisGodot.Scripts
 
 			if (!isCmdInited)
 			{
-				Godot.Object obj2 = consoleNode.Call("add_command", "GET", this, "GetValue") as Godot.Object;
-				obj2 = obj2.Call("set_description", "prints \"hello %name%!\"") as Godot.Object;
+				Godot.Object obj1 = consoleNode.Call("add_command", "GET", this, "GetValue") as Godot.Object;
+				obj1 = obj1.Call("add_argument", "name", Variant.Type.String) as Godot.Object;
+				obj1 = obj1.Call("register") as Godot.Object;
+
+				Godot.Object obj2 = consoleNode.Call("add_command", "SET", this, "SetValue") as Godot.Object;
 				obj2 = obj2.Call("add_argument", "name", Variant.Type.String) as Godot.Object;
+				obj2 = obj2.Call("add_argument", "value", Variant.Type.String) as Godot.Object;
 				obj2 = obj2.Call("register") as Godot.Object;
 
 				isCmdInited = true;
@@ -35,7 +40,12 @@ namespace TaisGodot.Scripts
 
 		public void GetValue(String name)
 		{
-			consoleNode.Call("write_line", name);
+			consoleNode.Call("write_line", VisitorGroup.GetValue(name).ToString());
+		}
+
+		public void SetValue(String name, String value)
+		{
+			consoleNode.Call("write_line", VisitorGroup.SetValue(name, value));
 		}
 
 		public void PauseToggle()
