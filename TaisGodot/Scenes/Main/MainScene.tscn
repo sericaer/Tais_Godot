@@ -256,5 +256,9 @@ alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EventLayer" type="CanvasLayer" parent="."]
+process_priority = 1
+layer = 128
 [connection signal="pressed" from="VBoxContainer/TopContainer/HBoxContainer/PopNum" to="." method="_on_Button_RegistPop_pressed"]
 [connection signal="DaysInc" from="VBoxContainer/TopContainer/HBoxContainer/Speed" to="." method="_on_Speed_DaysInc"]

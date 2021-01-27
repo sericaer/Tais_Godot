@@ -21,9 +21,13 @@ namespace TaisGodot.Scripts
 
 
 		public static Node CreateEventDialog(string path)
-        {
-			var panel = ResourceLoader.Load<PackedScene>(path).Instance();
-			instance.AddChild(panel);
+		{
+			SpeedContrl.Pause();
+
+			var panel = ResourceLoader.Load<PackedScene>(path).Instance() as Control;
+			panel.GrabFocus();
+
+			instance.GetNode<CanvasLayer>("EventLayer").AddChild(panel);
 
 			return panel;
 		}
@@ -34,8 +38,6 @@ namespace TaisGodot.Scripts
 			{
 				return;
 			}
-
-			SpeedContrl.Pause();
 
 			if (gmObj is EndEvent)
 			{
