@@ -205,21 +205,33 @@ namespace Tais.Run
 
         public async void DaysIncAsync((int y, int m, int d) date)
         {
+            LOG.INFO("DaysIncAsync Enter", date);
+
             foreach (var eventobj in events)
             {
+                LOG.INFO("for start");
                 if (!eventobj.isTrigger(date))
                 {
                     continue;
                 }
 
+                LOG.INFO("event 1");
+
                 currEvent = eventobj;
 
-                LOG.INFO("FinishNotify");
+                LOG.INFO("event 2");
+
+                LOG.INFO("FinishNotify", currEvent.title_format);
+                LOG.INFO("FinishNotify", currEvent.FinishNotify);
                 await currEvent.FinishNotify();
-                LOG.INFO("FinishNotifyed");
+                LOG.INFO("FinishNotifyed", currEvent.title_format);
 
                 currEvent = null;
+
+                LOG.INFO("for end");
             }
+
+            LOG.INFO("DaysIncAsync Leave", date);
 
         }
     }
