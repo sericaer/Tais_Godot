@@ -103,6 +103,10 @@ namespace XUnitTest.RunnerTest
 
             eventObj.isTrigger((0, 0, 0)).Should().BeFalse();
 
+            eventObj.date = (null, null, null);
+
+            eventObj.isTrigger((0, 0, 0)).Should().BeTrue();
+
         }
     }
 }

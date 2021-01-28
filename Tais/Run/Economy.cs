@@ -11,6 +11,9 @@ namespace Tais.Run
         [JsonProperty]
         decimal currValue { get; set; }
 
+        [JsonProperty]
+        int oweMonths { get; set; }
+
         decimal incomeTotal { get; }
         decimal outputTotal { get; }
 
@@ -35,6 +38,7 @@ namespace Tais.Run
 
         public decimal currValue { get; set; }
 
+        public int oweMonths { get; set; }
         public decimal incomeTotal => incomes.Sum(x => x.value);
         public decimal outputTotal => outputs.Sum(x => x.value);
 
@@ -50,10 +54,10 @@ namespace Tais.Run
         {
             if(date.d == 30)
             {
-                LOG.INFO(surplus);
-                LOG.INFO(incomeTotal);
-                LOG.INFO(outputTotal);
+
                 currValue += surplus;
+
+                oweMonths = currValue < 0 ? oweMonths + 1 : 0;
             }
         }
 

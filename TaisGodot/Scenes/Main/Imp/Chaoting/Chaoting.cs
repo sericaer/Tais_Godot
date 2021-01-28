@@ -26,7 +26,7 @@ namespace TaisGodot.Scripts
 		{
 			if(powerStatus != null && gmObj.powerStatus != powerStatus)
 			{
-				MainScene.CreateEventDialog(this.power < power ? ChaotingPowerStatusIncPanel.path : ChaotingPowerStatusDecPanel.path);
+				MainScene.CreateEventDialog<Control>(this.power < power ? ChaotingPowerStatusIncPanel.path : ChaotingPowerStatusDecPanel.path);
 			}
 
 			this.powerStatus = gmObj.powerStatus;

@@ -38,6 +38,8 @@ namespace Tais.API
         public readonly static IVisitor<int> LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.level);
         public readonly static IVisitor<int> MIN_LEVEL_REPORT_CHAOTING_TAX = HelperClass<Run.Runner>.Property(x => x.adjustReportChaotingTax.min_level);
 
+        public readonly static IVisitor<decimal> ECONOMY_VALUE = HelperClass<Run.Runner>.Property(x => x.economy.currValue);
+        public readonly static IVisitor<int> ECONOMY_OWE_MONTH = HelperClass<Run.Runner>.Property(x => x.economy.oweMonths);
 
         public static object GetValue(string key)
         {

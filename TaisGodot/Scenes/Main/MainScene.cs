@@ -20,11 +20,15 @@ namespace TaisGodot.Scripts
 		}
 
 
-		public static Node CreateEventDialog(string path)
+		public static Node CreateEventDialog<T>(string path, Action<T> act = null) where T : Control
 		{
 			SpeedContrl.Pause();
 
-			var panel = ResourceLoader.Load<PackedScene>(path).Instance() as Control;
+			var panel = ResourceLoader.Load<PackedScene>(path).Instance() as T;
+
+			panel.Connect("tree_exiting", null, nameof(SpeedContrl.Pause));
+
+			act?.Invoke(panel);
 
 			instance.GetNode<CanvasLayer>("EventLayer").AddChild(panel);
 
@@ -38,24 +42,22 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
-			SpeedContrl.Pause();
 
 			if (gmObj is EndEvent)
 			{
-
-				GetNode<CanvasLayer>("EventLayer").AddChild(ResourceLoader.Load<PackedScene>(path).Instance() as Control);
+				CreateEventDialog<EndPanel>(EndPanel.path);
 				return;
 			}
 
-			var panel = ResourceLoader.Load<PackedScene>(EventDialogPanel.path).Instance() as EventDialogPanel;
-			panel.gmObj = gmObj;
-			panel.gmObj.FinishNotify  = async () =>
+			CreateEventDialog<EventDialogPanel>(EventDialogPanel.path, (panel)=>
 			{
-				await ToSignal(panel, "tree_exiting");
-				SpeedContrl.UnPause();
-			};
-
-			GetNode<CanvasLayer>("EventLayer").AddChild(panel);
+				panel.gmObj = gmObj;
+				panel.gmObj.FinishNotify = async () =>
+				{
+					await ToSignal(panel, "tree_exiting");
+					SpeedContrl.UnPause();
+				};
+			});
 		}
 
 		private void _on_Speed_DaysInc()

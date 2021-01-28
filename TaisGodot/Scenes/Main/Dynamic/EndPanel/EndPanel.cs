@@ -13,8 +13,6 @@ namespace TaisGodot.Scripts
 		{
 			QueueFree();
 
-			SpeedContrl.UnPause();
-
 			GetTree().ChangeScene(StartScene.path);
 		}
 	}
