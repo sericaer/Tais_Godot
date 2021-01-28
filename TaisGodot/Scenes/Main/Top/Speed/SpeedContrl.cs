@@ -11,11 +11,15 @@ namespace TaisGodot.Scripts
 		public static void UnPause()
 		{
 			sysPause--;
+
+			GD.Print("-- ", sysPause);
 		}
 
 		public static void Pause()
 		{
 			sysPause++;
+
+			GD.Print("++ ", sysPause);
 		}
 
 		public override void _Ready()

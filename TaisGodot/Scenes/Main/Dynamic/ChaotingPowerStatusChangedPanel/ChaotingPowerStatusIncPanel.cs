@@ -26,8 +26,6 @@ namespace TaisGodot.Scripts
 		private void _on_Button_pressed()
 		{
 			QueueFree();
-
-			SpeedContrl.UnPause();
 		}
 	}
 }

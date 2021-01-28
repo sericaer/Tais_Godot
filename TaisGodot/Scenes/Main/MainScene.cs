@@ -26,22 +26,31 @@ namespace TaisGodot.Scripts
 
 			var panel = ResourceLoader.Load<PackedScene>(path).Instance() as T;
 
-			panel.Connect("tree_exiting", null, nameof(SpeedContrl.Pause));
-
 			act?.Invoke(panel);
 
 			instance.GetNode<CanvasLayer>("EventLayer").AddChild(panel);
 
+			panel.Connect("tree_exiting", instance, nameof(UnPause));
+
 			return panel;
+		}
+
+
+		private void UnPause()
+		{
+			SpeedContrl.UnPause();
 		}
 
 		private void CreateEventDialog(IEvent gmObj)
 		{
+			GD.Print("CreateEventDialog 1");
+
 			if (gmObj == null)
 			{
 				return;
 			}
 
+			GD.Print("CreateEventDialog 2");
 
 			if (gmObj is EndEvent)
 			{
@@ -49,13 +58,14 @@ namespace TaisGodot.Scripts
 				return;
 			}
 
+			GD.Print("CreateEventDialog 3");
+
 			CreateEventDialog<EventDialogPanel>(EventDialogPanel.path, (panel)=>
 			{
 				panel.gmObj = gmObj;
 				panel.gmObj.FinishNotify = async () =>
 				{
 					await ToSignal(panel, "tree_exiting");
-					SpeedContrl.UnPause();
 				};
 			});
 		}

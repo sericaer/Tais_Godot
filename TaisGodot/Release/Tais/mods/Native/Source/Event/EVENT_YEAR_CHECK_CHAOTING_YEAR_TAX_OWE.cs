@@ -13,7 +13,7 @@ namespace Native
     {
         public override VaildDate date => VAILID_DATE(null, null, 1);
 
-        public override ConditionDef trigger => GREATER(ECONOMY_OWE_MONTH, 2);
+        //public override ConditionDef trigger => GREATER(ECONOMY_OWE_MONTH, 2);
 
         public override IDesc title => DESC("EVENT_YEAR_CHECK_CHAOTING_YEAR_TAX_OWE_TITLE", 100);
 
