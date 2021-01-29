@@ -71,6 +71,7 @@
     <Compile Include="API\Color.cs" />
     <Compile Include="API\ConditionDef.cs" />
     <Compile Include="API\DateFilter.cs" />
+    <Compile Include="API\WarnDef.cs" />
     <Compile Include="Mod\Condition\And.cs" />
     <Compile Include="Mod\Condition\ConditionBase.cs" />
     <Compile Include="Mod\Condition\Equal.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Run\Detail\OutputDetail.cs" />
     <Compile Include="Run\Pop.cs" />
     <Compile Include="Run\Taishou.cs" />
+    <Compile Include="Run\Warn.cs" />
     <Compile Include="Visitor\GMVisitor.cs" />
     <Compile Include="API\PartyDef.cs" />
     <Compile Include="Extentions.cs" />

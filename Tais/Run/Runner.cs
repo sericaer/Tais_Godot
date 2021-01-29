@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DynamicData;
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace Tais.Run
                 }
             }
         }
+
+        public SourceList<IWarn> warns;
 
         [JsonProperty]
         public ITaishou taishou;
