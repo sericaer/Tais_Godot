@@ -36,16 +36,20 @@ namespace XUnitTest.RunnerTest
         [Fact]
         void TestSerialize()
         {
-            IDate date = new Date();
+            Date date = new Date();
 
             var json = JsonConvert.SerializeObject(date,
                 Formatting.Indented,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
 
+            date.day = 10;
+            date.month = 10;
+            date.year = 10;
+
             var dateDe = JsonConvert.DeserializeObject<IDate>(json,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
 
-            date.value.Should().Be((1, 1, 1));
+            date.value.Should().Be((10, 10, 10));
         }
     }
 }

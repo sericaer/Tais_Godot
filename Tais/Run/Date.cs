@@ -119,17 +119,16 @@ namespace Tais.Run
         //    return l < r || l == r;
         //}
 
-        [JsonProperty]
-        public int year { get; set; }
+        private int total { get; set; }
 
         [JsonProperty]
-        public int month { get; set; }
+        public int year { get { return total / 360 + 1; } set { total = (value - 1) * 360 + (month - 1) * 30 + day -1; } }
 
         [JsonProperty]
-        public int day { get; set; }
+        public int month { get { return (total % 360) / 30 + 1; } set { total = (year - 1) * 360 + (value - 1) * 30 + day -1; } }
 
-        public string desc { get; private set; }
-
+        [JsonProperty]
+        public int day { get { return total % 30 + 1; } set { total = (year - 1) * 360 + (month - 1) * 30 + value - 1; } }
 
         public (int y, int m, int d) value => (year, month, day);
 
@@ -147,27 +146,12 @@ namespace Tais.Run
             month = 1;
             day = 1;
 
-            DataAssociate(new StreamingContext());
+            //DataAssociate(new StreamingContext());
         }
 
         public void Inc()
         {
-            if (day != 30)
-            {
-                day++;
-            }
-            else if (month != 12)
-            {
-                day = 1;
-                month++;
-                return;
-            }
-            else
-            {
-                month = 1;
-                day = 1;
-                year++;
-            }
+            total++;
         }
 
         //public override bool Equals(object obj)
@@ -180,10 +164,10 @@ namespace Tais.Run
         //    return base.GetHashCode();
         //}
 
-        [OnDeserialized]
-        internal void DataAssociate(StreamingContext context)
-        {
-        }
+        //[OnDeserialized]
+        //internal void DataAssociate(StreamingContext context)
+        //{
+        //}
 
         //[JsonConstructor]
         //private Date()
